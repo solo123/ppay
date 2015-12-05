@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124054211) do
+ActiveRecord::Schema.define(version: 20151204033533) do
 
   create_table "comfy_cms_blocks", force: :cascade do |t|
     t.string   "identifier",                      null: false
@@ -131,6 +131,66 @@ ActiveRecord::Schema.define(version: 20151124054211) do
 
   add_index "comfy_cms_snippets", ["site_id", "identifier"], name: "index_comfy_cms_snippets_on_site_id_and_identifier", unique: true
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position"
+
+  create_table "imp_logs", force: :cascade do |t|
+    t.string   "email_uid"
+    t.string   "email_title"
+    t.string   "email_time"
+    t.string   "process_status"
+    t.text     "detail"
+    t.string   "datetime_flag"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "imp_qf_clearings", force: :cascade do |t|
+    t.string   "yhid"
+    t.string   "qsrq"
+    t.string   "jybs"
+    t.string   "jybj"
+    t.string   "sxf"
+    t.string   "jsje"
+    t.string   "sjqsje"
+    t.string   "qszt"
+    t.integer  "zt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "imp_qf_customers", force: :cascade do |t|
+    t.string   "ssid"
+    t.string   "hylx"
+    t.string   "dm"
+    t.string   "lxr"
+    t.string   "sj"
+    t.date     "rwsj"
+    t.string   "sf"
+    t.string   "cs"
+    t.text     "dz"
+    t.string   "ywy"
+    t.string   "fl"
+    t.string   "zdcm"
+    t.decimal  "jjkdbxe",    precision: 12, scale: 2
+    t.decimal  "jjkdyxe",    precision: 12, scale: 2
+    t.decimal  "xykdbxe",    precision: 12, scale: 2
+    t.decimal  "xykdyxe",    precision: 12, scale: 2
+    t.integer  "zt"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "imp_qf_trades", force: :cascade do |t|
+    t.string   "ssid"
+    t.string   "zzh"
+    t.string   "jyrq"
+    t.string   "jylx"
+    t.string   "jyjg"
+    t.string   "jye"
+    t.string   "zdcm"
+    t.integer  "zt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

@@ -1,0 +1,17 @@
+div class='content'
+
+  p customer ransack
+  
+  = search_form_for @q do |f|
+    = f.label 'name'
+    = f.search_field :sj_cont 
+    
+    = f.submit 'check button'
+
+  h2 customer
+  
+  = paginate @imp_qf_customers
+  - @imp_qf_customers.each do |a|
+    br
+    | <tr><td>#{a.sj}</td>  <td>#{a.lxr}</td></tr>
+  

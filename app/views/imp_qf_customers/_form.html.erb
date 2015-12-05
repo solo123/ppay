@@ -1,0 +1,17 @@
+<%= form_for(@imp_qf_customer) do |f| %>
+  <% if @imp_qf_customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@imp_qf_customer.errors.count, "error") %> prohibited this imp_qf_customer from being saved:</h2>
+
+      <ul>
+      <% @imp_qf_customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

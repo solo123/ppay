@@ -1,0 +1,59 @@
+div class='content'
+
+  p imp_log
+  
+  = paginate @imp_log
+  table class='table'
+    thead
+      tr
+        th email_uid
+        th email_title
+    tbody
+      tr
+        - @imp_log.each do |log|
+          td #{log.email_uid}
+          td #{log.email_title}
+     
+
+  p customer ransack
+  
+  = search_form_for @q, url: upload_report_check_path do |f|
+    = f.label 'name'
+    = f.search_field :sj_cont 
+    
+    = f.submit 'check button'
+
+  h2 customer
+  
+  = paginate @imp_cus
+  table class='table'
+    thead
+      tr
+        th 联系人 
+        th 手机号码
+    tbody
+      - @imp_cus.each do |a|
+        tr
+          td #{a.lxr}
+          td #{a.sj}
+  
+  
+  h2 trade
+  
+  = paginate @imp_trade
+  table class='table'
+    thead
+      tr
+        th ssid
+        th zzh
+        th jylx
+        th jyjg
+        th jye
+    tbody
+      - @imp_trade.each do |trade|
+        tr 
+          td #{trade.ssid}
+          td #{trade.zzh}
+          td #{trade.jylx}
+          td #{trade.jyjg}
+          td #{trade.jye}

@@ -9,7 +9,7 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
-	
+
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -20,14 +20,14 @@
 	<link href="/color_admin/assets/css/style-responsive.min.css" rel="stylesheet" />
 	<link href="/color_admin/assets/css/theme/default.css" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
-	
+
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="/color_admin/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet" />
 	<link href="/color_admin/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 	<link href="/color_admin/assets/plugins/DataTables/extensions/AutoFill/css/autoFill.bootstrap.min.css" rel="stylesheet" />
 	<link href="/color_admin/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
-	
+
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="/color_admin/assets/plugins/pace/pace.min.js"></script>
 	<!-- ================== END BASE JS ================== -->
@@ -36,7 +36,7 @@
 	<!-- begin #page-loader -->
 	<div id="page-loader" class="fade"><span class="spinner"></span></div>
 	<!-- end #page-loader -->
-	
+
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade in page-sidebar-fixed page-header-fixed">
 		<!-- begin #header -->
@@ -45,7 +45,7 @@
 			<div class="container-fluid">
 				<!-- begin mobile sidebar expand / collapse button -->
 				<div class="navbar-header">
-					<a href="index.html" class="navbar-brand"><span class="navbar-logo"></span> 普尔支付</a>
+					<a href="/index.html" class="navbar-brand"><span class="navbar-logo"></span> 普尔支付</a>
 					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -53,7 +53,7 @@
 					</button>
 				</div>
 				<!-- end mobile sidebar expand / collapse button -->
-				
+
 				<!-- begin header navigation right -->
 				<ul class="nav navbar-nav navbar-right">
 					<li>
@@ -125,7 +125,7 @@
 					</li>
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-							<img src="assets/img/user-13.jpg" alt="" /> 
+							<img src="assets/img/user-13.jpg" alt="" />
 							<span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
@@ -144,7 +144,7 @@
 			<!-- end container-fluid -->
 		</div>
 		<!-- end #header -->
-		
+
 		<!-- begin #sidebar -->
 		<div id="sidebar" class="sidebar">
 			<!-- begin sidebar scrollbar -->
@@ -164,23 +164,23 @@
 				<!-- end sidebar user -->
 				<!-- begin sidebar nav -->
 				<ul class="nav">
-					
+
 					<li id="home_li" class="has-sub">
 						<a href="/">
 
 							<i class="fa fa-laptop"></i>
 							<span>首页</span>
 						</a>
-						
+
 					</li>
 					<li id="customer_li" class="has-sub ">
 						<a href="#">
 							<b class="caret pull-right"></b>
-							<i class="fa fa-inbox"></i> 
+							<i class="fa fa-inbox"></i>
 							<span>商户数据</span>
 						</a>
 						<ul class="sub-menu">
-							<li id="customer_li_li" ><a href="customer.html">商户数据</a></li>
+							<li id="customer_li_li" ><a href="/customer.html">商户数据</a></li>
 
 						</ul>
 					</li>
@@ -188,11 +188,11 @@
 						<a href="#">
 							<b class="caret pull-right"></b>
 							<i class="fa fa-suitcase"></i>
-							<span>交易数据</span> 
+							<span>交易数据</span>
 						</a>
 						<ul class="sub-menu">
-							<li id="select_li_li"><a href="select.html">查询</a></li>
-							<li id="import_li_li"><a href="import.html">导入</a></li>
+							<li id="select_li_li"><a href="/select.html">查询</a></li>
+							<li id="import_li_li"><a href="/import.html">导入</a></li>
 
 						</ul>
 					</li>
@@ -200,25 +200,40 @@
 						<a href="#">
 							<b class="caret pull-right"></b>
 							<i class="fa fa-file-o"></i>
-							<span>数据报表</span> 
+							<span>数据报表</span>
 						</a>
 						<ul class="sub-menu">
-							<li id="report_li_li"><a href="report.html">数据报表</a></li>
-							
+							<li id="report_li_li"><a href="/report.html">数据报表</a></li>
+
 						</ul>
 					</li>
 					<li id="user_li" class="has-sub">
 						<a href="#">
 							<b class="caret pull-right"></b>
 							<i class="fa fa-file-o"></i>
-							<span>用户管理</span> 
+							<span>用户管理</span>
 						</a>
 						<ul class="sub-menu">
-							<li id="user_li_li"><a href="user.html">用户管理</a></li>
-							
+							<li id="user_li_li"><a href="/user.html">用户管理</a></li>
+
 						</ul>
 					</li>
-					
+
+					<li id="syncmail_li" class="has-sub">
+						<a href="#">
+							<b class="caret pull-right"></b>
+							<i class="fa fa-file-o"></i>
+							<span>导入数据</span>
+						</a>
+						<ul class="sub-menu">
+							<!-- <li id="syncmail_li_0"> <%= link_to '手动上传', upload_report_upload_path=%> </li> -->
+							<!-- <li id="syncmail_li_1"> <%= link_to '自动同步', upload_report_check_path=%> </a></li> -->
+							<li id="upload_check"> <%= link_to '检查', upload_report_check_path=%> </a></li>
+
+
+						</ul>
+					</li>
+
 
 					<!-- begin sidebar minify button -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
@@ -230,11 +245,11 @@
 		</div>
 		<div class="sidebar-bg"></div>
 		<!-- end #sidebar -->
-		
+
 		<!-- begin #content -->
 		<%= yield  %>
 		<!-- end #content -->
-		
+
 		<!-- begin theme-panel -->
 		<div class="theme-panel">
 			<a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
@@ -311,15 +326,15 @@
 			</div>
 		</div>
 		<!-- end theme-panel -->
-		
+
 		<!-- begin scroll to top btn -->
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 		<!-- end scroll to top btn -->
 
-		
+
 	</div>
 	<!-- end page container -->
-	
+
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="/color_admin/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
@@ -341,7 +356,7 @@
 		<script src="/color_admin/assets/plugins/DataTables/extensions/AutoFill/js/autoFill.bootstrap.min.js"></script>
 		<script src="/color_admin/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
 		<script src="/color_admin/assets/js/table-manage-autofill.demo.js"></script>
-		
+
 		<script src="/color_admin/assets/plugins/flot/jquery.flot.min.js"></script>
 		<script src="/color_admin/assets/plugins/flot/jquery.flot.time.min.js"></script>
 		<script src="/color_admin/assets/plugins/flot/jquery.flot.resize.min.js"></script>
@@ -371,7 +386,7 @@
 							if (data.success) {
 								var str="";
 								for (var i = 0; i < data.length; i++) {
-									str+="<tr><td>"+data[i].id+"</td><td>"+data[i].ssid+"</td><td>"+data[i].jyrq+"</td><td>"+data[i].jylx+"</td><td>"+data[i].jyjg+"</td><td>"+data[i].jye+"</td><td>"+data[i].zdh+"</td><td>"+data[i].zt+"</td></tr>";		
+									str+="<tr><td>"+data[i].id+"</td><td>"+data[i].ssid+"</td><td>"+data[i].jyrq+"</td><td>"+data[i].jylx+"</td><td>"+data[i].jyjg+"</td><td>"+data[i].jye+"</td><td>"+data[i].zdh+"</td><td>"+data[i].zt+"</td></tr>";
 								};
 								$("#cutomer_tbody").append(str);
 							}
@@ -383,15 +398,15 @@
 							alert("服务器请求失败"+jqXHR.status);
 						}
 					});
-					
-					
+
+
 				};
 				if ($("div").hasClass("content_select")) {
 					$("#trade_li").attr("class","has-sub active");
 					$("#select_li_li").attr("class","active");
 					TableManageAutofill.init();
 					$("#select_pagetext").val("1/1000");
-					$.ajax({		
+					$.ajax({
 						type: "GET",
 						url: "192.168.1.42:3000/trades/customertrade.json?page=1",
 						dataType: "json",
@@ -399,7 +414,7 @@
 							if (data.success) {
 								var str="";
 								for (var i = 0; i < data.length; i++) {
-									str+="<tr><td>"+data[i].date+"</td><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].tel+"</td><td>"+data[i].ywy+"</td><td>"+data[i].rate+"</td><td>"+data[i].number+"</td><td>"+data[i].money+"</td></tr>";		
+									str+="<tr><td>"+data[i].date+"</td><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].tel+"</td><td>"+data[i].ywy+"</td><td>"+data[i].rate+"</td><td>"+data[i].number+"</td><td>"+data[i].money+"</td></tr>";
 								};
 								$("#select_tbody").append(str);
 							}
@@ -415,7 +430,7 @@
 					$("#select_nextpage").click(function(){
 						select_page=select_page+1;
 						$("#select_pagetext").val(select_page+"/1000");
-						$.ajax({		
+						$.ajax({
 							type: "GET",
 							url: "192.168.1.42:3000/trades/customertrade.json?page="+select_page,
 							dataType: "json",
@@ -424,7 +439,7 @@
 									$("#select_tbody").html("");
 									var str="";
 									for (var i = 0; i < data.length; i++) {
-										str+="<tr><td>"+data[i].date+"</td><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].tel+"</td><td>"+data[i].ywy+"</td><td>"+data[i].rate+"</td><td>"+data[i].number+"</td><td>"+data[i].money+"</td></tr>";		
+										str+="<tr><td>"+data[i].date+"</td><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].tel+"</td><td>"+data[i].ywy+"</td><td>"+data[i].rate+"</td><td>"+data[i].number+"</td><td>"+data[i].money+"</td></tr>";
 									};
 									$("#select_tbody").append(str);
 								}
@@ -441,7 +456,7 @@
 					$("#select_previouspage").click(function(){
 						select_page=select_page-1;
 						$("#select_pagetext").val(select_page+"/1000");
-						$.ajax({		
+						$.ajax({
 							type: "GET",
 							url: "192.168.1.42:3000/trades/customertrade.json?page="+select_page,
 							dataType: "json",
@@ -450,7 +465,7 @@
 									$("#select_tbody").html("");
 									var str="";
 									for (var i = 0; i < data.length; i++) {
-										str+="<tr><td>"+data[i].date+"</td><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].tel+"</td><td>"+data[i].ywy+"</td><td>"+data[i].rate+"</td><td>"+data[i].number+"</td><td>"+data[i].money+"</td></tr>";		
+										str+="<tr><td>"+data[i].date+"</td><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].tel+"</td><td>"+data[i].ywy+"</td><td>"+data[i].rate+"</td><td>"+data[i].number+"</td><td>"+data[i].money+"</td></tr>";
 									};
 									$("#select_tbody").append(str);
 								}
@@ -484,4 +499,9 @@
 			});
 </script>
 </body>
+
+<footer>
+	<div class="container">
+	</div>
+</footer>
 </html>

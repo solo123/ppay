@@ -2,7 +2,7 @@ source 'https://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -46,11 +46,16 @@ group :development do
 end
 
 gem 'therubyracer'
-#gem 'haml-rails'
 gem 'ransack'
-gem 'will_paginate'
+gem 'kaminari'
 gem 'devise'
 gem 'best_in_place'
 gem 'rails4-autocomplete'
 gem 'simple_form'
 gem 'comfortable_mexican_sofa'
+gem 'rubyXL'
+gem 'spreadsheet'
+gem "sprockets"
+gem "sprockets-es6"
+gem 'rufus-scheduler'
+gem 'slim'
