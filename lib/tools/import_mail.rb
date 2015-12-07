@@ -8,6 +8,8 @@ module ImportMail
     end
   end
 
+
+
   def download_email
     path_dir = Rails.root.join('public', 'uploads')
 
@@ -21,60 +23,6 @@ module ImportMail
 
   end
 
-  def import_data(data_file)
-    puts "start import at #{data_file}"
-
-    cus_attr = ['ssid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe', 'zt']
-    trade_attr = ['ssid', 'zzh', 'jyrq', 'jylx', 'jyjg', 'jye', 'zdcm', 'zt']
-    clear_attr = ['qsrq', 'jybs', 'jybj', 'sxf', 'jsje', 'sjqsje', 'qszt', 'zt']
-
-    all_attrs = [cus_attr, trade_attr, clear_attr]
-
-    book = Spreadsheet.open data_file
-    if book == nil
-      return
-    end
-
-    for sheetindex in 0..2 do
-
-      sheet = book.worksheet sheetindex
-
-      sheet.each  do |row|
-
-        imp_data = get_model_with sheetindex
-        i = 1
-        logger.warn row[4]
-
-        for v in all_attrs[sheetindex] do
-          theV = row[i]  || 'no value'
-          imp_data.send( v + '=', theV)
-          i += 1
-        end
-        imp_data.save
-
-    end
-
-
-    end
-
-    logger.warn '测试数据导入成功'
-
-  end
-
-  def get_model_with(index)
-    obj = nil
-    if index == 0
-      obj = ImpQfCustomer.new
-    end
-    if index == 1
-      obj = ImpQfTrade.new
-    end
-    if index == 2
-      obj = ImpQfClearing.new
-    end
-
-    return obj
-  end
 
   def loadattachment_to(path_dir)
     require "net/imap"

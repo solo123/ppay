@@ -53,7 +53,7 @@ gem 'best_in_place'
 gem 'rails4-autocomplete'
 gem 'simple_form'
 gem 'comfortable_mexican_sofa'
-gem 'rubyXL'
+#gem 'rubyXL'
 gem 'spreadsheet'
 gem "sprockets"
 gem "sprockets-es6"
