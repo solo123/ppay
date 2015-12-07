@@ -14,7 +14,7 @@ class UploadReportController < ApplicationController
   end
 
   def upload
-    download_email
+    import_from_email
   end
 
 end

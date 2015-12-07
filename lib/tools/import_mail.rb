@@ -1,20 +1,16 @@
-
-
 module ImportMail
 
-  def hello
-    for i in 1..100 do
-      puts '=' * 42
-    end
+
+  def import_from_email
+
   end
+  def import_from_email_cc
+    # tmp dir for loading attachments
+    tmp_dir = Rails.root.join('public', 'uploads')
+    logger.debug tmp_dir.to_s
 
-  def download_email
-    path_dir = Rails.root.join('public', 'uploads')
+    paths = load_attachment_to tmp_dir # 下载附件
 
-    logger.debug path_dir.to_s
-    paths = loadattachment_to path_dir # 下载附件
-
-    puts paths
     for file in paths do
       import_data file
     end
@@ -76,23 +72,23 @@ module ImportMail
     return obj
   end
 
-  def loadattachment_to(path_dir)
+  def load_attachment_to(path_dir)
     require "net/imap"
 
+    # login to email
     imap = Net::IMAP.new 'imap.pooul.cn' #, 993, true, nil, false
-
     imap.login('qfqpos@pooul.cn', 'caI1111')
     puts 'login suc'
-
     imap.select('inbox')
 
-    since_time = "30-Nov-2015"
-
     load_files = Array.new
+
+    since_time = "30-Nov-2015"
     imap.search( ["SINCE", since_time ] ).each do |message_id|
       # 判断当前邮件是否是感兴趣的邮件，并做记录
-      attachment = imap.fetch(message_id, "BODY[2]")[0].attr["BODY[2]"]
+      next if !check_email(message_id)
 
+      attachment = imap.fetch(message_id, "BODY[2]")[0].attr["BODY[2]"]
       file_name = "#{path_dir}/#{message_id.to_s}.xls"
       puts file_name
 
@@ -101,10 +97,14 @@ module ImportMail
       #
     end
 
-    # imap.logout
-    # imap.close
+    imap.logout
+    imap.close
 
     load_files
+  end
+
+  def check_email(email_id)
+    true
   end
 
 
