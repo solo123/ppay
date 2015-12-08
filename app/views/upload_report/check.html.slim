@@ -1,59 +1,140 @@
 div class='content'
 
-  p imp_log
-  
-  = paginate @imp_log
-  table class='table'
-    thead
-      tr
-        th email_uid
-        th email_title
-    tbody
-      tr
-        - @imp_log.each do |log|
-          td #{log.email_uid}
-          td #{log.email_title}
-     
+  == link_to 'home', upload_report_check_path, class: "btn btn-default" 
+  == link_to '导入数据', upload_report_import_path, class: "btn btn-default"
+  == link_to '导入日志', '#imp_log_id', class: 'btn btn-default'
+  == link_to '操作日志', '#imp_op_log_id', class: 'btn btn-default'
 
-  p customer ransack
+  imp_log_id
+  imp_op_log_id
+  p import loading
   
-  = search_form_for @q, url: upload_report_check_path do |f|
-    = f.label 'name'
-    = f.search_field :sj_cont 
+  h2 imp_qf_customer
     
-    = f.submit 'check button'
+  = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_customer') do |f|
+    = f.label 'sj'
+    = f.search_field :sj_cont 
+    = f.label 'ssid'
+    = f.search_field :ssid
+    
+    = f.submit '提交'
 
-  h2 customer
-  
-  = paginate @imp_cus
+  = paginate @imp_cus, :param_name => 'imp_qf_customer_page'
   table class='table'
     thead
       tr
-        th 联系人 
-        th 手机号码
+        th db_id
+        th == sort_link(@q, :ssid, 'ssid') 
+        th == sort_link(@q, :hylx, 'hylx') 
+        th == sort_link(@q, :dm, 'dm') 
+        th == sort_link(@q, :lxr, 'lxr') 
+        th == sort_link(@q, :sj, 'sj') 
+        th == sort_link(@q, :rwsj, 'rwsj') 
+        th == sort_link(@q, :sf, 'sf') 
+        th == sort_link(@q, :cs, 'cs') 
+        th == sort_link(@q, :dz, 'dz') 
+        th == sort_link(@q, :ywy, 'ywy')
+        th == sort_link(@q, :fl, 'fl') 
+        th == sort_link(@q, :zdcm, 'zdcm') 
+        th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
+        th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
+
     tbody
-      - @imp_cus.each do |a|
+      - @imp_cus.each do |obj|
         tr
-          td #{a.lxr}
-          td #{a.sj}
-  
-  
-  h2 trade
-  
-  = paginate @imp_trade
-  table class='table'
+          th #{obj.id}
+          td #{obj.ssid}
+          td #{obj.hylx}
+          td #{obj.dm}
+          td #{obj.lxr}
+          td #{obj.sj}
+          td #{obj.rwsj}
+          td #{obj.sf}
+          td #{obj.cs}
+          td #{obj.dz}
+          td #{obj.ywy}
+          td #{obj.fl}
+          td #{obj.zdcm}
+          td #{obj.jjkdbxe}
+          th #{obj.jjkdbxe}
+          
+          / t.decimal :jjkdyxe, precision: 12, scale: 2
+          / t.decimal :xykdbxe, precision: 12, scale: 2
+          / t.decimal :xykdyxe, precision: 12, scale: 2
+          / t.integer :zt 
+          
+  hr
+
+  p 导入纪录
+    
+  = paginate @imp_log, :param_name => 'imp_log_page'
+  table class='table' id='imp_log_id'
     thead
       tr
-        th ssid
-        th zzh
-        th jylx
-        th jyjg
-        th jye
+        th open_file_status
+        th load_file_status
+        th envelop_uid
+        th envelop_title
+        th envelop_time
+        th process_status
+        th detail
+        th datetime_flag
+        
     tbody
-      - @imp_trade.each do |trade|
-        tr 
-          td #{trade.ssid}
-          td #{trade.zzh}
-          td #{trade.jylx}
-          td #{trade.jyjg}
-          td #{trade.jye}
+    - @imp_log.each do |log|
+      tr
+        td #{log.open_file_status}
+        td #{log.load_file_status}
+        th #{log.envelop_uid}
+        th #{log.envelop_title}
+        th #{log.envelop_time}
+        th #{log.process_status}
+        th #{log.detail}
+        th #{log.datetime_flag}
+        
+      
+  p 进行导入数据操作的纪录 
+          
+  = paginate @imp_op, :param_name => 'imp_op_page'
+  table class='table' id='imp_op_log_id'
+    thead
+      tr
+        th 操作状态
+        th 操作时间
+      
+    tbody
+    - @imp_op.each do |log|
+      tr
+        td #{log.login_status}
+        td #{log.updated_at}
+      
+            
+    
+  
+  / h2 trade
+  / 
+  / = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_trade') do |f|
+  /   = f.label 'ssid'
+  /   = f.search_field :ssid_cont 
+  /   = f.label 'zzh'
+  /   = f.search_field :zzh
+  /   
+  /   = f.submit 'check button'
+  / 
+  / = paginate @imp_trade
+  / table class='table'
+  /   thead
+  /     tr
+  /       th ssid
+  /       th zzh
+  /       th jylx
+  /       th jyjg
+  /       th jye
+  /   tbody
+  /     - @imp_trade.each do |trade|
+  /       tr 
+  /         td #{trade.ssid}
+  /         td #{trade.zzh}
+  /         td #{trade.jylx}
+  /         td #{trade.jyjg}
+  /         td #{trade.jye}

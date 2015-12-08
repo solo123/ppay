@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :imp_logs
-  get 'upload_report/upload'
+  get 'upload_report/import'
   get 'upload_report/check'
 
   devise_for :users

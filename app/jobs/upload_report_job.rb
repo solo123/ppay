@@ -7,7 +7,7 @@ class UploadReportJob < ActiveJob::Base
 
   def perform(*arg)
 
-    imap = Net::IMAP.new 'imap.pooul.cn' #, 993, true, nil, false
+    imap = Net::IMAP.new 'imap.qq.com' #, 993, true, nil, false
 
     imap.login('qfqpos@pooul.cn', 'caI1111')
     puts 'login suc'

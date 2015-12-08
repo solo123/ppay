@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204033533) do
+ActiveRecord::Schema.define(version: 20151208075635) do
 
   create_table "comfy_cms_blocks", force: :cascade do |t|
     t.string   "identifier",                      null: false
@@ -133,14 +133,22 @@ ActiveRecord::Schema.define(version: 20151204033533) do
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position"
 
   create_table "imp_logs", force: :cascade do |t|
-    t.string   "email_uid"
-    t.string   "email_title"
-    t.string   "email_time"
+    t.string   "open_file_status"
+    t.string   "load_file_status"
+    t.integer  "envelop_uid"
+    t.string   "envelop_title"
+    t.string   "envelop_time"
     t.string   "process_status"
     t.text     "detail"
     t.string   "datetime_flag"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "imp_ops", force: :cascade do |t|
+    t.string   "login_status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "imp_qf_clearings", force: :cascade do |t|

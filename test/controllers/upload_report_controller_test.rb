@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class UploadReportControllerTest < ActionController::TestCase
-  test "should get upload" do
-    get :upload
+  test "should get import" do
+    get :import
     assert_response :success
   end
 

@@ -29,5 +29,9 @@ module Ppay
       g.template_engine :slim
     end
 
+    config.time_zone = 'Beijing'
+    config.active_record.default_timezone = 'Beijing'
+
+
   end
 end
