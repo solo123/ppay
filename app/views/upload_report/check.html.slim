@@ -11,13 +11,16 @@ div class='content'
   
   h2 imp_qf_customer
     
-  = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_customer') do |f|
-    = f.label 'sj'
-    = f.search_field :sj_cont 
-    = f.label 'ssid'
-    = f.search_field :ssid
-    
-    = f.submit '提交'
+  = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_customer'),
+                        html: {class: 'form-controll'} do |f|
+    div class='form-controller' 
+      = f.label 'sj'
+      = f.search_field :sj_cont, html: {class: 'cc'}
+    div class='form-controller'
+      = f.label 'ssid'
+      = f.search_field :ssid
+      
+    = f.submit '提交', class: 'btn btn-default btn-primary'
 
   = paginate @imp_cus, :param_name => 'imp_qf_customer_page'
   table class='table'

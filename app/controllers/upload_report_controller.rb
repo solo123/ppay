@@ -3,7 +3,7 @@
 class UploadReportController < ApplicationController
 #  include ImportMail
 
-  layout 'import_data'
+  # layout 'import_data'
 
   def check
     if params[:query_data_type] = 'imp_qf_customer'
