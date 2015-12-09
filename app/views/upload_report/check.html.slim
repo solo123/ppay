@@ -1,143 +1,180 @@
-div class='content'
+div class='content content_import'
+  h1 imp_qf_customer
+  div
+    == link_to 'home', upload_report_check_path, class: "btn btn-danger m-r-10 m-b-10" 
+    == link_to '导入数据', upload_report_import_path, class: "btn btn-primary m-r-10 m-b-10"
+    == link_to '导入日志', '#imp_log_id', class: 'btn btn-info m-r-10 m-b-10'
+    == link_to '操作日志', '#imp_op_log_id', class: 'btn btn-success m-r-10 m-b-10'
+    imp_log_id
+    imp_op_log_id
+    p import loading
 
-  == link_to 'home', upload_report_check_path, class: "btn btn-default" 
-  == link_to '导入数据', upload_report_import_path, class: "btn btn-default"
-  == link_to '导入日志', '#imp_log_id', class: 'btn btn-default'
-  == link_to '操作日志', '#imp_op_log_id', class: 'btn btn-default'
+  div class='row'
+    div class='col-md-6'
 
-  imp_log_id
-  imp_op_log_id
-  p import loading
-  
-  h2 imp_qf_customer
-    
-  = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_customer'),
-                        html: {class: 'form-controll'} do |f|
-    div class='form-controller' 
-      = f.label 'sj'
-      = f.search_field :sj_cont, html: {class: 'cc'}
-    div class='form-controller'
-      = f.label 'ssid'
-      = f.search_field :ssid
-      
-    = f.submit '提交', class: 'btn btn-default btn-primary'
+      = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_customer') ,class: 'form-inline' do |f|
+        div class='form-group m-r-10'
+          = f.label '入网电话'
+          = f.search_field :sj_cont, class: 'form-control',placeholder:'请输入入网电话'
+        div class='form-group m-r-10'
+          = f.label '商户id'
+          = f.search_field :ssid, class: 'form-control',placeholder:'请输入商户id'
+        = f.submit '提交',  class: 'form-control btn-warning'
 
-  = paginate @imp_cus, :param_name => 'imp_qf_customer_page'
-  table class='table'
-    thead
-      tr
-        th db_id
-        th == sort_link(@q, :ssid, 'ssid') 
-        th == sort_link(@q, :hylx, 'hylx') 
-        th == sort_link(@q, :dm, 'dm') 
-        th == sort_link(@q, :lxr, 'lxr') 
-        th == sort_link(@q, :sj, 'sj') 
-        th == sort_link(@q, :rwsj, 'rwsj') 
-        th == sort_link(@q, :sf, 'sf') 
-        th == sort_link(@q, :cs, 'cs') 
-        th == sort_link(@q, :dz, 'dz') 
-        th == sort_link(@q, :ywy, 'ywy')
-        th == sort_link(@q, :fl, 'fl') 
-        th == sort_link(@q, :zdcm, 'zdcm') 
-        th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
-        th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
+  div class='panel panel-inverse panel-danger'
+    div class='panel-heading'
+      div class='panel-heading-btn'
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+      h4 class='panel-title' customer
+    div class='panel-body'
+      div id='data-table_wrapper' class='dataTables_wrapper form-inline dt-bootstrap'
+        div class='row'
+          div class='col-md-12'
+            = paginate @imp_cus, :param_name => 'imp_qf_customer_page'
+        div style='overflow:scroll; height:350px;'
+          table class='table'
+            thead
+              tr
+                th db_id
+                th == sort_link(@q, :ssid, 'ssid') 
+                th == sort_link(@q, :hylx, 'hylx') 
+                th == sort_link(@q, :dm, 'dm') 
+                th == sort_link(@q, :lxr, 'lxr') 
+                th == sort_link(@q, :sj, 'sj') 
+                th == sort_link(@q, :rwsj, 'rwsj') 
+                th == sort_link(@q, :sf, 'sf') 
+                th == sort_link(@q, :cs, 'cs') 
+                th == sort_link(@q, :dz, 'dz') 
+                th == sort_link(@q, :ywy, 'ywy')
+                th == sort_link(@q, :fl, 'fl') 
+                th == sort_link(@q, :zdcm, 'zdcm') 
+                th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
+                th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
+            tbody
+              - @imp_cus.each do |obj|
+                tr
+                  th #{obj.id}
+                  td #{obj.ssid}
+                  td #{obj.hylx}
+                  td #{obj.dm}
+                  td #{obj.lxr}
+                  td #{obj.sj}
+                  td #{obj.rwsj}
+                  td #{obj.sf}
+                  td #{obj.cs}
+                  td #{obj.dz}
+                  td #{obj.ywy}
+                  td #{obj.fl}
+                  td #{obj.zdcm}
+                  td #{obj.jjkdbxe}
+                  th #{obj.jjkdbxe}
+                  
+                  / t.decimal :jjkdyxe, precision: 12, scale: 2
+                  / t.decimal :xykdbxe, precision: 12, scale: 2
+                  / t.decimal :xykdyxe, precision: 12, scale: 2
+                  / t.integer :zt 
 
-    tbody
-      - @imp_cus.each do |obj|
-        tr
-          th #{obj.id}
-          td #{obj.ssid}
-          td #{obj.hylx}
-          td #{obj.dm}
-          td #{obj.lxr}
-          td #{obj.sj}
-          td #{obj.rwsj}
-          td #{obj.sf}
-          td #{obj.cs}
-          td #{obj.dz}
-          td #{obj.ywy}
-          td #{obj.fl}
-          td #{obj.zdcm}
-          td #{obj.jjkdbxe}
-          th #{obj.jjkdbxe}
+
+
+
+  div class='panel panel-inverse panel-danger'
+    div class='panel-heading'
+      div class='panel-heading-btn'
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+      h4 class='panel-title' check
+    div class='panel-body'
+      div id='data-table_wrapper' class='dataTables_wrapper form-inline dt-bootstrap'
+        div class='row'
+          div class='col-md-12'
+            = paginate @imp_log, :param_name => 'imp_log_page'
+        div style='overflow:scroll; height:350px;'
+          table class='table' id='imp_log_id'
+            thead
+              tr
+                th open_file_status
+                th load_file_status
+                th envelop_uid
+                th envelop_title
+                th envelop_time
+                th process_status
+                th detail
+                th datetime_flag
+                
+            tbody
+            - @imp_log.each do |log|
+              tr
+                td #{log.open_file_status}
+                td #{log.load_file_status}
+                th #{log.envelop_uid}
+                th #{log.envelop_title}
+                th #{log.envelop_time}
+                th #{log.process_status}
+                th #{log.detail}
+                th #{log.datetime_flag}
           
-          / t.decimal :jjkdyxe, precision: 12, scale: 2
-          / t.decimal :xykdbxe, precision: 12, scale: 2
-          / t.decimal :xykdyxe, precision: 12, scale: 2
-          / t.integer :zt 
-          
-  hr
 
-  p 导入纪录
-    
-  = paginate @imp_log, :param_name => 'imp_log_page'
-  table class='table' id='imp_log_id'
-    thead
-      tr
-        th open_file_status
-        th load_file_status
-        th envelop_uid
-        th envelop_title
-        th envelop_time
-        th process_status
-        th detail
-        th datetime_flag
-        
-    tbody
-    - @imp_log.each do |log|
-      tr
-        td #{log.open_file_status}
-        td #{log.load_file_status}
-        th #{log.envelop_uid}
-        th #{log.envelop_title}
-        th #{log.envelop_time}
-        th #{log.process_status}
-        th #{log.detail}
-        th #{log.datetime_flag}
-        
-      
-  p 进行导入数据操作的纪录 
-          
-  = paginate @imp_op, :param_name => 'imp_op_page'
-  table class='table' id='imp_op_log_id'
-    thead
-      tr
-        th 操作状态
-        th 操作时间
-      
-    tbody
-    - @imp_op.each do |log|
-      tr
-        td #{log.login_status}
-        td #{log.updated_at}
-      
+
+  div class='panel panel-inverse panel-danger'
+      div class='panel-heading'
+        div class='panel-heading-btn'
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+        h4 class='panel-title' 进行导入数据操作的纪录
+      div class='panel-body'
+        div id='data-table_wrapper' class='dataTables_wrapper form-inline dt-bootstrap'
+          div class='row'
+            div class='col-md-12'
+              = paginate @imp_op, :param_name => 'imp_op_page'
+          div style='overflow:auto; height:200px;'  
+
+
+            table class='table' id='imp_op_log_id'
+              thead
+                tr
+                  th 操作状态
+                  th 操作时间
+                
+              tbody
+              - @imp_op.each do |log|
+                tr
+                  td #{log.login_status}
+                  td #{log.updated_at}
+                
+                      
+              
             
-    
-  
-  / h2 trade
-  / 
-  / = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_trade') do |f|
-  /   = f.label 'ssid'
-  /   = f.search_field :ssid_cont 
-  /   = f.label 'zzh'
-  /   = f.search_field :zzh
-  /   
-  /   = f.submit 'check button'
-  / 
-  / = paginate @imp_trade
-  / table class='table'
-  /   thead
-  /     tr
-  /       th ssid
-  /       th zzh
-  /       th jylx
-  /       th jyjg
-  /       th jye
-  /   tbody
-  /     - @imp_trade.each do |trade|
-  /       tr 
-  /         td #{trade.ssid}
-  /         td #{trade.zzh}
-  /         td #{trade.jylx}
-  /         td #{trade.jyjg}
-  /         td #{trade.jye}
+            / h2 trade
+            / 
+            / = search_form_for @q, url: upload_report_check_path(:query_data_type => 'imp_qf_trade') do |f|
+            /   = f.label 'ssid'
+            /   = f.search_field :ssid_cont 
+            /   = f.label 'zzh'
+            /   = f.search_field :zzh
+            /   
+            /   = f.submit 'check button'
+            / 
+            / = paginate @imp_trade
+            / table class='table'
+            /   thead
+            /     tr
+            /       th ssid
+            /       th zzh
+            /       th jylx
+            /       th jyjg
+            /       th jye
+            /   tbody
+            /     - @imp_trade.each do |trade|
+            /       tr 
+            /         td #{trade.ssid}
+            /         td #{trade.zzh}
+            /         td #{trade.jylx}
+            /         td #{trade.jyjg}
+            /         td #{trade.jye}
