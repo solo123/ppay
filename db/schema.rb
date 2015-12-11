@@ -146,6 +146,9 @@ ActiveRecord::Schema.define(version: 20151208075635) do
   end
 
   create_table "imp_ops", force: :cascade do |t|
+    t.string   "start_time"
+    t.string   "end_time"
+    t.string   "imp_count"
     t.string   "login_status"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
