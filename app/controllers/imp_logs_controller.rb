@@ -4,7 +4,7 @@ class ImpLogsController < ApplicationController
   # GET /imp_logs
   # GET /imp_logs.json
   def index
-    @imp_logs = ImpLog.all
+    @imp_logs = ImpLog.page params[:page]
   end
 
   # GET /imp_logs/1
