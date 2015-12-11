@@ -19,11 +19,15 @@ html
 
 	   script src="/color_admin/assets/plugins/pace/pace.min.js"
 
-  body
+  body    
     div class='container'
-      
+        
     div class='content'
-      p 你好
+      div class='container'
+        = flash.each do |type, message|
+          div class="flash"
+            == message
+      
       == yield
   
     
