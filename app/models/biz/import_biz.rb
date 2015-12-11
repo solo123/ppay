@@ -23,7 +23,7 @@ module Biz
           #  log 纪录邮件基础信息
           att = get_attchement(id)
           if att
-            @implog.load_file_status = '附件下载成功' : '没有下载成功'
+            @implog.load_file_status = '附件下载成功'
             file_name = "tmp/#{id}.xls"
             File.new(file_name, 'wb+').write(att.unpack('m')[0] )
             import_data(file_name, id)
