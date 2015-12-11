@@ -66,6 +66,8 @@ html
                 ==link_to '数据报表','/report'
               li id='import_li_li'
                 ==link_to '导入数据', upload_report_check_path
+              li id='import_li_li'
+                ==link_to '导入数据', imp_logs_path
           li class='has-sub' id='customer_li'
             a href='#'
               b class='caret pull-right'
@@ -77,17 +79,17 @@ html
           
 
 
-  
-      == yield
+      div class="content"  
+        == yield
 
     script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
     script src="/color_admin/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"
     script src="/color_admin/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"
     script src="/color_admin/assets/plugins/bootstrap/js/bootstrap.min.js"
     - if false
-    script src="assets/crossbrowserjs/html5shiv.js"
-    script src="assets/crossbrowserjs/respond.min.js"
-    script src="assets/crossbrowserjs/excanvas.min.js"
+      script src="/color_admin/assets/crossbrowserjs/html5shiv.js"
+      script src="/color_admin/assets/crossbrowserjs/respond.min.js"
+      script src="/color_admin/assets/crossbrowserjs/excanvas.min.js"
 
     script src="/color_admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"
     script src="/color_admin/assets/plugins/jquery-cookie/jquery.cookie.js"

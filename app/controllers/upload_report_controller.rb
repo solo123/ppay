@@ -21,11 +21,11 @@ class UploadReportController < ApplicationController
   end
 
   def import
-
+    puts "Start to import!!"
     #import_from_email
     # 重定向到check path
     ImportDataJob.perform_later nil
-    redirect_to upload_report_check_path
+    redirect_to imp_logs_path
   end
 
 
