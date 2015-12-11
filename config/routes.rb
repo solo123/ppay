@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'upload_report#check'
+  root to: 'home#index'
   resources :imp_logs
   get 'upload_report/import'
   get 'upload_report/check'
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :imp_qf_clearings
   resources :imp_qf_trades
   resources :imp_qf_customers
+  resources :home
 
 
   comfy_route :cms_admin, :path => '/cms-admin'

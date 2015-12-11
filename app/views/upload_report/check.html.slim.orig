@@ -120,7 +120,7 @@ div class='content content_import'
 
 
 
-
+<<<<<<< HEAD
   div class='panel panel-inverse panel-danger'
     div class='panel-heading'
       div class='panel-heading-btn'
@@ -160,7 +160,8 @@ div class='content content_import'
                 th #{log.datetime_flag}
           
 
-
+=======
+>>>>>>> 90289d2847556d00168faaed1ff2a167c44e6bca
 
   div class='panel panel-inverse panel-danger'
       div class='panel-heading'
