@@ -1,0 +1,25 @@
+= paginate @imp_logs
+
+table class='table' id='imp_log_id'
+  thead
+    tr
+      th open_file_status
+      th load_file_status
+      th envelop_uid
+      th envelop_title
+      th envelop_time
+      th process_status
+      th detail
+      th datetime_flag
+      
+  tbody
+  - @imp_logs.each do |log|
+    tr
+      td #{log.open_file_status}
+      td #{log.load_file_status}
+      th #{log.envelop_uid}
+      th #{log.envelop_title}
+      th #{log.envelop_time}
+      th #{log.process_status}
+      th #{log.detail}
+      th #{log.datetime_flag}

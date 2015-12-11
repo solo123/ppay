@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   get 'trades/index'
 
+  root to: 'home#index'
+  resources :imp_logs
   get 'upload_report/import'
   get 'upload_report/check'
 
@@ -17,8 +19,7 @@ Rails.application.routes.draw do
   resources :imp_qf_clearings
   resources :imp_qf_trades
   resources :imp_qf_customers
-
-  root 'upload_report#check'
+  resources :home
 
   # comfy_route :cms_admin, :path => '/cms-admin'
   # Make sure this routeset is defined last

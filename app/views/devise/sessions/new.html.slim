@@ -1,0 +1,20 @@
+div class="login login-v2" data-pageload-addclass='animated fadeIn'
+  div class='login-header'
+    div class='brand'
+      span class='logo' 
+      span 普尔支付
+      small 欢迎访问普尔支付渠道系统  请登录
+    div class='icon'
+      i class='fa fa-sign-in'
+  div class='login-content'
+
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
+      div class="form-inputs"
+        = f.input :mobile, required: false, autofocus: true, class: '123'
+        = f.input :password, required: false 
+        = f.input :remember_me, as: :boolean if devise_mapping.rememberable? 
+
+      div class="form-actions"
+        = f.button :submit, "Log in" 
+
+      = render "devise/shared/links" 
