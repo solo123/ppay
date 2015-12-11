@@ -1,0 +1,21 @@
+
+= paginate @imp_qf_trades
+
+table class='table'
+  thead
+    tr
+      th ssid
+      th zzh
+      th jylx
+      th jyjg
+      th jye
+  tbody
+    - @imp_qf_trades.each do |trade|
+      tr 
+        td #{trade.ssid}
+        td #{trade.zzh}
+        td #{trade.jylx}
+        td #{trade.jyjg}
+        td #{trade.jye}
+
+= paginate @imp_qf_trades

@@ -1,2 +1,5 @@
 div class='content'
   h2 HOME here...
+  - if user_signed_in?
+    == link_to '退出登录', destroy_user_session_path, :method => :delete
+  

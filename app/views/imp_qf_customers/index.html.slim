@@ -1,0 +1,51 @@
+div class='panel panel-inverse panel-danger'
+      div class='panel-heading'
+        div class='panel-heading-btn'
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+        h4 class='panel-title' 商户数据
+    
+= paginate @imp_qf_customers
+table class='table'
+  thead
+    tr
+      th == sort_link(@q, :ssid, '商户id') 
+      th == sort_link(@q, :hylx, '用户类型') 
+      th == sort_link(@q, :dm, '商家名称') 
+      th == sort_link(@q, :lxr, '联系人') 
+      th == sort_link(@q, :sj, '入网电话') 
+      th == sort_link(@q, :rwsj, '入网时间') 
+      th == sort_link(@q, :sf, '省份') 
+      th == sort_link(@q, :cs, '城市') 
+      th == sort_link(@q, :dz, '地址') 
+      th == sort_link(@q, :ywy, '业务员')
+      th == sort_link(@q, :fl, '费率') 
+      th == sort_link(@q, :zdcm, '绑定机器编码') 
+      th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
+      th == sort_link(@q, :jjkdbxe, 'jjkdbxe') 
+  tbody
+    - @imp_qf_customers.each do |obj|
+      tr
+        td #{obj.ssid}
+        td #{obj.hylx}
+        td #{obj.dm}
+        td #{obj.lxr}
+        td #{obj.sj}
+        td #{obj.rwsj}
+        td #{obj.sf}
+        td #{obj.cs}
+        td #{obj.dz}
+        td #{obj.ywy}
+        td #{obj.fl}
+        td #{obj.zdcm}
+        td #{obj.jjkdbxe}
+        th #{obj.jjkdbxe}
+        
+        / t.decimal :jjkdyxe, precision: 12, scale: 2
+        / t.decimal :xykdbxe, precision: 12, scale: 2
+        / t.decimal :xykdyxe, precision: 12, scale: 2
+        / t.integer :zt 
+        
+= paginate @imp_qf_customers

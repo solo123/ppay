@@ -5,7 +5,7 @@ module ApplicationHelper
     "
   end
 
-  def add_menu(head, items)
+  def add_menu(head, acls,  items)
     subs = ''
     items.each do |item|
       sub = "<li><a href=#{item.last}> #{item.first} </a></li>"

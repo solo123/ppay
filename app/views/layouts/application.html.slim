@@ -4,20 +4,19 @@ html
     meta charset="utf-8"
     title Ppay
 
-    link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/animate.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/style.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/style-responsive.min.css" rel="stylesheet"
-    link href="/color_admin/assets/css/theme/default.css" rel="stylesheet" id="theme"
+    link href="/color_admin/assets/css/theme/default.css" rel="stylesheet"
 
+  	link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"
+  	link href="/color_admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
     link href="/color_admin/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/DataTables/extensions/AutoFill/css/autoFill.bootstrap.min.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet"
-
-    script src="/color_admin/assets/plugins/pace/pace.min.js"
+  	link href="/color_admin/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
+  	link href="/color_admin/assets/plugins/DataTables/extensions/AutoFill/css/autoFill.bootstrap.min.css" rel="stylesheet"
+  	link href="/color_admin/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" 
+    link href="/color_admin/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" 
 
   body
     div id="page-loader" class="fade"  
@@ -38,47 +37,47 @@ html
               big 普尔支付 
               span 渠道系统
         ul class='nav'
-          li class='has-sub' id='home_li'
+          
+          == add_menu 'hh', 'caret pull-right', [['tt', '/'], ['foo', '/']]
+          li class='has-sub'
             a href='/'
               i class='fa fa-laptop'
               span 首页
-          li class='has-sub' id='customer_li'
+          li class='has-sub'
             a href='#'
               b class='caret pull-right'
               i class='fa fa-2x fa-credit-card'
               span 商户数据
             ul class='sub-menu'
-              li id='customer_li_li'
-                ==link_to '商户基础数据','/customer'
-          li class='has-sub' id='customer_li'
+              li
+                ==link_to '商户基础数据', imp_qf_customers_path
+          li class='has-sub'
             a href='#'
               b class='caret pull-right'
               i class='fa fa-2x fa-database'
               span 交易数据
             ul class='sub-menu'
-              li id='customer_li_li'
-                ==link_to '交易数据','/select'
-              li id='liquidation_li_li'
-                ==link_to '清算数据','/liquidation'
-          li class='has-sub' id='customer_li'
+              li
+                ==link_to '交易数据', imp_qf_trades_path
+              li
+                ==link_to '清算数据', imp_qf_clearings_path
+          li class='has-sub'
             a href='#'
               b class='caret pull-right'
               i class='fa fa-2x fa-area-chart'
               span 数据报表
             ul class='sub-menu'
-              li id='customer_li_li'
-                ==link_to '数据报表','/report'
-              li id='import_li_li'
-                ==link_to '导入数据', upload_report_check_path
-              li id='import_li_li'
-                ==link_to '导入数据', imp_logs_path
-          li class='has-sub' id='customer_li'
+              li
+                ==link_to '操作log', imp_ops_path
+              li
+                ==link_to '导入log', imp_logs_path
+          li class='has-sub'
             a href='#'
               b class='caret pull-right'
               i class='fa fa-2x fa-users'
               span 用户管理
             ul class='sub-menu'
-              li id='customer_li_li'
+              li
                 ==link_to '用户管理','/user'
           
 
@@ -89,14 +88,17 @@ html
     script src="/color_admin/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"
     script src="/color_admin/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"
     script src="/color_admin/assets/plugins/bootstrap/js/bootstrap.min.js"
+    script src="/color_admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"
+    script src="/color_admin/assets/plugins/jquery-cookie/jquery.cookie.js"
+    script src="/color_admin/assets/plugins/pace/pace.min.js"
+
+    script src="/color_admin/assets/js/login-v2.demo.min.js"
+    script src="/color_admin/assets/js/apps.min.js"
+    
     - if false
       script src="/color_admin/assets/crossbrowserjs/html5shiv.js"
       script src="/color_admin/assets/crossbrowserjs/respond.min.js"
       script src="/color_admin/assets/crossbrowserjs/excanvas.min.js"
-
-    script src="/color_admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"
-    script src="/color_admin/assets/plugins/jquery-cookie/jquery.cookie.js"
-
-    script src="/color_admin/assets/js/apps.min.js"
+    
     javascript:
       App.init();

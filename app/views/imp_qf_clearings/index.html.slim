@@ -1,0 +1,31 @@
+
+= paginate @imp_qf_clearings
+
+table class='table'
+  thead
+    tr
+      th yhid
+      th qsrq
+      th jybs
+      th jybj
+      
+  tbody
+    - @imp_qf_clearings.each do |m|
+      tr 
+        td #{m.yhid}
+        td #{m.qsrq}
+        td #{m.jybs}
+        td #{m.jybj}
+
+= paginate @imp_qf_clearings
+
+
+/ t.string :yhid
+/ t.string :qsrq
+/ t.string :jybs
+/ t.string :jybj
+/ t.string :sxf
+/ t.string :jsje
+/ t.string :sjqsje
+/ t.string :qszt
+/ t.integer :zt

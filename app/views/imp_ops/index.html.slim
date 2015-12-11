@@ -1,0 +1,18 @@
+= paginate @imp_ops
+
+table class='table'
+  thead
+    tr
+      th start_time
+      th end_time
+      th imp_count
+      th login_status
+  tbody
+    - @imp_ops.each do |log|
+      tr 
+        td #{log.start_time}
+        td #{log.end_time}
+        td #{log.imp_count}
+        td #{log.login_status}
+
+= paginate @imp_ops
