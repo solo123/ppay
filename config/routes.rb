@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
+
   resources :home
 
-  get 'trades/index'
-  get 'upload_report/import'
-  get 'upload_report/check'
+  get 'upload_data/import'
 
   devise_for :users
   devise_scope :user do

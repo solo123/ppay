@@ -6,7 +6,20 @@ div class='panel panel-inverse panel-danger'
           <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
           <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
         h4 class='panel-title' 商户数据
-    
+
+
+div class='container'
+  div class='row'
+    div class='col-md-10'
+      = search_form_for @q ,class: 'form-inline' do |f|
+        div class='form-group m-r-10'
+          = f.search_field :sj_cont, class: 'form-control', placeholder:'入网电话'
+        div class='form-group m-r-10'
+          = f.search_field :ssid, class: 'form-control', placeholder:'商户id'
+        = f.submit '查找',  class: 'form-control btn-warning'
+
+
+          
 = paginate @imp_qf_customers
 table class='table'
   thead
