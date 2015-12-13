@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
 
-  resources :home
+  get 'home/index'
+  get 'home/profile'
 
   get 'upload_data/import'
 
