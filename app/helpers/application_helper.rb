@@ -1,30 +1,16 @@
 module ApplicationHelper
-  def mydump
-    head = "
-      <li> nihao </li>
-    "
+
+
+  def add_table_op_menu(title)
+    render 'shared/table_op_menu',
+              :local => {:title => title}
   end
 
-  def add_menu(head, acls,  items)
-    subs = ''
-    items.each do |item|
-      sub = "<li><a href=#{item.last}> #{item.first} </a></li>"
-      subs += sub
-    end
+  def add_left_menu_item(title, options={}, &blk)
+    render 'shared/left_menu_item',
+              :local => {:title => title,
+                          :options => options}
 
-    dump = "
-      <li id='trade_li' class='has-sub'>
-        <a href='#'>
-          <b class='caret pull-right'></b>
-          <i class='fa fa-suitcase'></i>
-          <span>#{head}</span>
-        </a>
-        <ul class='sub-menu'>
-          #{subs}
-        </ul>
-      </li>
-    "
-
-    return dump
   end
+
 end

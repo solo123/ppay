@@ -1,3 +1,5 @@
+== add_table_op_menu '导入纪录'
+
 = paginate @imp_ops
 
 table class='table'
@@ -8,11 +10,11 @@ table class='table'
       th imp_count
       th login_status
   tbody
-    - @imp_ops.each do |log|
+    - @imp_ops.each do |obj|
       tr 
-        td #{log.start_time}
-        td #{log.end_time}
-        td #{log.imp_count}
-        td #{log.login_status}
+        - obj.attributes.values[1..-3].each do |v|
+          td 
+            == v
+        end
 
 = paginate @imp_ops
