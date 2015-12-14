@@ -1,3 +1,7 @@
+== render 'shared/table_search_component',
+          :local => {:q => @q, :model => @imp_ops.first}
+
+hr
 == add_table_op_menu '导入纪录'
 
 = paginate @imp_ops

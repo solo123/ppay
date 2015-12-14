@@ -3,7 +3,10 @@ h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
 div
   == link_to '导入数据', upload_data_import_path, class: "btn btn-primary m-r-10 m-b-10"
 
+== render 'shared/table_search_component',
+          :local => {:q => @q, :model => @imp_logs.first}
 
+hr
 == add_table_op_menu '导入纪录'
 
 = paginate @imp_logs
@@ -27,11 +30,5 @@ table class='table' id='imp_log_id'
         td 
           == v
       end
-      / td #{log.open_file_status}
-      / td #{log.load_file_status}
-      / th #{log.envelop_uid}
-      / th #{log.envelop_title}
-      / th #{log.envelop_time}
-      / th #{log.process_status}
-      / th #{log.detail}
-      / th #{log.datetime_flag}
+
+= paginate @imp_logs

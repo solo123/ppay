@@ -1,20 +1,9 @@
-/ <li id='trade_li' class='has-sub'>
-/   <a href='#'>
-/     <b class='caret pull-right'></b>
-/     <i class='fa #{options[:class]}'></i>
-/     <span>#{title}</span>
-/   </a>
-/ 
-/   <ul class='sub-menu'>
-/     <li><a href=#{item.last}> #{item.first} </a></li>
-/   </ul>
-/ </li>
-
-
-li class='has-sub'
+li class='#{ if local[:options][:data]  then 'has-sub' end}'
   == link_to '' '#'
-    b class='caret pull-right'
-    i class='fa fa-laptop'
+    - if local[:options][:data]
+      b class='caret pull-right'
+      
+    i class='fa #{local[:options][:class]}'
     span #{local[:title]}
   ul class='sub-menu'
     li
