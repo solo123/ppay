@@ -7,55 +7,54 @@ module Biz
       return if $redis.get(:qf_imp_flag) == 'running'
       $redis.set(:qf_imp_flag, 'running')
 
-      open_email
-      @ids = get_new_emails
-
-      prelog = ImpLog.all.last
-      preid = (prelog && prelog.envelop_uid.to_i) || 1
-
-      @ids.each do |id|
-        if id <= preid
-          ImpLog.new(envelop_uid: id.to_i, detail: 'skip...').save
+      get_new_emails().each do |uid|
+        if ImpLog.find_by uid: uid
+          ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
           next
         end
-        @implog = ImpLog.new(envelop_uid: id.to_i)
-        if check_email(id)
-          #  log 纪录邮件基础信息
-          att = get_attchement(id)
+        implog = ImpLog.new(uid: uid.to_i)
+        if check_email(uid, implog)
+          att = get_attchement(uid)
           if att
-            @implog.load_file_status = '附件下载成功'
-            file_name = "tmp/#{id}.xls"
+            implog.detail << '[附件下载ok]'
+            file_name = "tmp/#{uid}.xls"
             File.new(file_name, 'wb+').write(att.unpack('m')[0] )
-            import_data(file_name, id)
+            import_data(file_name, uid, implog)
           else
-            @implog.load_file_status = '没有附件'
+            implog.detail << '[没有附件]'
           end
         end
-        @implog.save
+        implog.save
       end
       $redis.set(:qf_imp_flag, '')
     end
 
-    def open_email
+    def get_new_emails
       @imap = Net::IMAP.new 'imap.qq.com', 993, true, nil, false
       @imap.login('qfqpos@pooul.cn', 'caI1111')
       @imap.select('inbox')
-    end
 
-    def get_new_emails
       since_time = "30-Nov-2014"
+      if l = ImpLog.where(status: 8).first
+        since_time = Net::IMAP.format_datetime(l.received_at.to_date) if l.received_at
+      end
       @imap.search( ["SINCE", since_time ])
     end
 
-    def check_email(id)
-      1
+    def check_email(uid, log)
+      body = @imap.fetch(uid, "RFC822")[0].attr["RFC822"]
+      mail = Mail.new(body)
+      log.title = mail.subject
+      log.received_at = mail.date
+      log.mail_from = mail.from.kind_of?(Array) ? mail.from.join(',') : mail.from
+      mail.has_attachments?
     end
 
     def get_attchement(id)
       attachment = @imap.fetch(id, "BODY[2]")[0].attr["BODY[2]"]
     end
 
-    def import_data(data_file, id)
+    def import_data(data_file, id, log)
       puts "start import at #{data_file}"
       cus_attr = ['ssid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe', 'zt']
       trade_attr = ['ssid', 'zzh', 'jyrq', 'jylx', 'jyjg', 'jye', 'zdcm', 'zt']
@@ -66,19 +65,19 @@ module Biz
       begin
         book = Spreadsheet.open data_file
       rescue
-        @implog.open_file_status = '无法打开文件'
-        @implog.process_status = '0'
+        log.detail << '[无法打开文件]'
+        log.status = '0'
       ensure
 
       end
 
       if book
-        @implog.open_file_status = '格式正确'
+        log.detail << '[格式正确]'
       else
         return
       end
 
-      detail  = "统计:"
+      log.detail  << " 统计:"
       for sheetindex in 0..2 do
 
         sheet = book.worksheet sheetindex
@@ -96,13 +95,9 @@ module Biz
           end
           imp_data.save
         end
-        detail << 'sheet' + sheetindex.to_s + ':' + cnt.to_s + '  '
-
-
+        log.detail << 'sheet' + sheetindex.to_s + ':' + cnt.to_s + '  '
       end
-      @implog.detail = detail
-      @implog.process_status = '8'
-
+      log.status = '8'
     end
 
     def get_model_with(index)

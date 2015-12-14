@@ -1,4 +1,4 @@
-/ h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
+h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
 
 div
   == link_to 'home', upload_report_check_path, class: "btn btn-danger m-r-10 m-b-10" 
@@ -9,23 +9,22 @@ div
 table class='table' id='imp_log_id'
   thead
     tr
-      th open_file_status
-      th load_file_status
-      th envelop_uid
-      th envelop_title
-      th envelop_time
-      th process_status
-      th detail
-      th datetime_flag
+      th 序号
+      th 导入时间
+      th 发件人
+      th 邮件标题
+      th 邮件时间
+      th 操作结果
       
   tbody
   - @imp_logs.each do |log|
     tr
-      td #{log.open_file_status}
-      td #{log.load_file_status}
-      th #{log.envelop_uid}
-      th #{log.envelop_title}
-      th #{log.envelop_time}
-      th #{log.process_status}
+      td #{log.id}
+      td #{l log.created_at if log.created_at}
+      td #{log.mail_from}
+      td
+        b #{log.uid}
+        #{log.title}
+      td #{log.received_at}
       th #{log.detail}
-      th #{log.datetime_flag}
+      th #{log.status}
