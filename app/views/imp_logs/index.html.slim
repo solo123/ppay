@@ -19,7 +19,7 @@ table class='table' id='imp_log_id'
       th 操作结果
       
   tbody
-  - @imp_logs.each do |obj|
+  - @imp_logs.each do |log|
     tr
       td #{log.id}
       td #{l log.created_at if log.created_at}
