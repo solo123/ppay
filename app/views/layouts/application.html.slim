@@ -40,7 +40,7 @@ html
           == add_left_menu_item '首页', :class=> 'fa-laptop'
           == add_left_menu_item '商户数据', :data =>  [['基础', imp_qf_customers_path] ], :class => 'fa-2x fa-credit-card'
           == add_left_menu_item '交易数据', :data => [['交易', imp_qf_trades_path ], ['清算',imp_qf_clearings_path ]], :class => 'fa-2x fa-database'
-          == add_left_menu_item '数据报表', :data => [['操作', imp_ops_path], ['导入', imp_logs_path ]], :class => 'fa-2x fa-area-chart'
+          == add_left_menu_item '数据报表', :data => [ ['导入', imp_logs_path ]], :class => 'fa-2x fa-area-chart'
           == add_left_menu_item '用户管理', :data => [['用户管理', '/user'] ], :class => ' fa-2x fa-users'
           == add_left_menu_item '个人设置', :data => [['资料', home_profile_path], ['退出', destroy_user_session_path ] ], :class => 'fa-2x'
 
