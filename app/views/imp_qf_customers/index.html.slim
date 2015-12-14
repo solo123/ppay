@@ -1,17 +1,9 @@
+== render 'shared/table_search_component',
+          :local => {:q => @q, :model => @imp_qf_customers.first}
 
-div class='container'
-  div class='row'
-    div class='col-md-10'
-      = search_form_for @q ,class: 'form-inline' do |f|
-        div class='form-group m-r-10'
-          = f.search_field :sj_cont, class: 'form-control', placeholder:'入网电话'
-        div class='form-group m-r-10'
-          = f.search_field :ssid, class: 'form-control', placeholder:'商户id'
-        = f.submit '查找',  class: 'form-control btn-warning'
-
-
+hr
 == add_table_op_menu '商户数据'
-        
+
 = paginate @imp_qf_customers
 table class='table'
   thead
@@ -42,23 +34,4 @@ table class='table'
             == v
         end
           
-/         
-/         td #{obj.ssid}
-/         td #{obj.hylx}
-/         td #{obj.dm}
-/         td #{obj.lxr}
-/         td #{obj.sj}
-/         td #{obj.rwsj}
-/         td #{obj.sf}
-/         td #{obj.cs}
-/         td #{obj.dz}
-/         td #{obj.ywy}
-/         td #{obj.fl}
-/         td #{obj.zdcm}
-/         td #{obj.jjkdbxe}
-/         th #{obj.jjkdbxe}
-/         th #{obj.jjkdyxe}
-/         th #{obj.xykdbxe}
-/         th #{obj.xykdbxe}
-/         
 = paginate @imp_qf_customers

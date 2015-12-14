@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get 'upload_data/import'
 
+  get 'users/sign_up', to: 'home#index'
+
   devise_for :users
   devise_scope :user do
     get 'users/sign_out', to: "devise/sessions#destroy"
