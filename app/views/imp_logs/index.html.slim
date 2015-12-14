@@ -1,7 +1,8 @@
 / h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
 
 div class='row'
-  == link_to '导入数据', upload_data_import_path, class: "btn btn-primary m-r-10 m-b-10"
+  div class='col-md-3'
+    == link_to '导入数据', upload_data_import_path, class: "btn btn-primary m-r-10 m-b-10"
 
 div class='row'
   div class='col-md-12'
@@ -11,6 +12,6 @@ div class='row'
 div class='row'
   div class='col-md-12'
     == render 'shared/table_op_menu',
-          :local => {:head_title => '商户数据',
+          :local => {:head_title => '导入数据结果',
                     :data => @imp_logs,
-                    :title_items => [ '商户id', '用户类型', '商家名称', '联系人', '入网电话', '入网时间', '省份', '城市', '地址' ]  }
+                    :title_items => [ '邮件读取结果', '附件获取结果', '邮件ID', '邮件标题', '邮件接收时间', '数据导入状态', '统计' ]  }
