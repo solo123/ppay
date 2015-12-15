@@ -7,24 +7,26 @@ html
     link href="/color_admin/assets/css/animate.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/style.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/style-responsive.min.css" rel="stylesheet"
-    link href="/color_admin/assets/css/theme/default.css" rel="stylesheet"
+    link href="/color_admin/assets/css/theme/red.css" rel="stylesheet"
 
-  	link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"
-  	link href="/color_admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet"
-  	link href="/color_admin/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
-  	link href="/color_admin/assets/plugins/DataTables/extensions/AutoFill/css/autoFill.bootstrap.min.css" rel="stylesheet"
-  	link href="/color_admin/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" 
+    link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
     link href="/color_admin/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" 
+    link href="/color_admin/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/DataTables/extensions/AutoFill/css/autoFill.bootstrap.min.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" 
+    
 
   body
-    div id="page-loader" class="fade"  
+    div id="page-loader" class="fade in"
+      span class='spinner'
     div id="page-container" class="fade in page-sidebar-fixed page-header-fixed"
-      div id="header" class="header navbar navbar-default navbar-fixed-top"
+      div id="header" class="header navbar navbar-default navbar-fixed-top" style='height: 55px;'
         div class='container-fluid'
           div class='navbar-header'
-            ==link_to image_tag('Logo.jpg'), '/'
+            ==link_to image_tag('Logo.jpg'), '/', class:'navbar-brand'
             button class='navbar-toggle' data-click='sidebar-toggled' type='button'
               span class='icon-bar'
               span class='icon-bar'
@@ -70,7 +72,7 @@ html
                               :class => 'fa-2x' }
                               
 
-      div class='content'
+      div class='content'  id='content' style='background-color:#d9e0e7'
         == yield
 
     script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
