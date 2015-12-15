@@ -1,4 +1,5 @@
-/ h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
+h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
+
 div class='row'
   div class='col-md-12'
     h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
@@ -10,11 +11,11 @@ div class='row'
 div class='row'
   div class='col-md-12'
     == render 'shared/table_search_component',
-            :local => {:q => @q, :model => @imp_logs.first}
+            :local => {:q => @q, :model => @collection.first}
 
 div class='row'
   div class='col-md-12'
     == render 'shared/table_op_menu',
           :local => {:head_title => '导入数据结果',
-                    :data => @imp_logs,
+                    :data => @collection,
                     :title_items => [ '邮件读取结果', '附件获取结果', '邮件ID', '邮件标题', '邮件接收时间', '数据导入状态', '统计' ]  }

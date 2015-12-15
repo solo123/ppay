@@ -1,0 +1,11 @@
+div class='row'
+  div class='col-md-12'
+    == render 'shared/table_search_component',
+            :local => {:q => @q, :model => @collection.first}
+
+div class='row'
+  div class='col-md-12'
+    == render 'shared/table_op_menu',
+          :local => {:head_title => @table_head,
+                    :data => @collection,
+                    :title_items => @table_fields  }
