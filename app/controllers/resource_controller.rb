@@ -59,8 +59,8 @@ class ResourceController < ApplicationController
   def load_collection
     params[:q] ||= {}
     @q = object_name.classify.constantize.search(params[:q])
-    pages = 20   #$redis.get(:admin_list_per_page).to_i
-    @collection = @q.result(distinct: true).page( params[:page])
+    pages = $redis.get(:list_per_page) || 20
+    @collection = @q.result(distinct: true).page( params[:page]).per( pages )
   end
   def load_object
     @object = object_name.classify.constantize.find_by_id(params[:id])
