@@ -1,2 +1,7 @@
 class ImpLogsController < ResourceController
+  def initialize
+    super
+    @table_head = '导入数据结果'
+    @table_fields = [ '邮件ID', '邮件标题', '接收时间', '发件人', '统计', '状态' ]
+  end
 end

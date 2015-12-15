@@ -1,3 +1,14 @@
 h2 HOME here...
-- if user_signed_in?
-  == link_to '退出登录', destroy_user_session_path, :method => :delete
+
+div class='row'
+  div class='col-md-12'
+    h2 当前导入状态：#{$redis.get(:qf_imp_flag)}
+
+div class='row'
+  div class='col-md-4'
+    == link_to '导入数据', upload_data_import_path, class: "btn btn-primary m-r-10 m-b-10"
+hr
+div class='row'
+  div class='col-md-4'
+    - if user_signed_in?
+      == link_to '退出登录', destroy_user_session_path, :method => :delete
