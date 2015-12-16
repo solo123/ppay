@@ -6,7 +6,7 @@ module Biz
       rescue
         # handle the error
       ensure
-        $redis.set(:qf_imp_flag, '')
+        $redis.set(:qf_imp_flag, '导入结束')
       end
     end
     def import_from_email_unsafe

@@ -60,3 +60,5 @@ gem "sprockets-es6"
 gem 'rufus-scheduler'
 gem 'slim'
 gem 'sidekiq'
+
+gem "passenger"
