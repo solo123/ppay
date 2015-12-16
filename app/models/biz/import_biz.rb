@@ -1,7 +1,15 @@
 module Biz
   class ImportBiz
-
     def import_from_email
+      begin
+        import_from_email_unsafe
+      rescue
+        # handle the error
+      ensure
+        $redis.set(:qf_imp_flag, '')
+      end
+    end
+    def import_from_email_unsafe
       require "net/imap"
 
       return if $redis.get(:qf_imp_flag) == 'running'
@@ -26,7 +34,6 @@ module Biz
         end
         implog.save
       end
-      $redis.set(:qf_imp_flag, '')
     end
 
     def get_new_emails
@@ -86,13 +93,14 @@ module Biz
           cnt += 1
           imp_data = get_model_with sheetindex
           i = 1
-          #logger.warn row[4]
+          next if row[1].nil? || row[1].to_i < 1
 
           for v in all_attrs[sheetindex] do
-            theV = row[i]  || 'no value'
+            theV = row[i]  || ' '
             imp_data.send( v + '=', theV)
             i += 1
           end
+
           imp_data.save
         end
         log.detail << 'sheet' + sheetindex.to_s + ':' + cnt.to_s + '  '
