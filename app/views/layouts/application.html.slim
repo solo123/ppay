@@ -13,6 +13,11 @@ html
     link href="/color_admin/assets/css/style.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/style-responsive.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/theme/red.css" rel="stylesheet"
+    
+    script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
+    == stylesheet_link_tag    "application", media: "all"
+    == javascript_include_tag "application"
+    
      
   body
     div id="page-loader" class="fade in"
@@ -73,7 +78,6 @@ html
       div class='content'  id='content'
         == yield
 
-    script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
     script src="/color_admin/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"
     script src="/color_admin/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"
     script src="/color_admin/assets/plugins/bootstrap/js/bootstrap.min.js"

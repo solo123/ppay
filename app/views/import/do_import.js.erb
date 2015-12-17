@@ -1,0 +1,12 @@
+function load_status(){
+  $.get('import/get_import_msg', function(data){
+    $('#import_dialog').find('.modal-body')
+      .append(data);
+  });
+}
+
+if ($('#import_dialog').length == 0){
+  $('body').append("<%=j render 'dialog' %>");
+}
+$('#import_dialog').modal();
+setInterval(load_status, 1000);

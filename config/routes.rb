@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'home/profile'
 
   get 'upload_data/import'
+  get 'import/do_import'
+  get 'import/get_import_msg'
 
   get 'users/sign_up', to: 'home#index'
 
