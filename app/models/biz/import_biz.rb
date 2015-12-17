@@ -1,22 +1,25 @@
 module Biz
   class ImportBiz
     def import_from_email
+      $redis.lpush(:import_log, "开始导入数据.......")
       begin
         import_from_email_unsafe
       rescue
         # handle the error
       ensure
         $redis.set(:qf_imp_flag, '导入结束')
+        $redis.lpush(:import_log, '导入结束！【end】')
       end
     end
     def import_from_email_unsafe
       require "net/imap"
-
       return if $redis.get(:qf_imp_flag) == 'running'
       $redis.set(:qf_imp_flag, 'running')
+      $redis.lpush(:import_log, "开始导入数据...")
 
       get_new_emails().each do |uid|
         if ImpLog.find_by uid: uid
+          $redis.lpush(:import_log, "重复邮件[#{uid}]")
           ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
           next
         end
@@ -25,6 +28,7 @@ module Biz
           att = get_attchement(uid)
           if att
             implog.detail << '[附件下载ok]'
+            $redis.lpush(:import_log, "附件下载成功")
             file_name = "tmp/#{uid}.xls"
             File.new(file_name, 'wb+').write(att.unpack('m')[0] )
             import_data(file_name, uid, implog)
