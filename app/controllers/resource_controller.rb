@@ -71,18 +71,25 @@ class ResourceController < ApplicationController
       end
       @q = object_name.classify.constantize.ransack(tmp)
     end
-    pages = $redis.get(:list_per_page) || 5
-    @collection = @q.result(distinct: true).page( params[:page]).per( pages )
+    pages = $redis.get(:list_per_page) || 100
+    @collection = @q.result(distinct: true).page(params[:page]).per( pages )
 
     len = object_name.classify.constantize.new.attributes.keys.count
-    @summary = Array.new(len-3, 0.00)
+
+    tmp = Array.new(len-3, 0.00)
+    @summary = Array.new(len-3, '')
     @summary[0] = '汇总信息'
 
     @q.result(distinct: true).each do |item|
       @sum_fields.each do |index|
-        @summary[index] += item.attributes.values.at(index).to_f
+        tmp[index-1] += item.attributes.values.at(index).to_f
       end
     end
+
+    for index in 1..(len-3) do
+      @summary[index] = tmp[index].to_s
+    end
+
 
   end
 
