@@ -5,9 +5,9 @@ div class="row"
         input class='form-control' name='all_query' value='' placeholder='输入任何字段进行查询'
       br
       - if pc?
-        -  @collection.last.attributes.keys[1..-3].each_index do |index|
+        -  @curmodel.attributes.keys[1..-3].each_index do |index|
           div class='form-group m-r-10'
-            = f.search_field (@collection.last.attributes.keys[1..-3].at(index) + '_cont') , class: 'form-control', placeholder: @field_titles.at(index).to_s, value: ''
+            = f.search_field (@curmodel.attributes.keys[1..-3].at(index) + '_cont') , class: 'form-control', placeholder: @field_titles.at(index).to_s, value: ''
 
         br
       = f.submit '查找',  class: 'btn btn-warning form-control'
@@ -32,7 +32,7 @@ div class='row'
                 tr
                   - for index in 0..@field_titles.count
                     th 
-                      == sort_link(@q, @collection.first.attributes.keys.at(index),
+                      == sort_link(@q, @curmodel.attributes.keys.at(index),
                                     @field_titles.at(index), 
                                     default_order: 'asc')
 

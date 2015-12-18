@@ -2,6 +2,8 @@ class ResourceController < ApplicationController
   respond_to :html, :js, :json
 
   def index
+    @curmodel = object_name.classify.constantize.new
+
     # return @collection if @collection.present?
     load_collection
   end
