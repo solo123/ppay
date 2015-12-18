@@ -60,19 +60,30 @@ class ResourceController < ApplicationController
   def load_collection
     params[:q] ||= {}
     params[:all_query] ||= ''
-    if params[:all_query]
+    if params[:all_query].to_s.empty?
+      @q = object_name.classify.constantize.ransack( params[:q] )
+    else
       tmp  =  {'m': 'or'} # 查询条件
       for k in object_name.classify.constantize.new.attributes.keys[1..-3] do
         tmp[k.to_s +  '_cont'] = params[:all_query]
       end
-      puts tmp
       @q = object_name.classify.constantize.ransack(tmp)
-    else
-      @q = object_name.classify.constantize.ransack( params[:q], m: 'or') #.try(:merge, m: 'or')
     end
-    pages = $redis.get(:list_per_page) || 20
+    pages = $redis.get(:list_per_page) || 5
     @collection = @q.result(distinct: true).page( params[:page]).per( pages )
+
+    len = object_name.classify.constantize.new.attributes.keys.count
+    @summary = Array.new(len-3, 0.00)
+    @summary[0] = '汇总信息'
+
+    @q.result(distinct: true).each do |item|
+      @sum_fields.each do |index|
+        @summary[index] += item.attributes.values.at(index).to_f
+      end
+    end
+
   end
+
   def load_object
     @object = object_name.classify.constantize.find_by_id(params[:id])
   end
