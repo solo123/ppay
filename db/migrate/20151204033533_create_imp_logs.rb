@@ -7,6 +7,7 @@ class CreateImpLogs < ActiveRecord::Migration
       t.string :mail_from
       t.string :detail, default: ''
       t.integer :status, default: 0
+      t.integer :imp_log_id
 
       t.timestamps null: false
     end

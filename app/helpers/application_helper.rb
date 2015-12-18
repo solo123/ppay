@@ -11,4 +11,9 @@ module ApplicationHelper
     agent_str =~ Regexp.new(MOBILE_USER_AGENTS)
   end
 
+  def pc?
+    return !(mobile?)
+  end
+
+
 end

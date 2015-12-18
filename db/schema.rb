@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20151204033533) do
     t.string   "mail_from"
     t.string   "detail",      default: ""
     t.integer  "status",      default: 0
+    t.integer  "imp_log_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
@@ -153,6 +154,7 @@ ActiveRecord::Schema.define(version: 20151204033533) do
     t.string   "sjqsje"
     t.string   "qszt"
     t.integer  "zt"
+    t.integer  "imp_log_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -175,6 +177,7 @@ ActiveRecord::Schema.define(version: 20151204033533) do
     t.decimal  "xykdbxe",    precision: 12, scale: 2
     t.decimal  "xykdyxe",    precision: 12, scale: 2
     t.integer  "zt"
+    t.integer  "imp_log_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
@@ -188,6 +191,7 @@ ActiveRecord::Schema.define(version: 20151204033533) do
     t.string   "jye"
     t.string   "zdcm"
     t.integer  "zt"
+    t.integer  "imp_log_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
