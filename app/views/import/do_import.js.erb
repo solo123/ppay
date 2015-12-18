@@ -1,6 +1,14 @@
+<% if flash[:errors] && flash[:errors].length > 0 %>
+<% flash[:errors].each do |err| %>
+alert('<%= err %>');
+<% end %>
+<% else %>
 function load_status(){
   $.get('import/get_import_msg', function(data){
-    $('#import_dialog').find('.modal-body')
+    if (data.indexOf('import_end')>=0) {
+      clearInterval(my_process);
+    }
+    $('#import_dialog').find('#dialog_messages')
       .append(data);
   });
 }
@@ -8,5 +16,8 @@ function load_status(){
 if ($('#import_dialog').length == 0){
   $('body').append("<%=j render 'dialog' %>");
 }
+
+
 $('#import_dialog').modal();
-setInterval(load_status, 1000);
+var my_process = setInterval(load_status, 1000);
+<% end %>

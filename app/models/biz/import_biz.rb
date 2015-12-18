@@ -1,25 +1,27 @@
 module Biz
   class ImportBiz
+
     def import_from_email
-      $redis.lpush(:import_log, "开始导入数据.......")
+      @errors = []
+      return if $redis.get(:qf_imp_flag) == 'running'
+      $redis.set(:qf_imp_flag, 'running')
+      slog "1. 开始导入数据..."
       begin
         import_from_email_unsafe
       rescue
         # handle the error
+        @errors << "[导入出错] ..."
       ensure
-        $redis.set(:qf_imp_flag, '导入结束')
-        $redis.lpush(:import_log, '导入结束！【end】')
+        $redis.set(:qf_imp_flag, '')
+        slog 'import_end'
       end
     end
     def import_from_email_unsafe
       require "net/imap"
-      return if $redis.get(:qf_imp_flag) == 'running'
-      $redis.set(:qf_imp_flag, 'running')
-      $redis.lpush(:import_log, "开始导入数据...")
 
       get_new_emails().each do |uid|
         if ImpLog.find_by uid: uid
-          $redis.lpush(:import_log, "重复邮件[#{uid}]")
+          slog "重复邮件[#{uid}]"
           ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
           next
         end
@@ -28,12 +30,13 @@ module Biz
           att = get_attchement(uid)
           if att
             implog.detail << '[附件下载ok]'
-            $redis.lpush(:import_log, "附件下载成功")
+            slog "    附件下载成功"
             file_name = "tmp/#{uid}.xls"
             File.new(file_name, 'wb+').write(att.unpack('m')[0] )
             import_data(file_name, uid, implog)
           else
             implog.detail << '[没有附件]'
+            slog "    没有附件。"
           end
         end
         implog.save
@@ -41,6 +44,7 @@ module Biz
     end
 
     def get_new_emails
+      slog "> 正在读取邮件."
       @imap = Net::IMAP.new 'imap.qq.com', 993, true, nil, false
       @imap.login('qfqpos@pooul.cn', 'caI1111')
       @imap.select('inbox')
@@ -49,6 +53,7 @@ module Biz
       if l = ImpLog.where(status: 8).first
         since_time = Net::IMAP.format_datetime(l.received_at.to_date) if l.received_at
       end
+      slog "读取日期#{since_time}之后的新邮件"
       @imap.search( ["SINCE", since_time ])
     end
 
@@ -58,6 +63,7 @@ module Biz
       log.title = mail.subject
       log.received_at = mail.date
       log.mail_from = mail.from.kind_of?(Array) ? mail.from.join(',') : mail.from
+      slog "  邮件：#{log.title}，来自：#{log.mail_from} @ #{log.received_at}"
       mail.has_attachments?
     end
 
@@ -66,7 +72,7 @@ module Biz
     end
 
     def import_data(data_file, id, log)
-      puts "start import at #{data_file}"
+      slog "start import at #{data_file}"
       cus_attr = ['ssid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe', 'zt']
       trade_attr = ['ssid', 'zzh', 'jyrq', 'jylx', 'jyjg', 'jye', 'zdcm', 'zt']
       clear_attr = ['qsrq', 'jybs', 'jybj', 'sxf', 'jsje', 'sjqsje', 'qszt', 'zt']
@@ -78,12 +84,14 @@ module Biz
       rescue
         log.detail << '[无法打开文件]'
         log.status = '0'
+        slog "无法打开文件#{data_file}"
       ensure
 
       end
 
       if book
         log.detail << '[格式正确]'
+        slog "格式正确"
       else
         return
       end
@@ -108,6 +116,7 @@ module Biz
           imp_data.save
         end
         log.detail << 'sheet' + sheetindex.to_s + ':' + cnt.to_s + '  '
+        slog log.detail
       end
       log.status = '8'
     end
@@ -125,6 +134,10 @@ module Biz
       end
 
       return obj
+    end
+
+    def slog(msg)
+      $redis.lpush(:import_log, msg)
     end
 
   end
