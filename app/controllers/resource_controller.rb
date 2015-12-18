@@ -2,7 +2,7 @@ class ResourceController < ApplicationController
   respond_to :html, :js, :json
 
   def index
-    return @collection if @collection.present?
+    # return @collection if @collection.present?
     load_collection
   end
   def show
@@ -56,9 +56,20 @@ class ResourceController < ApplicationController
   end
 
   protected
+
   def load_collection
     params[:q] ||= {}
-    @q = object_name.classify.constantize.search(params[:q])
+    params[:all_query] ||= ''
+    if params[:all_query]
+      tmp  =  {'m': 'or'} # 查询条件
+      for k in object_name.classify.constantize.new.attributes.keys[1..-3] do
+        tmp[k.to_s +  '_cont'] = params[:all_query]
+      end
+      puts tmp
+      @q = object_name.classify.constantize.ransack(tmp)
+    else
+      @q = object_name.classify.constantize.ransack( params[:q], m: 'or') #.try(:merge, m: 'or')
+    end
     pages = $redis.get(:list_per_page) || 20
     @collection = @q.result(distinct: true).page( params[:page]).per( pages )
   end

@@ -50,3 +50,10 @@ html
     javascript:
       App.init();
       LoginV2.init();
+  
+  footer class='container'
+    div class='row'
+      div class='col-md-4'
+      div class='col-md-8'
+        - if Rails.env.development?
+          == debug(params)
