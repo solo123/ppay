@@ -22,10 +22,11 @@ module Biz
       get_new_emails().each do |uid|
         if ImpLog.find_by uid: uid
           slog "重复邮件[#{uid}]"
-          ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
+          # ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
           next
         end
         implog = ImpLog.new(uid: uid.to_i)
+        implog.save
         if check_email(uid, implog)
           att = get_attchement(uid)
           if att
@@ -112,7 +113,7 @@ module Biz
             imp_data.send( v + '=', theV)
             i += 1
           end
-
+          imp_data.imp_log_id = log.id
           imp_data.save
         end
         log.detail << 'sheet' + sheetindex.to_s + ':' + cnt.to_s + '  '

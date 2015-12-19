@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'upload_data/import'
   get 'import/do_import'
+  get 'import/do_import1'
   get 'import/get_import_msg'
 
   get 'users/sign_up', to: 'home#index'
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
   resources :imp_qf_clearings
   resources :imp_qf_trades
   resources :imp_qf_customers
+  resources :data_manage
 
   root to: 'home#index'
 

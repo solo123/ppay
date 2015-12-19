@@ -3,7 +3,7 @@ class ImportController < ApplicationController
     if $redis.get(:qf_imp_flag) == 'running'
       @import_status = 0
       flash[:errors] ||= []
-      flash[:errors] << "[操作已取消] 导入正在进行中，不能重复导入。"
+      flash[:errors] << "[取消] 在上次导入结束前，不能重复进行导入。"
     else
       @import_status = 1
       $redis.lpush :import_log, "0. 准备导入数据..."

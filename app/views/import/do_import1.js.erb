@@ -1,0 +1,22 @@
+function load_status(){
+  cnt++;
+  var data = "<p>" + cnt + ") this is one line message.</p>";
+  var d = $('#import_dialog').find('#dialog_messages');
+  d.append(data);
+  d = d.get(0);
+  d.scrollTop = d.scrollHeight;
+}
+
+if ($('#import_dialog').length == 0){
+  $('body').append("<%=j render 'dialog' %>");
+} else {
+  $('#dialog_messages').html('');
+}
+
+
+$('#import_dialog').modal();
+$('#import_dialog').on('hide.bs.modal', function (e) {
+  clearInterval(my_process);
+})
+var my_process = setInterval(load_status, 1000);
+var cnt = 0;

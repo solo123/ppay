@@ -1,3 +1,3 @@
 class ImpQfTrade < ActiveRecord::Base
-  belongs_to :imp_qf_customer
+  belongs_to :imp_log
 end

@@ -8,8 +8,8 @@ class CreateImpQfTrades < ActiveRecord::Migration
       t.string :jyjg
       t.string :jye
       t.string :zdcm
-      t.integer :zt
       t.integer :imp_log_id
+      t.integer :zt
 
       t.timestamps null: false
     end

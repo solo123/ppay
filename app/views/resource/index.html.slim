@@ -49,6 +49,7 @@ div class='row'
                     - obj.attributes.values[1..-3].each do |v|
                       td class=''
                         == v
+                    td== link_to '详情', obj
                     
                     
           = paginate @collection

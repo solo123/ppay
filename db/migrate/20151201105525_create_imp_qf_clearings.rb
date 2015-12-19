@@ -9,8 +9,8 @@ class CreateImpQfClearings < ActiveRecord::Migration
       t.string :jsje
       t.string :sjqsje
       t.string :qszt
-      t.integer :zt
       t.integer :imp_log_id
+      t.integer :zt
 
       t.timestamps null: false
     end
