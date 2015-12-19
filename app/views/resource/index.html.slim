@@ -30,7 +30,7 @@ div class='row'
             table class='table'
               thead
                 tr
-                  - for index in 0..@field_titles.count
+                  - for index in 0..(@field_titles.count-1)
                     th 
                       == sort_link(@q, @curmodel.attributes.keys.at(index),
                                     @field_titles.at(index), 

@@ -3,23 +3,25 @@ module Biz
 
     def import_from_email
       @errors = []
-      return if $redis.get(:qf_imp_flag) == 'running'
+      # return if $redis.get(:qf_imp_flag) == 'running'
       $redis.set(:qf_imp_flag, 'running')
-      slog "1. 开始导入数据..."
+      slog "1. 开始导入数据......"
       begin
         import_from_email_unsafe
       rescue
         # handle the error
+        slog '[导入出错]'
         @errors << "[导入出错] ..."
       ensure
         $redis.set(:qf_imp_flag, '')
-        slog 'import_end'
+        slog '导入结束...'
       end
     end
     def import_from_email_unsafe
       require "net/imap"
 
-      get_new_emails().each do |uid|
+      get_new_emails.each do |uid|
+        slog uid
         if ImpLog.find_by uid: uid
           slog "重复邮件[#{uid}]"
           # ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
@@ -76,7 +78,7 @@ module Biz
       slog "start import at #{data_file}"
       cus_attr = ['ssid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe', 'zt']
       trade_attr = ['ssid', 'zzh', 'jyrq', 'jylx', 'jyjg', 'jye', 'zdcm', 'zt']
-      clear_attr = ['qsrq', 'jybs', 'jybj', 'sxf', 'jsje', 'sjqsje', 'qszt', 'zt']
+      clear_attr = ['ssid', 'qsrq', 'jybs', 'jybj', 'sxf', 'jsje', 'sjqsje', 'qszt', 'zt']
 
       all_attrs = [cus_attr, trade_attr, clear_attr]
 
@@ -99,7 +101,7 @@ module Biz
 
       log.detail  << " 统计:"
       for sheetindex in 0..2 do
-
+        slog "正在导入第#{sheetindex}张表"
         sheet = book.worksheet sheetindex
         cnt = 0
         sheet.each  do |row|
@@ -109,8 +111,7 @@ module Biz
           next if row[1].nil? || row[1].to_i < 1
 
           for v in all_attrs[sheetindex] do
-            theV = row[i]  || ' '
-            imp_data.send( v + '=', theV)
+            imp_data.send( v + '=', row[i]  || ' ')
             i += 1
           end
           imp_data.imp_log_id = log.id
@@ -133,11 +134,11 @@ module Biz
       if index == 2
         obj = ImpQfClearing.new
       end
-
       return obj
     end
 
     def slog(msg)
+      puts msg
       $redis.lpush(:import_log, msg)
     end
 
