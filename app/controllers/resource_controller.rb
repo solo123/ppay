@@ -87,7 +87,7 @@ class ResourceController < ApplicationController
     end
 
     for index in 1..(len-3) do
-      @summary[index] = tmp[index].to_s
+      @summary[index] = tmp[index]== 0.0 ? '': tmp[index].to_s
     end
 
 

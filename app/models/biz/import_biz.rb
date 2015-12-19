@@ -75,7 +75,7 @@ module Biz
       slog "start import at #{data_file}"
       cus_attr = ['ssid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe', 'zt']
       trade_attr = ['ssid', 'zzh', 'jyrq', 'jylx', 'jyjg', 'jye', 'zdcm', 'zt']
-      clear_attr = ['qsrq', 'jybs', 'jybj', 'sxf', 'jsje', 'sjqsje', 'qszt', 'zt']
+      clear_attr = ['yhid', 'qsrq', 'jybs', 'jybj', 'sxf', 'jsje', 'sjqsje', 'qszt', 'zt']
 
       all_attrs = [cus_attr, trade_attr, clear_attr]
 
@@ -108,11 +108,9 @@ module Biz
           next if row[1].nil? || row[1].to_i < 1
 
           for v in all_attrs[sheetindex] do
-            theV = row[i]  || ' '
-            imp_data.send( v + '=', theV)
+            imp_data.send( v + '=', row[i]  || ' ')
             i += 1
           end
-
           imp_data.save
         end
         log.detail << 'sheet' + sheetindex.to_s + ':' + cnt.to_s + '  '
@@ -132,11 +130,12 @@ module Biz
       if index == 2
         obj = ImpQfClearing.new
       end
-
       return obj
     end
 
     def slog(msg)
+      puts msg
+      logger.warn msg
       $redis.lpush(:import_log, msg)
     end
 

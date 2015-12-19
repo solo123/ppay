@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20151204033533) do
   end
 
   create_table "imp_qf_clearings", force: :cascade do |t|
-    t.string   "yhid"
+    t.string   "ssid"
     t.string   "qsrq"
     t.string   "jybs"
     t.string   "jybj"

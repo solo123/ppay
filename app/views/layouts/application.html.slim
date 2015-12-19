@@ -74,7 +74,7 @@ html
                                     
           == render 'shared/left_menu_item',
                   :local => {:title => '个人设置',
-                              :data => [['资料', home_profile_path], ['退出', destroy_user_session_path ] ], 
+                              :data => [['资料', profile_info_path ] ], 
                               :class => 'fa-2x' }
           li
             a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
@@ -117,6 +117,9 @@ html
       App.init();
       Dashboard.init();
   footer class='container'
+    .row
+      .col-md-12
+        p Copyright © 2012–2015 深圳市普尔瀚达科技有限公司. All rights reserved. Version：0.1beta
     div class='row'
       div class='col-md-4'
       div class='col-md-8'
