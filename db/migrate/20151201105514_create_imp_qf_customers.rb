@@ -1,7 +1,7 @@
 class CreateImpQfCustomers < ActiveRecord::Migration
   def change
     create_table :imp_qf_customers do |t|
-      t.string :ssid
+      t.string :shid
       t.string :hylx
       t.string :dm
       t.string :lxr

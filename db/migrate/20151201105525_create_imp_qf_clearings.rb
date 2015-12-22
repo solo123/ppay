@@ -1,7 +1,7 @@
 class CreateImpQfClearings < ActiveRecord::Migration
   def change
     create_table :imp_qf_clearings do |t|
-      t.string :ssid
+      t.string :shid
       t.string :qsrq
       t.string :jybs
       t.string :jybj

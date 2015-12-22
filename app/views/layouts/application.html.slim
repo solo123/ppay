@@ -77,6 +77,15 @@ html
                   :local => {:title => '个人设置',
                               :data => [['资料', profile_info_path ] ], 
                               :class => 'fa-2x' }
+          
+          == render 'shared/left_menu_item',
+                  :local => {:title => '代理商',
+                            :data => [ ['client', clients_path],
+                                      ['contact', contacts_path],
+                                      ['address', addresses_path],
+                                      ['pos_machine', pos_machines_path],
+                                    ],
+                            :class => 'fa-2x' }
           li
             a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
               i class="fa fa-angle-double-left"

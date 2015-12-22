@@ -1,2 +1,0 @@
-module ImpQfTradesHelper
-end

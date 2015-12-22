@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/profile'
 
-  get 'upload_data/import'
   get 'import/do_import'
   get 'import/do_import1'
   get 'import/get_import_msg'
+  get 'import/pre_process'
 
   get 'users/sign_up', to: 'home#index'
 
@@ -20,6 +20,14 @@ Rails.application.routes.draw do
     get 'sign_up', to: 'devise/passwords#new'
   end
 
+  # client data
+  resources :clients
+  resources :contacts
+  resources :addresses
+  resources :salesmen
+  resources :pos_machines
+
+  # raw data
   resources :imp_ops
   resources :imp_logs
   resources :imp_qf_clearings
