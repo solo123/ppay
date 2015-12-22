@@ -14,21 +14,21 @@
 ActiveRecord::Schema.define(version: 20151221032632) do
 
   create_table "addresses", force: :cascade do |t|
-    t.integer  "province_id"
-    t.integer  "city_id"
+    t.integer  "contact_id"
+    t.integer  "province_code"
+    t.integer  "city_code"
     t.string   "street"
     t.string   "post_code"
     t.integer  "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "clients", force: :cascade do |t|
+    t.integer  "salesman_id"
     t.string   "shop_name"
     t.string   "shop_tel"
     t.integer  "category_id"
-    t.integer  "contact_id"
-    t.integer  "salesman_id"
     t.decimal  "rate",                    precision: 12, scale: 6
     t.decimal  "bank_card_limit_each",    precision: 12, scale: 2
     t.decimal  "bank_card_limit_month",   precision: 12, scale: 2
@@ -166,6 +166,8 @@ ActiveRecord::Schema.define(version: 20151221032632) do
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position"
 
   create_table "contacts", force: :cascade do |t|
+    t.integer  "salesman_id"
+    t.integer  "client_id"
     t.string   "name"
     t.string   "tel"
     t.string   "qq"
@@ -190,7 +192,7 @@ ActiveRecord::Schema.define(version: 20151221032632) do
   end
 
   create_table "imp_qf_clearings", force: :cascade do |t|
-    t.string   "ssid"
+    t.string   "shid"
     t.string   "qsrq"
     t.string   "jybs"
     t.string   "jybj"
@@ -205,7 +207,7 @@ ActiveRecord::Schema.define(version: 20151221032632) do
   end
 
   create_table "imp_qf_customers", force: :cascade do |t|
-    t.string   "ssid"
+    t.string   "shid"
     t.string   "hylx"
     t.string   "dm"
     t.string   "lxr"
@@ -228,7 +230,7 @@ ActiveRecord::Schema.define(version: 20151221032632) do
   end
 
   create_table "imp_qf_trades", force: :cascade do |t|
-    t.string   "ssid"
+    t.string   "shid"
     t.string   "zzh"
     t.string   "jyrq"
     t.string   "jylx"
@@ -251,7 +253,7 @@ ActiveRecord::Schema.define(version: 20151221032632) do
   end
 
   create_table "salesmen", force: :cascade do |t|
-    t.integer  "contact_id"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

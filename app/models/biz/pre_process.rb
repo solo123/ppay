@@ -5,9 +5,9 @@ module Biz
     def process_client
 
     #   ImpQfCustomer.all.each do |c|
-    #     client = Client.find(ssid: c.shid)
+    #     client = Client.find(shid: c.shid)
     #     if !client
-    #       client = Client.create(ssid: c.shid, shop_name: c.dm,, rate: c.fl )
+    #       client = Client.create(shid: c.shid, shop_name: c.dm,, rate: c.fl )
     #       client.
     #     end
     #   end
