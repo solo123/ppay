@@ -1,7 +1,7 @@
 class CreateImpQfTrades < ActiveRecord::Migration
   def change
     create_table :imp_qf_trades do |t|
-      t.string :ssid
+      t.string :shid
       t.string :zzh
       t.string :jyrq
       t.string :jylx

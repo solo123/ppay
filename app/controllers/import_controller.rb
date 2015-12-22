@@ -18,4 +18,11 @@ class ImportController < ApplicationController
     end
     render :text =>  r.html_safe
   end
+
+  def pre_process
+    logger.info 'start pre process the raw data'
+    ProcessForAgentJob.perform_later nil
+
+    redirect_to root_path
+  end
 end

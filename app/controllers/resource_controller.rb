@@ -1,6 +1,15 @@
 class ResourceController < ApplicationController
   respond_to :html, :js, :json
 
+  def initialize
+    super
+    @m_fields = [1]
+    @sum_fields = [1]
+
+    @table_head = 'table_head'
+    @field_titles = ['1', '2', '3', '4']
+  end
+
   def index
     @curmodel = object_name.classify.constantize.new
 
