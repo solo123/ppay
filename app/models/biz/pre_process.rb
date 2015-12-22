@@ -15,7 +15,7 @@ module Biz
     #   all_shids.each do |shid|
     #     client = Client.new()
     #   end
-    # end
+    end
 
   end
 

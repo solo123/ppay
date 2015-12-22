@@ -21,6 +21,7 @@ class CreateImpQfCustomers < ActiveRecord::Migration
       t.integer :zt
 
       t.timestamps null: false
+
     end
   end
 end

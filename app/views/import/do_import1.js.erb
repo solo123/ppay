@@ -1,8 +1,21 @@
 function load_status(){
+  if (cnt >= messages.length) cnt = 0;
+  var msg = messages[cnt];
+  if (msg.startsWith(":")){
+    if (msg.startsWith(":h1")) {
+      msg = "<h1>" + msg +"</h1>";
+    } else if (msg.startsWith(":bar")) {
+      msg = "<div>" + msg + "</div>";
+    } else if (msg.startsWith(":n")) {
+
+    }
+
+  } else {
+    msg = "<p>" + msg + "</p>";
+  }
   cnt++;
-  var data = "<p>" + cnt + ") this is one line message.</p>";
   var d = $('#import_dialog').find('#dialog_messages');
-  d.append(data);
+  d.append(msg);
   d = d.get(0);
   d.scrollTop = d.scrollHeight;
 }
@@ -20,3 +33,13 @@ $('#import_dialog').on('hide.bs.modal', function (e) {
 })
 var my_process = setInterval(load_status, 1000);
 var cnt = 0;
+var messages = [
+  ":h1 this line is a title.",
+  "message is here...",
+  ":bar process bar below.",
+  ":n 34/119",
+  ":n 50/119",
+  ":n 100/119",
+  "process end.",
+  "some text here......."
+];
