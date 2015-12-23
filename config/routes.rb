@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   get 'profile/info'
 
   get 'home/index'
@@ -14,30 +13,34 @@ Rails.application.routes.draw do
   get 'users/sign_up', to: 'home#index'
 
   devise_for :users
-  devise_scope :user do
-    get 'users/sign_out', to: "devise/sessions#destroy"
-    get "sign_in", to: "devise/sessions#new"
-    get 'sign_up', to: 'devise/passwords#new'
-  end
+  # devise_scope :user do
+  #   get 'users/sign_out', to: "devise/sessions#destroy"
+  #   get "sign_in", to: "devise/sessions#new"
+  #   get 'sign_up', to: 'devise/passwords#new'
+  # end
 
   # client data
-  resources :clients
-  resources :contacts
-  resources :addresses
-  resources :salesmen
-  resources :pos_machines
+  scope 'agent' do
+    resources :clients
+    resources :contacts
+    resources :addresses
+    resources :salesmen
+    resources :pos_machines
+  end
 
   # raw data
-  resources :imp_ops
-  resources :imp_logs
-  resources :imp_qf_clearings
-  resources :imp_qf_trades
-  resources :imp_qf_customers
-  resources :data_manage
+  scope 'admin' do
+    resources :imp_ops
+    resources :imp_logs
+    resources :imp_qf_clearings
+    resources :imp_qf_trades
+    resources :imp_qf_customers
+    resources :data_manage
+  end
 
   root to: 'home#index'
 
-  comfy_route :cms_admin, :path => '/cms-admin'
-  comfy_route :cms, :path => '/', :sitemap => false
+  # comfy_route :cms_admin, :path => '/cms-admin'
+  # comfy_route :cms, :path => '/', :sitemap => false
 
 end
