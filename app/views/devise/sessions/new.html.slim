@@ -5,6 +5,12 @@ div class="login login-v2" data-pageload-addclass='animated fadeIn'
       span 普尔支付
     
   div class='login-content'
+
+    div class='container'
+      = flash.each do |type, message|
+        div class="flash"
+          == message
+
     = simple_form_for(resource, as: resource_name, 
                       url: session_path(resource_name),
                       defaults: {label_html: {class: 'my_class'}}) do |f|
