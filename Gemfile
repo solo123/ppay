@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -41,7 +41,7 @@ gem 'spreadsheet'
 gem 'slim'
 gem 'sidekiq'
 gem 'cancancan'
-gem 'dalli'
+#gem 'dalli'
 gem 'carrierwave'
 
 group :development, :test do

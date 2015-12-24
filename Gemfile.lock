@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     actionmailer (4.2.5)
       actionpack (= 4.2.5)
@@ -95,7 +95,6 @@ GEM
       sass-rails (>= 4.0.3)
     concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
-    dalli (2.7.5)
     debug_inspector (0.0.2)
     devise (3.5.3)
       bcrypt (~> 3.0)
@@ -273,7 +272,6 @@ DEPENDENCIES
   cancancan
   carrierwave
   comfortable_mexican_sofa
-  dalli
   devise
   jbuilder (~> 2.0)
   jquery-rails
