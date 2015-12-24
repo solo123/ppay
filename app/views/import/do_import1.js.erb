@@ -5,11 +5,21 @@ function load_status(){
   var msg = messages[cnt];
   if (msg.indexOf(":")==0){
     if (msg.indexOf(":h1")==0) {
-      msg = "<h1>" + msg +"</h1>";
+      msg = "<h1>" + msg.substring(msg.indexOf(":h1")+1) +"</h1>";
     } else if (msg.indexOf(":bar")==0) {
-      msg = "<div>" + msg + "</div>";
+      msg = "<div>" + msg.substring(msg.indexOf(":bar")+1) + "</div>"+"<button class='btn btn-danger' style='width:50px;' >0</button>";
     } else if (msg.indexOf(":n")==0) {
-
+      var msg_a=parseInt(msg.replace(/[^0-9]/ig,"")/1000);
+      var msg_b=msg.replace(/[^0-9]/ig,"")-msg_a*1000;
+      $("#dialog_messages button").last().width(msg_a+50);
+      $("#dialog_messages button").last().text(msg_a+"/"+msg_b);
+      msg ="";
+      if (msg_a>=30) {
+        $("#dialog_messages button").last().attr("class","btn btn-warning");
+      };
+      if (msg_a>=60) {
+        $("#dialog_messages button").last().attr("class","btn btn-success");
+      };
     }
 
   } else {
@@ -39,9 +49,12 @@ var messages = [
   ":h1 this line is a title.",
   "message is here...",
   ":bar process bar below.",
+  ":n 15/119",
+  ":n 20/119",
   ":n 34/119",
   ":n 50/119",
-  ":n 100/119",
+  ":n 75/119",
+  ":n 119/119",
   "process end.",
   "some text here......."
 ];
