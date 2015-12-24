@@ -14,18 +14,20 @@
 ActiveRecord::Schema.define(version: 20151221032632) do
 
   create_table "addresses", force: :cascade do |t|
-    t.integer  "contact_id"
-    t.integer  "province_code"
-    t.integer  "city_code"
+    t.integer  "addr_obj_id"
+    t.string   "addr_obj_type"
+    t.integer  "province_id"
+    t.integer  "city_id"
     t.string   "street"
     t.string   "post_code"
-    t.integer  "status"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "status",        default: 1
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "clients", force: :cascade do |t|
     t.integer  "salesman_id"
+    t.string   "shid"
     t.string   "shop_name"
     t.string   "shop_tel"
     t.integer  "category_id"
@@ -38,8 +40,17 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.datetime "updated_at",                                       null: false
   end
 
+  create_table "clients_contacts", id: false, force: :cascade do |t|
+    t.integer "client_id"
+    t.integer "contact_id"
+  end
+
+  add_index "clients_contacts", ["client_id"], name: "index_clients_contacts_on_client_id"
+  add_index "clients_contacts", ["contact_id"], name: "index_clients_contacts_on_contact_id"
+
   create_table "code_tables", force: :cascade do |t|
     t.string   "name"
+    t.string   "val"
     t.integer  "parent_id"
     t.integer  "status"
     t.datetime "created_at", null: false
@@ -166,8 +177,6 @@ ActiveRecord::Schema.define(version: 20151221032632) do
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position"
 
   create_table "contacts", force: :cascade do |t|
-    t.integer  "salesman_id"
-    t.integer  "client_id"
     t.string   "name"
     t.string   "tel"
     t.string   "qq"
@@ -175,10 +184,13 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.string   "cid"
     t.datetime "cid_verified_date"
     t.string   "roles"
-    t.integer  "status"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "status",            default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
+
+  add_index "contacts", ["name"], name: "index_contacts_on_name"
+  add_index "contacts", ["tel"], name: "index_contacts_on_tel"
 
   create_table "imp_logs", force: :cascade do |t|
     t.integer  "uid"
@@ -248,15 +260,27 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.integer  "client_id"
     t.string   "brand"
     t.string   "model"
+    t.string   "join_date"
+    t.string   "info"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
   create_table "salesmen", force: :cascade do |t|
+    t.integer  "agent_id"
+    t.integer  "salesman_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
+
+  create_table "salesmen_contacts", id: false, force: :cascade do |t|
+    t.integer "salesman_id"
+    t.integer "contact_id"
+  end
+
+  add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id"
+  add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

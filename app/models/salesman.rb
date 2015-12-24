@@ -1,4 +1,4 @@
 class Salesman < ActiveRecord::Base
   has_many :clients
-  has_many :contacts
+  belongs_to :salesman
 end

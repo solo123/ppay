@@ -15,6 +15,7 @@ module Biz
       ensure
         $redis.set(:qf_imp_flag, '')
         slog '导入结束...'
+        slog 'import_end'
       end
     end
     def import_from_email_unsafe

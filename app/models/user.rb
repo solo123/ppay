@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
     false
   end
 
-  # 权限判断放在ability
-  # def admin?
-  #   return self.email == 'helapu@pooul.cn'
-  # end
+  def admin?
+    #return self.roles.include? 'admin'
+    true
+  end
 end

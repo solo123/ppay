@@ -18,7 +18,7 @@ class CreateImpQfCustomers < ActiveRecord::Migration
       t.decimal :xykdbxe, precision: 12, scale: 2
       t.decimal :xykdyxe, precision: 12, scale: 2
       t.integer :imp_log_id
-      t.integer :zt
+      t.integer :zt, default: 0
 
       t.timestamps null: false
 

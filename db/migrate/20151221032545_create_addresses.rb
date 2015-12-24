@@ -1,17 +1,16 @@
 class CreateAddresses < ActiveRecord::Migration
   def change
     create_table :addresses do |t|
-      t.belongs_to :contact
+      t.integer :addr_obj_id
+      t.string :addr_obj_type
 
-      t.integer :province_code
-      t.integer :city_code
+      t.integer :province_id
+      t.integer :city_id
       t.string :street
       t.string :post_code
-      t.integer :status
+      t.integer :status, default: 1
 
       t.timestamps null: false
     end
   end
 end
-# 关联类名
-# 关联对象ID	integer

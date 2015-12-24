@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   get 'import/do_import'
   get 'import/do_import1'
+  get 'import/parse_data'
   get 'import/get_import_msg'
+  get 'import/get_log_msg'
   get 'import/pre_process'
 
   get 'users/sign_up', to: 'home#index'
@@ -19,24 +21,19 @@ Rails.application.routes.draw do
   #   get 'sign_up', to: 'devise/passwords#new'
   # end
 
-  # client data
-  scope 'agent' do
     resources :clients
     resources :contacts
     resources :addresses
     resources :salesmen
     resources :pos_machines
-  end
 
   # raw data
-  scope 'admin' do
     resources :imp_ops
     resources :imp_logs
     resources :imp_qf_clearings
     resources :imp_qf_trades
     resources :imp_qf_customers
     resources :data_manage
-  end
 
   root to: 'home#index'
 
