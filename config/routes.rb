@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'import/parse_data'
   get 'import/get_import_msg'
   get 'import/get_log_msg'
+  get 'download/import_xls'
 
   get 'users/sign_up', to: 'home#index'
 
