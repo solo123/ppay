@@ -15,6 +15,7 @@ class ResourceController < ApplicationController
 
     # return @collection if @collection.present?
     load_collection
+    
   end
   def show
     load_object
