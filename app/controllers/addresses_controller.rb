@@ -5,9 +5,7 @@ class AddressesController < ResourceController
     @sum_fields = [1, 2]
 
     @table_head = '导入数据结果'
-    @field_titles = [ '邮件ID', '邮件标题', '接收时间', '发件人', '统计', '状态' ]
+    @field_titles = ['省', '市', '地址', '邮编', '状态']
   end
-
-
 
 end
