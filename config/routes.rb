@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   get 'profile/info'
 
   get 'home/index'
@@ -10,30 +11,27 @@ Rails.application.routes.draw do
   get 'import/parse_data'
   get 'import/get_import_msg'
   get 'import/get_log_msg'
-  get 'import/pre_process'
 
   get 'users/sign_up', to: 'home#index'
 
+  resources :users
+  resources :agents
   devise_for :users
-  # devise_scope :user do
-  #   get 'users/sign_out', to: "devise/sessions#destroy"
-  #   get "sign_in", to: "devise/sessions#new"
-  #   get 'sign_up', to: 'devise/passwords#new'
-  # end
 
-    resources :clients
-    resources :contacts
-    resources :addresses
-    resources :salesmen
-    resources :pos_machines
+  # agent data
+  resources :clients
+  resources :contacts
+  resources :addresses
+  resources :salesmen
+  resources :pos_machines
 
   # raw data
-    resources :imp_ops
-    resources :imp_logs
-    resources :imp_qf_clearings
-    resources :imp_qf_trades
-    resources :imp_qf_customers
-    resources :data_manage
+  resources :imp_ops
+  resources :imp_logs
+  resources :imp_qf_clearings
+  resources :imp_qf_trades
+  resources :imp_qf_customers
+  resources :data_manage
 
   root to: 'home#index'
 

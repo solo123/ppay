@@ -25,18 +25,11 @@ ActiveRecord::Schema.define(version: 20151225051540) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "clearings", force: :cascade do |t|
-    t.integer  "client_id"
-    t.string   "trade_date"
-    t.integer  "trade_count"
-    t.decimal  "trade_amount",       precision: 12, scale: 2
-    t.decimal  "trade_fee",          precision: 12, scale: 2
-    t.decimal  "clearing_amount",    precision: 12, scale: 2
-    t.decimal  "actual_amount",      precision: 12, scale: 2
-    t.integer  "clearing_status_id"
-    t.integer  "status",                                      default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "agents", force: :cascade do |t|
+    t.string   "name"
+    t.string   "mobile"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", force: :cascade do |t|
