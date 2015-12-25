@@ -26,7 +26,7 @@ div class='row'
               th== sort_link @q, :shop_name, '商户名称'
               th== sort_link @q, :shop_tel, '电话'
               th 行业
-              th 联系人
+              th== sort_link @q, :contacts_name, '联系人'
               th 业务员
               th== sort_link @q, :rate,  '费率'
               th 银行卡单笔/每月限额
