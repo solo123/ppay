@@ -5,7 +5,7 @@ class ContactsController < ResourceController
     @sum_fields = [1, 2]
 
     @table_head = '导入数据结果'
-    @field_titles = [ '邮件ID', '邮件标题', '接收时间', '发件人', '统计', '状态' ]
+    @field_titles = ['姓名', '电话', 'QQ', '微信号', '身份证号', '身份证校验日期', '角色']
   end
 
 end

@@ -53,15 +53,21 @@ html
           == render 'shared/left_menu_item',
                   :local => {:title => '商户数据',
                               :active => 'clients',
-                              :data =>  [ ['client', clients_path] ], 
+                              :data =>  [ ['商户', clients_path] ], 
                               :class => 'fa-2x fa-credit-card'}
-                                  
+          
           == render 'shared/left_menu_item',
                   :local => {:title => '交易数据',
                               :active => 'trades',
-                              :data => [], 
+                              :data => [ ['交易', trades_path] ],
                               :class => 'fa-2x fa-database'}
                               
+          == render 'shared/left_menu_item',
+                  :local => {:title => '清算数据',
+                              :active => 'clearings',
+                              :data => [ ['清算', clearings_path] ], 
+                              :class => 'fa-2x fa-database'}
+
           == render 'shared/left_menu_item',
                    :local => {:title => '数据报表',
                              :active => 'imp_logs',
@@ -72,17 +78,18 @@ html
                              :class => 'fa-2x fa-area-chart'}
                              
           == render 'shared/left_menu_item',
-                  :local => {:title => '管理工具',
+                  :local => {:title => '人员管理',
                               :active => 'manages',
-                              :data => [['用户管理', users_path],
-                                        ['代理管理', agents_path],
-                                        ['数据管理', data_manage_index_path ] ], 
+                              :data => [['员工', users_path],
+                                        ['代理', agents_path] ],
+
                               :class => ' fa-2x fa-users' }
                                     
           == render 'shared/left_menu_item',
-                  :local => {:title => '代理商',
-                            :data => [ ['contact', contacts_path], ['address', addresses_path], ['pos_machine', pos_machines_path] ],
-                            :class => 'fa-2x' }
+                  :local => {:title => '资源信息',
+                            :active => 'resources',
+                            :data => [ ['联系人', contacts_path], ['地址', addresses_path], ['刷卡机', pos_machines_path] ],
+                            :class => 'fa-2x fa-users' }
           
           == render 'shared/left_menu_item',
                   :local => {:title => '个人设置',
@@ -109,7 +116,7 @@ html
     script src="/color_admin/assets/plugins/jquery-cookie/jquery.cookie.js"
     script src="/color_admin/assets/plugins/pace/pace.min.js"
 
-    script src="/color_admin/assets/js/login-v2.demo.min.js"
+    / script src="/color_admin/assets/js/login-v2.demo.min.js"
     script src="/color_admin/assets/js/apps.min.js"
     
     - if false
@@ -126,11 +133,30 @@ html
     script src="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"
     script src="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"
     script src="/color_admin/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"
-    script src="/color_admin/assets/js/dashboard.js"
+    / script src="/color_admin/assets/js/dashboard.js"
     
     javascript:
       App.init();
       Dashboard.init();
+      
+    / 显示flash消息
+    = flash.each do |type, message|
+      div class="flash"
+        javascript:
+          setTimeout( function() {
+            $.gritter.add({
+              title: 'Welcome ',
+              text: 'Lorem ipsum.',
+              image: '/favicon.png',
+              sticky: true,
+              time: '',
+              class_name: 'my-sticky-class'
+              });
+              }, 500);     
+          }
+        
+      
+      
   footer class='container'
     .row
       .col-md-12

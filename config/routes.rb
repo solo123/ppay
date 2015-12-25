@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   # agent data
   resources :clients
+  resources :trades
+  resources :clearings
   resources :contacts
   resources :addresses
   resources :salesmen
