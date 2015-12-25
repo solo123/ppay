@@ -14,7 +14,7 @@
 == render 'shared/left_menu_item',
   :local => {:title => '交易数据',
   :active => 'trades',
-  :data => [], 
+  :data => [['交易数据', trades_path], ['清算数据',  clearings_path]], 
   :class => 'fa-2x fa-database'}
       
 == render 'shared/left_menu_item',
