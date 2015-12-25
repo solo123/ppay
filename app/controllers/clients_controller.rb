@@ -1,11 +1,7 @@
 class ClientsController < ResourceController
   def initialize
     super
-    @m_fields = [1, 3, 4]
-    @sum_fields = [1, 2]
-
-    @table_head = '导入数据结果'
-    @field_titles = [ '邮件ID', '邮件标题', '接收时间', '发件人', '统计', '状态' ]
+    @table_head = '商户资料'
   end
 
 

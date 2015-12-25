@@ -5,4 +5,13 @@ class Client < ActiveRecord::Base
   has_many :addrs, as: :addr_obj
   belongs_to :category, class_name: 'CodeTable'
   has_many :addresses, as: :addr_obj
+
+  def contact_info
+    if self.contacts.count > 0
+      c = self.contacts.first
+      "#{c.name}"
+    else
+      ''
+    end
+  end
 end
