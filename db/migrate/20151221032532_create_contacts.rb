@@ -7,7 +7,7 @@ class CreateContacts < ActiveRecord::Migration
       t.string :wechart
       t.string :cid
       t.datetime :cid_verified_date
-      t.string :roles
+      t.string :roles, default: ''
       t.integer :status, default: 0
       t.timestamps null: false
     end

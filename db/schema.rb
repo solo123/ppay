@@ -26,11 +26,11 @@ ActiveRecord::Schema.define(version: 20151221032632) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.integer  "salesman_id"
     t.string   "shid"
     t.string   "shop_name"
     t.string   "shop_tel"
     t.integer  "category_id"
+    t.integer  "salesman_id"
     t.decimal  "rate",                    precision: 12, scale: 6
     t.decimal  "bank_card_limit_each",    precision: 12, scale: 2
     t.decimal  "bank_card_limit_month",   precision: 12, scale: 2
@@ -183,10 +183,10 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.string   "wechart"
     t.string   "cid"
     t.datetime "cid_verified_date"
-    t.string   "roles"
+    t.string   "roles",             default: ""
     t.integer  "status",            default: 0
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "contacts", ["name"], name: "index_contacts_on_name"
@@ -213,9 +213,9 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.string   "sjqsje"
     t.string   "qszt"
     t.integer  "imp_log_id"
-    t.integer  "zt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "zt",         default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "imp_qf_customers", force: :cascade do |t|
@@ -236,9 +236,9 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.decimal  "xykdbxe",    precision: 12, scale: 2
     t.decimal  "xykdyxe",    precision: 12, scale: 2
     t.integer  "imp_log_id"
-    t.integer  "zt"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "zt",                                  default: 0
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   create_table "imp_qf_trades", force: :cascade do |t|
@@ -250,9 +250,9 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.string   "jye"
     t.string   "zdcm"
     t.integer  "imp_log_id"
-    t.integer  "zt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "zt",         default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "pos_machines", force: :cascade do |t|
@@ -268,10 +268,10 @@ ActiveRecord::Schema.define(version: 20151221032632) do
 
   create_table "salesmen", force: :cascade do |t|
     t.integer  "agent_id"
-    t.integer  "salesman_id"
+    t.integer  "contact_id"
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "salesmen_contacts", id: false, force: :cascade do |t|

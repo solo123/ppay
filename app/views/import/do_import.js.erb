@@ -4,21 +4,25 @@ alert('<%= err %>');
 <% end %>
 <% else %>
 function load_status(){
-  $.get('import/get_import_msg', function(data){
-    if (data.indexOf('import_end')>=0) {
-      clearInterval(my_process);
+  $.get('import/get_log_msg?log_name=import_log', function(data){
+    if (data){
+      msgs = data.split('|');
+      var d = $('#import_dialog').find('#dialog_messages');
+      $.each(msgs, function(index, value){
+        d.append('<p>' + value + '</p>');
+        if (value.indexOf('import_end')>=0) {
+          clearInterval(my_process);
+        }
+      });
+      d = d.get(0);
+      d.scrollTop = d.scrollHeight;
     }
-    var d = $('#import_dialog').find('#dialog_messages');
-    d.append(data);
-    d = d.get(0);
-    d.scrollTop = d.scrollHeight;
   });
 }
 
 if ($('#import_dialog').length == 0){
   $('body').append("<%=j render 'dialog' %>");
 }
-
 
 $('#import_dialog').modal();
 $('#import_dialog').on('hide.bs.modal', function (e) {

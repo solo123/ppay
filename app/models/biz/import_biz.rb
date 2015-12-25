@@ -5,7 +5,7 @@ module Biz
       @errors = []
       # return if $redis.get(:qf_imp_flag) == 'running'
       $redis.set(:qf_imp_flag, 'running')
-      slog "1. 开始导入数据......"
+      slog ":h1 开始导入数据......"
       begin
         import_from_email_unsafe
       rescue
@@ -14,7 +14,7 @@ module Biz
         @errors << "[导入出错] ..."
       ensure
         $redis.set(:qf_imp_flag, '')
-        slog '导入结束...'
+        slog ':h1 导入结束...'
         slog 'import_end'
       end
     end
@@ -24,7 +24,7 @@ module Biz
       get_new_emails.each do |uid|
         slog uid
         if ImpLog.find_by uid: uid
-          slog "重复邮件[#{uid}]"
+          slog ":h1 重复邮件[#{uid}]"
           # ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
           next
         end
@@ -67,7 +67,7 @@ module Biz
       log.title = mail.subject
       log.received_at = mail.date
       log.mail_from = mail.from.kind_of?(Array) ? mail.from.join(',') : mail.from
-      slog "  邮件：#{log.title}，来自：#{log.mail_from} @ #{log.received_at}"
+      slog ":h1 邮件：#{log.title}，来自：#{log.mail_from} @ #{log.received_at}"
       mail.has_attachments?
     end
 

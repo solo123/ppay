@@ -8,7 +8,7 @@ module Biz
       slog('import_end')
     end
     def parseCustomer(c)
-      return if c.zt > 0
+      return if c.zt && c.zt > 0
       if c.shid.empty?
         c.zt = 7
         c.save
@@ -55,7 +55,7 @@ module Biz
       end
     end
     def slog(msg)
-      #puts msg
+      puts msg
       $redis.lpush(:parse_log, msg)
     end
   end
