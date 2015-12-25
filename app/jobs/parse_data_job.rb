@@ -3,6 +3,6 @@ class ParseDataJob < ActiveJob::Base
 
   def perform(*args)
     imp = Biz::ParseDataBiz.new
-    imp.parseCustomers
+    imp.parse_all
   end
 end

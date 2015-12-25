@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221032632) do
+ActiveRecord::Schema.define(version: 20151225051540) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -23,6 +23,20 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.integer  "status",        default: 1
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "clearings", force: :cascade do |t|
+    t.integer  "client_id"
+    t.string   "trade_date"
+    t.integer  "trade_count"
+    t.decimal  "trade_amount",       precision: 12, scale: 2
+    t.decimal  "trade_fee",          precision: 12, scale: 2
+    t.decimal  "clearing_amount",    precision: 12, scale: 2
+    t.decimal  "actual_amount",      precision: 12, scale: 2
+    t.integer  "clearing_status_id"
+    t.integer  "status",                                      default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -281,6 +295,19 @@ ActiveRecord::Schema.define(version: 20151221032632) do
 
   add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id"
   add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id"
+
+  create_table "trades", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "pos_machine_id"
+    t.string   "sub_account",                              default: ""
+    t.string   "trade_date"
+    t.integer  "trade_type_id"
+    t.integer  "trade_result_id"
+    t.decimal  "trade_amount",    precision: 12, scale: 2
+    t.integer  "status",                                   default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
