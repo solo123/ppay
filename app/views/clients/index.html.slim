@@ -1,0 +1,36 @@
+div class='row'
+  div class='col-md-12'
+    div class='panel panel-success'
+      div class='panel-heading'
+        div class='panel-heading-btn'
+          a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-expand"
+            i class="fa fa-expand"
+        h4 class='panel-title' == @table_head
+      div class='panel-body'
+        = paginate @collection
+        table class='table'
+          thead
+            tr
+              th 商户ID
+              th 商户名称
+              th 电话
+              th 行业
+              th 联系人
+              th 业务员
+              th 费率
+              th 银行卡单笔/每月限额
+              th 信用卡单笔/每月限额
+              th 导入时间
+          tbody
+            - @collection.each do |obj|
+              tr
+                td== obj.shid
+                td== obj.shop_name
+                td== obj.shop_tel
+                td== obj.category.name
+                td== obj.contact_info
+                td== obj.salesman.name if obj.salesman
+                td== obj.rate
+                td #{obj.bank_card_limit_each} / #{obj.bank_card_limit_month}
+                td #{obj.credit_card_limit_each} / #{obj.credit_card_limit_month}
+                td==l obj.created_at
