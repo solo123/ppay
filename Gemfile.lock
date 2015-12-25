@@ -58,12 +58,6 @@ GEM
     bootstrap_form (2.3.0)
     builder (3.2.2)
     byebug (8.2.1)
-    cancancan (1.13.1)
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -269,8 +263,6 @@ DEPENDENCIES
   best_in_place
   better_errors
   byebug
-  cancancan
-  carrierwave
   comfortable_mexican_sofa
   devise
   jbuilder (~> 2.0)

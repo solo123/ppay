@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221032632) do
+ActiveRecord::Schema.define(version: 20151225052108) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20151221032632) do
     t.integer  "status",        default: 1
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "agents", force: :cascade do |t|
+    t.string   "name"
+    t.string   "mobile"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", force: :cascade do |t|

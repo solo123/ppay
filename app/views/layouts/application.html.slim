@@ -49,43 +49,48 @@ html
                   :local => {:title => '首页',
                               :active => 'home',
                               :class => 'fa-laptop'}
+                              
           == render 'shared/left_menu_item',
                   :local => {:title => '商户数据',
-                              :active => 'imp_qf_customers',
-                              :data =>  [['基础', imp_qf_customers_path] ], 
+                              :active => 'clients',
+                              :data =>  [ ['client', clients_path] ], 
                               :class => 'fa-2x fa-credit-card'}
                                   
           == render 'shared/left_menu_item',
                   :local => {:title => '交易数据',
-                              :active => 'imp_qf_trades',
-                              :data => [['交易', imp_qf_trades_path ], ['清算',imp_qf_clearings_path ]], 
+                              :active => 'trades',
+                              :data => [], 
                               :class => 'fa-2x fa-database'}
                               
           == render 'shared/left_menu_item',
-                  :local => {:title => '数据报表',
-                              :active => 'imp_logs',
-                              :data => [ ['导入', imp_logs_path ]], 
-                              :class => 'fa-2x fa-area-chart'}
-                              
+                   :local => {:title => '数据报表',
+                             :active => 'imp_logs',
+                             :data => [['导入', imp_logs_path ],
+                                       ['基础', imp_qf_customers_path],
+                                       ['交易', imp_qf_trades_path ], 
+                                       ['清算',imp_qf_clearings_path ] ], 
+                             :class => 'fa-2x fa-area-chart'}
+                             
           == render 'shared/left_menu_item',
                   :local => {:title => '管理工具',
-                              :data => [['用户管理', '/user'],
-                              ['数据管理', data_manage_index_path ] ], 
+                              :active => 'manages',
+                              :data => [['用户管理', users_path],
+                                        ['代理管理', agents_path],
+                                        ['数据管理', data_manage_index_path ] ], 
                               :class => ' fa-2x fa-users' }
                                     
           == render 'shared/left_menu_item',
+                  :local => {:title => '代理商',
+                            :data => [ ['contact', contacts_path], ['address', addresses_path], ['pos_machine', pos_machines_path] ],
+                            :class => 'fa-2x' }
+          
+          == render 'shared/left_menu_item',
                   :local => {:title => '个人设置',
+                              :active => 'settings',
                               :data => [['资料', profile_info_path ] ], 
                               :class => 'fa-2x' }
           
-          == render 'shared/left_menu_item',
-                  :local => {:title => '代理商',
-                            :data => [ ['client', clients_path],
-                                      ['contact', contacts_path],
-                                      ['address', addresses_path],
-                                      ['pos_machine', pos_machines_path],
-                                    ],
-                            :class => 'fa-2x' }
+                            
           li
             a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
               i class="fa fa-angle-double-left"
