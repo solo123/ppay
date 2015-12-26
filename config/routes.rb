@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
 
   get 'profile/info'
 
@@ -13,11 +14,9 @@ Rails.application.routes.draw do
   get 'import/get_log_msg'
   get 'download/import_xls'
 
-  get 'users/sign_up', to: 'home#index'
-
-  resources :users
   resources :agents
-  devise_for :users
+  # resources :users必须在devise_for后面定义
+  resources :users
 
   # agent data
   resources :clients
