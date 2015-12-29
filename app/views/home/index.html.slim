@@ -99,12 +99,10 @@ br
         h4.panel-title 活跃用户
       .panel-body
         ul.list-group
-          li.list-group-item 
-            span.badge 14
-            | 隔壁老王
-          li.list-group-item 
-            span.badge 14
-            | cc
+          - @active_clients.each do |c|
+            a href="#{client_path(c)}" class="list-group-item"
+              ==c.shop_name 
+              span.badge ==c.shid
 
 
 
@@ -127,3 +125,4 @@ p Lorem ipsum...
     a href='#' 99
   li
     a href='#' >>
+
