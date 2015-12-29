@@ -38,7 +38,6 @@
 
 
       
-      
   .row
     .col-md-4
       h4 新增加商户
@@ -47,20 +46,12 @@
           a href="#{client_path(c)}" class="list-group-item"
             ==c.shop_name 
             span.badge ==c.shid
-
+    .col-md-2
 
     .col-md-6
       h4 活跃用户
       ul.list-group
-        li.list-group-item 
-          span.badge 14
-          | 隔壁老王
-        li.list-group-item 
-          span.badge 14
-          | cc
-
-
-
-
-p Lorem ipsum...
-== high_chart("some_id", @chart)
+        - @active_clients.each do |c|
+          a href="#{client_path(c)}" class="list-group-item"
+            ==c.shop_name 
+            span.badge ==c.shid
