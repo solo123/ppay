@@ -23,11 +23,12 @@ module Biz
     end
     def parse_customer(c)
       return if c.zt && c.zt > 0
-      if c.shid.empty?
+      shid = c.shid.to_i
+      if shid == 0
         c.zt = 7
         c.save
       else
-        client = Client.find_or_create_by(shid: c.shid)
+        client = Client.find_or_create_by(shid: shid)
         client.shop_name = c.dm
         client.shop_tel = c.sj
         client.rate = c.fl
@@ -61,10 +62,7 @@ module Biz
         end
         unless c.zdcm.nil? || c.zdcm.empty?
           pos = PosMachine.find_machine(c.zdcm)
-          if pos
-            pos.join_date = c.rwsj
-            client.pos_machines << pos
-          end
+          client.pos_machines << pos if pos
         end
         client.save
         c.zt = 1
@@ -81,9 +79,10 @@ module Biz
     end
     def parse_trade(t)
       return if t.zt && t.zt > 0
-      if t.shid
+      shid = t.shid.to_i
+      if shid > 0
         trade = Trade.new()
-        trade.client = Client.find_by(shid: t.shid)
+        trade.client = Client.find_by(shid: shid)
         trade.pos_machine = PosMachine.find_machine(t.zdcm)
         if trade.client
           trade.sub_account = t.zzh
@@ -114,9 +113,10 @@ module Biz
     end
     def parse_clearing(c)
       return if c.zt && c.zt > 0
-      if c.shid
+      shid = c.shid.to_i
+      if shid > 0
         clr = Clearing.new
-        clr.client = Client.find_by(shid: c.shid)
+        clr.client = Client.find_by(shid: shid)
         if clr.client
           clr.trade_date = c.qsrq
           clr.trade_count = c.jybs

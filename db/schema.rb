@@ -55,12 +55,13 @@ ActiveRecord::Schema.define(version: 20151229044418) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string   "shid"
+    t.integer  "shid"
     t.string   "shop_name"
     t.string   "shop_tel"
     t.integer  "category_id"
     t.integer  "salesman_id"
     t.decimal  "rate",                    precision: 12, scale: 6
+    t.string   "join_date"
     t.decimal  "bank_card_limit_each",    precision: 12, scale: 2
     t.decimal  "bank_card_limit_month",   precision: 12, scale: 2
     t.decimal  "credit_card_limit_each",  precision: 12, scale: 2
@@ -290,7 +291,6 @@ ActiveRecord::Schema.define(version: 20151229044418) do
     t.integer  "client_id"
     t.string   "brand"
     t.string   "model"
-    t.string   "join_date"
     t.string   "info"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false

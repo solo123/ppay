@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'import/parse_data'
   get 'import/get_import_msg'
   get 'import/get_log_msg'
-  get 'download/import_xls'
+  get 'download/import_xls/:name', to: 'download#import_xls', as: :download_import_xls
 
   resources :agents
   # resources :users必须在devise_for后面定义
