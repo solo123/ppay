@@ -1,0 +1,8 @@
+h6 
+  ==@object.shop_name
+
+p 商户信息
+
+p == link_to '交易记录详细', trades_path("q[client_id_eq]" => @object.shid)
+
+/ == high_chart("client_trade", @chart)

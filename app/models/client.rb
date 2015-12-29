@@ -5,6 +5,7 @@ class Client < ActiveRecord::Base
   has_many :addrs, as: :addr_obj
   belongs_to :category, class_name: 'CodeTable'
   has_many :addresses, as: :addr_obj
+  has_many :client_notes
 
   def contact_info
     if self.contacts.count > 0
@@ -13,5 +14,18 @@ class Client < ActiveRecord::Base
     else
       ''
     end
+  end
+  def addr_info
+    if self.addresses.count > 0
+      addr = self.addresses.first
+      CodeTable.find(addr.province_id).name.to_s + ' ' + CodeTable.find(addr.city_id).name.to_s
+    else
+      ''
+    end
+  end
+
+  def note
+    # 获取所有的备注
+    {'type'=>'info', 'msg'=>'提醒info'}
   end
 end

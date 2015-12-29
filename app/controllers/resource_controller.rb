@@ -15,7 +15,7 @@ class ResourceController < ApplicationController
 
     # return @collection if @collection.present?
     load_collection
-    
+
   end
   def show
     load_object
@@ -75,7 +75,7 @@ class ResourceController < ApplicationController
     if params[:all_query].to_s.empty?
       @q = object_name.classify.constantize.ransack( params[:q] )
     else
-      tmp  =  {'m': 'or'} # 查询条件
+      tmp  =  {'m'=>'or'}
       for k in object_name.classify.constantize.new.attributes.keys[1..-3] do
         tmp[k.to_s +  '_cont'] = params[:all_query]
       end

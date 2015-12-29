@@ -1,86 +1,66 @@
 
-ol.breadcrumb.pull-right
-  li
-    a href="javascript:;"  Home
-  li.active Dashboard
-h1.page-header
-  | Dashboard
-  small header small text goes here...
+.container
+  .row
+    .col-md-3
+      p 总交易金额
+      p ==@trade_sum
+    .col-md-3
+      p 预计分润
+      p 7567
+    .col-md-3
+      p 总商户数量
+      p ==@client_sum
+    .col-md-3
+      ul.list-group
+        - @trade_detail_sum.each do |t|
+          li.list-group-item
+            == t['type']
+            == t['sum']
 
 
-.row
-  .col-md-3.col-sm-6
-    .widget.widget-stats.bg-green
-      .stats-icon
-        i.fa.fa-desktop
-      .stats-info
-        h4 TOTAL VISITORS
-        p 3,291,922
-      .stats-link
-        a href="javascript:;" 
-          | View Detail
-          i.fa.fa-arrow-circle-o-right
-  /
-  .col-md-3.col-sm-6
-    .widget.widget-stats.bg-green
-      .stats-icon
-        i.fa.fa-desktop
-      .stats-info
-        h4 TOTAL VISITORS
-        p 3,291,922
-      .stats-link
-        a href="javascript:;" 
-          | View Detail
-          i.fa.fa-arrow-circle-o-right
-  /
-.row
-  .col-md-6
-    .panel.panel-inverse data-sortable-id="index-7" 
-      .panel-heading
-        .panel-heading-btn
-          a.btn.btn-xs.btn-icon.btn-circle.btn-default data-click="panel-expand" href="javascript:;" 
-            i.fa.fa-expand
-          a.btn.btn-xs.btn-icon.btn-circle.btn-success data-click="panel-reload" href="javascript:;" 
-            i.fa.fa-repeat
-          a.btn.btn-xs.btn-icon.btn-circle.btn-warning data-click="panel-collapse" href="javascript:;" 
-            i.fa.fa-minus
-          a.btn.btn-xs.btn-icon.btn-circle.btn-danger data-click="panel-remove" href="javascript:;" 
-            i.fa.fa-times
-        h4.panel-title Visitors User Agent
-      .panel-body
-        #donut-chart.height-sm
-/
-.row
-  /! begin col-8
-  .col-md-8
-    /
-    ul.nav.nav-tabs.nav-tabs-inverse.nav-justified.nav-justified-mobile data-sortable-id="index-2"
-      li.active
-        a data-toggle="tab" href="#latest-post"
-          i.fa.fa-picture-o.m-r-5
-          span.hidden-xs Latest Post
-      li
-        a data-toggle="tab" href="#purchase"
-          i.fa.fa-shopping-cart.m-r-5
-          span.hidden-xs Purchase
-      li
-        a data-toggle="tab" href="#email"
-          i.fa.fa-envelope.m-r-5
-          span.hidden-xs Email
-    /
-    .panel.panel-inverse data-sortable-id="index-1"
-      .panel-heading
-        .panel-heading-btn
-          a.btn.btn-xs.btn-icon.btn-circle.btn-default data-click="panel-expand" href="javascript:;"
-            i.fa.fa-expand
-          a.btn.btn-xs.btn-icon.btn-circle.btn-success data-click="panel-reload" href="javascript:;"
-            i.fa.fa-repeat
-          a.btn.btn-xs.btn-icon.btn-circle.btn-warning data-click="panel-collapse" href="javascript:;"
-            i.fa.fa-minus
-          a.btn.btn-xs.btn-icon.btn-circle.btn-danger data-click="panel-remove" href="javascript:;"
-            i.fa.fa-times
-        h4.panel-title Website Analytics (Last 7 Days)
-      .panel-body
-        #interactive-chart.height-sm
-    /
-    
+  br
+  .row
+    .col-md-8
+      h4 系统公告
+      .jumbotron
+        h2 单月销售额度超过20万的 将会有额外的奖励
+      
+    .col-md-4
+      h5 优惠活动
+      .list-group
+        <a href="#" class="list-group-item active">
+          | Cras justo odio
+        </a>
+        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+        <a href="#" class="list-group-item">Morbi leo risus</a>
+        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+        <a href="#" class="list-group-item">Vestibulum at eros</a>
+
+
+      
+      
+  .row
+    .col-md-4
+      h4 新增加商户
+      ul.list-group
+        - @new_clients.each do |c|
+          a href="#{client_path(c)}" class="list-group-item"
+            ==c.shop_name 
+            span.badge ==c.shid
+
+
+    .col-md-6
+      h4 活跃用户
+      ul.list-group
+        li.list-group-item 
+          span.badge 14
+          | 隔壁老王
+        li.list-group-item 
+          span.badge 14
+          | cc
+
+
+
+
+p Lorem ipsum...
+== high_chart("some_id", @chart)

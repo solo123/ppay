@@ -1,5 +1,13 @@
 module Biz
   class ParseDataBiz
+
+    def reset
+      ImpQfTrade.all.each do |t|
+        t.zt = 0
+        t.save
+      end
+
+    end
     def parse_all
       parse_customers
       parse_trades
@@ -23,6 +31,7 @@ module Biz
         client.shop_name = c.dm
         client.shop_tel = c.sj
         client.rate = c.fl
+        client.join_date = c.rwsj
         client.bank_card_limit_each = c.jjkdbxe
         client.bank_card_limit_month = c.jjkdyxe
         client.credit_card_limit_each = c.xykdbxe
