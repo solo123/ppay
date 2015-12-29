@@ -54,6 +54,16 @@ html
       div class='content'  id='content'
         == yield
 
+      .footer#footer 
+        .row
+          .col-md-12
+            p Copyright © 2012–2015 深圳市普尔瀚达科技有限公司. All rights reserved. Version：0.1beta
+        div class='row'
+          div class='col-md-4'
+          div class='col-md-8'
+            /- if Rails.env.development?
+            /  == debug(params)
+
       a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"
         i class="fa fa-angle-up"
 
@@ -84,6 +94,15 @@ html
     / script src="/color_admin/assets/js/dashboard.js"
     
     javascript:
+      $(function(){
+                $("#weixin").mouseover(function(){
+                    $('#weixinjy').show();
+                })
+                
+                $("#weixin").mouseout(function(){
+                    $('#weixinjy').hide();
+                })
+            })
       App.init();
       Dashboard.init();
       
@@ -105,12 +124,4 @@ html
         
       
       
-  footer class='container'
-    .row
-      .col-md-12
-        p Copyright © 2012–2015 深圳市普尔瀚达科技有限公司. All rights reserved. Version：0.1beta
-    div class='row'
-      div class='col-md-4'
-      div class='col-md-8'
-        /- if Rails.env.development?
-        /  == debug(params)
+  
