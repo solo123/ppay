@@ -44,7 +44,7 @@ html
             div class='info'
               big 普尔支付 
               span 渠道系统
-        ul class='nav'
+        ul class='nav' id='sidemenu'
           == render 'shared/left_menu'
           li
             a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
@@ -94,15 +94,7 @@ html
     / script src="/color_admin/assets/js/dashboard.js"
     
     javascript:
-      $(function(){
-                $("#weixin").mouseover(function(){
-                    $('#weixinjy').show();
-                })
-                
-                $("#weixin").mouseout(function(){
-                    $('#weixinjy').hide();
-                })
-            })
+      myjs();
       App.init();
       Dashboard.init();
       

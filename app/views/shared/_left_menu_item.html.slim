@@ -1,12 +1,11 @@
-li class='#{ if params[:controller]==local[:active] then 'active bt-danger' end} #{ if local[:data]  then 'has-sub' end}'
+li class='#{ if local[:data]  then 'has-sub' end}'
   == link_to '' "#{if local[:data] then '#' else '/' end} " 
     - if local[:data]
       b class='caret pull-right'
-      
     i class='fa #{local[:class]}'
     span #{local[:title]}
   ul class='sub-menu'
     - if local[:data]
       - local[:data].each do |item|
-        li class='#{ if params[:controller]==local[:active] then 'active' end}'
+        li
           == link_to item.first, item.last

@@ -47,8 +47,8 @@ div class='panel panel-success'
           th 费率
       tbody
         - @collection.each do |obj|
-          tr
-            td colspan='5' style='padding:4px 15px;' ID: #{obj.shid} 商户名称: #{obj.shop_name}
+          tr.info
+            td colspan='6' style='padding:4px 15px;' ID: #{obj.shid} 商户名称: #{obj.shop_name}
             td colspan='3' style='padding:4px 15px; text-align:right;' 
               ==link_to '详情', client_path(obj)
               == ' '
@@ -68,4 +68,3 @@ div class='panel panel-success'
             td style='font-size:25px;color:orange;' #{obj.rate*100}%
           tr class="#{obj.note[:type]}"
             td colspan='10' style='margin:4px 15px;' 提示备注#{obj.note[:msg]}
-            
