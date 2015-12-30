@@ -1,1 +1,67 @@
-/ 基本信息 经营信息 联系信息 结算信息 终端信息 交易信息 积分 授信 备注 风控
+h2 用户标签
+
+
+button class="btn btn-default" type="button" tag1
+button class="btn btn-default" type="button" tag2
+button class="btn btn-default" type="button" tag3
+button class="btn btn-default" type="button" tag4
+br
+input placeholder='' value="#{@object.tag_list}"
+p 当前的tags: 
+==@object.tag_list
+br
+button class="btn btn-default" type="button" 更新tags
+p 
+ |暂时可以用get方式访问如下
+ |url http://localhost:3000/clients/1/tags?tags=<tags list>
+ |就可以更新当前标签
+
+
+
+br
+br
+br
+
+h4 统计信息
+p 加入天数
+==@object.join_days
+p 交易笔数
+==@object.trade_counts
+p 交易总金额
+==@object.trade_amounts
+p 最后交易时间
+==@object.last_trade_datetime
+br
+h4 基本信息
+p login name #{@object.shop_tel}
+p client rate #{@object.rate}
+p status ok
+p salesman #{@object.salesman_info.name}
+br
+h4 经营信息
+p 店铺名称 #{@object.shop_name}
+p 店铺类型 #{@object.shop_category.name}
+p 入网时间 #{@object.join_date}
+br
+h4 联系信息
+
+br
+h4 结算信息
+br
+h4 终端信息
+br
+h4 交易流水
+= paginate @trades_for_pages
+ul
+- @trades_for_pages.each do |trade|
+  li 
+    ==trade.trade_date
+    ==trade.trade_amount
+br
+h4 积分
+
+br
+h4 授信
+br
+h4 备注
+h4 风控

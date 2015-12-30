@@ -15,5 +15,17 @@ class ClientsController < ResourceController
     @collection = @q.result(distinct: true).includes(:contacts).page(params[:page]).per( pages )
   end
 
+  def show
+    super
+    @trades = Trade.where("client_id": params[:id])
+    @trades_for_pages = @trades.page( params[:page] ).per(20)
+  end
+
+  def tags
+    c = Client.find(params[:id])
+    c.tag_list = params[:tags]
+    c.save
+    redirect_to c
+  end
 
 end
