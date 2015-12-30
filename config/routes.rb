@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post 'mark_tag/set_tag'
   devise_for :users
 
   get 'profile/info'
@@ -19,7 +20,13 @@ Rails.application.routes.draw do
   resources :users
 
   # agent data
-  resources :clients
+  resources :clients do
+    member do
+      post :tags
+      get :tags
+    end
+  end
+
   resources :client_notes
   resources :trades
   resources :clearings

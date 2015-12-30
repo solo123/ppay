@@ -11,6 +11,12 @@ class Client < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :skills, :interests
 
+
+  after_initialize do |client|
+    # 载入交易
+    @trades = Trade.where("client_id": self.id)
+  end
+
   def contact_info
     if self.contacts.count > 0
       c = self.contacts.first
@@ -32,4 +38,28 @@ class Client < ActiveRecord::Base
     # 获取所有的备注
     {'type'=>'info', 'msg'=>'提醒info'}
   end
+
+  def join_days
+    (DateTime.current - self.join_date.to_datetime).to_i.to_s + '天'
+  end
+  def trade_counts
+    @trades.count.to_i
+  end
+  def trade_amounts
+    @trades.sum('trade_amount').to_f
+  end
+
+  def last_trade_datetime
+    @trades.order("trade_date").last.trade_date.to_s
+
+  end
+
+  def salesman_info
+    Salesman.find(self.salesman_id.to_i)
+
+  end
+  def shop_category
+    CodeTable.find(self.category_id)
+  end
+
 end
