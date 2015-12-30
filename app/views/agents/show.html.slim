@@ -1,13 +1,20 @@
-p#notice
-  = notice
-p
-  strong
-    | Name:
-  = @agent.name
-p
-  strong
-    | Mobile:
-  = @agent.mobile
-= link_to 'Edit', edit_agent_path(@agent)
-|  | 
+h6 
+  ==@agent.name 
+  ==@agent.mobile
+
 = link_to 'Back', agents_path
+
+h2 业务员
+
+p 添加业务员
+
+== simple_form_for(@salesman, html: {class: "input-group"}) do |f|
+  == f.input :agent_id
+  == f.input :contact_id
+  == f.input :name, class: 'form-control'
+  == f.button :submit
+
+
+
+h4 商户
+/ ==@clients

@@ -1,7 +1,9 @@
-h6 业务员信息
-
-p 联系人
-  #{@object.name}
-
-p 代理商
-  #{@object.agent_id}
+p#notice
+  = notice
+p
+  strong
+    | Name:
+  = @object.name
+= link_to 'Edit', edit_salesmen_path(@object)
+|  | 
+= link_to 'Back', scalesmen_path

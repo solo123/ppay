@@ -7,6 +7,10 @@ class Client < ActiveRecord::Base
   has_many :addresses, as: :addr_obj
   has_many :client_notes
 
+  # tag
+  acts_as_taggable
+  acts_as_taggable_on :skills, :interests
+
   def contact_info
     if self.contacts.count > 0
       c = self.contacts.first

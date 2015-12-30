@@ -19,15 +19,13 @@ div class='panel panel-success'
 table class='table panel panel-success'
   thead
     tr          
-      th agent_id
-      th contact_id
-      th name
+      th 代理商
+      th 联系信息
       th 更新时间
       
   tbody
     - @collection.each do |obj|
       tr
-        td== obj.agent_id
+        td== link_to "#{obj.agent_info.name}", agent_path(obj.agent_info)
         th== obj.contact_id
-        td== obj.name
-        td==l obj.updated_at
+        td== obj.updated_at

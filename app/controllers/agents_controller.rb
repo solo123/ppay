@@ -10,6 +10,24 @@ class AgentsController < ApplicationController
   # GET /agents/1
   # GET /agents/1.json
   def show
+
+    @salesman = @agent.salesmen.new(agent_id: @agent.id)
+
+    # 业务员 商户
+    # @salesman = Salesman.where("agent_id=", @agent.id) #.page(params[:page])
+
+    # if @clients==nil || @clients.count==0
+    #   @clients = []
+    #   @salesman.each do |aman|
+    #     @clients << aman.clients
+    #   end
+    # end
+    # @clients = []
+    # Salesman.all.each do |aman|
+    #   @clients << aman.clients
+    # end
+    # @clients
+
   end
 
   # GET /agents/new
