@@ -14,7 +14,7 @@ class Client < ActiveRecord::Base
 
   after_initialize do |client|
     # 载入交易
-    @trades = Trade.where("client_id": self.id)
+    @trades = Trade.where("client_id"=> self.id)
   end
 
   def contact_info

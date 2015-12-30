@@ -17,7 +17,7 @@ class ClientsController < ResourceController
 
   def show
     super
-    @trades = Trade.where("client_id": params[:id])
+    @trades = Trade.where("client_id"=> params[:id])
     @trades_for_pages = @trades.page( params[:page] ).per(20)
   end
 
