@@ -50,8 +50,12 @@ class Client < ActiveRecord::Base
   end
 
   def last_trade_datetime
-    @trades.order("trade_date").last.trade_date.to_s
-
+    last = @trades.order("trade_date").last
+    if last
+      last.trade_date.to_s
+    else
+      '无'
+    end
   end
 
   def salesman_info

@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     @new_clients = Biz::AgentTotal.new_clients
     @active_clients = Biz::AgentTotal.active_clients
 
-    
+
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(text: "商户销量分布")
       f.xAxis(categories: ["United States", "Japan", "China", "Germany", "France"])

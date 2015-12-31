@@ -3,6 +3,11 @@ class Salesman < ActiveRecord::Base
   belongs_to :salesman
   belongs_to :agent
 
+
+  scope :free_salesmen, -> { where(agent_id: nil) }
+	scope :free_client_salesmen, -> { where(client_id: nil) }
+
+
   def agent_info
     if self.agent==nil
       Agent.where('id=1').last

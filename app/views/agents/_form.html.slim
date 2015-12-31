@@ -1,20 +1,7 @@
-= form_for(@agent) do |f|
-  - if @agent.errors.any?
-    #error_explanation
-      h2
-        = pluralize(@agent.errors.count, "error")
-        |  prohibited this agent from being saved:
-      ul
-        - @agent.errors.full_messages.each do |message|
-          li
-            = message
-  .field
-    = f.label :name
-    br
-    = f.text_field :name
-  .field
-    = f.label :mobile
-    br
-    = f.text_field :mobile
-  .actions
-    = f.submit
+== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
+  == f.error_notification
+  == f.input :name
+  == f.input :mobile
+  .form-actions
+    == f.submit "save", :class => "btn btn-primary" 
+    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 

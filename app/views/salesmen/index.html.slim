@@ -26,6 +26,9 @@ table class='table panel panel-success'
   tbody
     - @collection.each do |obj|
       tr
-        td== link_to "#{obj.agent_info.name}", agent_path(obj.agent_info)
+        - if obj.agent
+          td== link_to "#{obj.agent_info.name}", agent_path(obj.agent_info)
+        -else
+          td 
         th== obj.contact_id
         td== obj.updated_at

@@ -2,11 +2,6 @@ module Biz
   # 计算代理商的一些统计信息
   class AgentTotal
     def self.client_sum
-      # Client.all.each do |c|
-      #   imp = ImpQfCustomer.where('shid'=>c.shid).last
-      #   c.join_date = imp.rwsj
-      #   c.save
-      # end
       Client.count
     end
 
@@ -48,8 +43,8 @@ module Biz
 
     def self.active_clients
       # 规则: 最近两个月，交易数量>交易额 依次排序
-      last_info = Trade.where("trade_date>2015-12-16").group("client_id").take(10)
-
+      cur = Date.today
+      last_info = Trade.where("trade_date > #{Date.new(cur.year, cur.month-2, cur.day)}").group("client_id").take(10)
       clients = []
       last_info.each do |last|
         clients << last.client
