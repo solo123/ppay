@@ -2,11 +2,10 @@ module Biz
   # 计算代理商的一些统计信息
   class AgentTotal
     def self.client_sum
-      # Client.all.each do |c|
-      #   imp = ImpQfCustomer.where('shid'=>c.shid).last
-      #   c.join_date = imp.rwsj
-      #   c.save
-      # end
+      sids = @agent.salesman_ids # 获取所有的业务员
+      c_objs = Client.where('salesman_id': sids).order('join_date ASC') # 业务员下的所有商户
+      trade_objs = Trade.where('client_id': c_objs.ids) #商户的所有交易记录
+
       Client.count
     end
 

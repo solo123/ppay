@@ -1,10 +1,10 @@
 class AgentsController < ApplicationController
   before_action :set_agent, only: [:show, :edit, :update, :destroy]
 
+  # manage salesman
   def add_salesman
     set_agent
     @agent.salesmen << Salesman.find(params[:salesman_id])
-
     redirect_to @agent
   end
   def del_salesman
@@ -13,7 +13,6 @@ class AgentsController < ApplicationController
     s.agent = nil
     s.save
     redirect_to @agent
-
   end
 
   # GET /agents
@@ -25,7 +24,14 @@ class AgentsController < ApplicationController
   # GET /agents/1
   # GET /agents/1.json
   def show
-    @salesman = @agent.salesmen.new(agent_id: @agent.id)
+    @client_count = @agent.clients_obj.count
+    @trade_amount_sum = @agent.trades_obj.sum('trade_amount')
+
+    dif_date = DateTime.current - @agent.clients_obj.first.join_date.to_datetime
+
+    @join_days = dif_date.to_i.to_s
+    @last_date = @agent.clients_obj.last.join_date.to_datetime
+
   end
 
   # GET /agents/new

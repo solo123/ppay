@@ -19,6 +19,9 @@ class ClientsController < ResourceController
     super
     @trades = Trade.where("client_id"=> params[:id])
     @trades_for_pages = @trades.page( params[:page] ).per(20)
+
+    # notes
+    @notes_for_pages = @object.client_notes.page( params[:page]).per(10)
   end
 
   # tag管理
@@ -40,7 +43,7 @@ class ClientsController < ResourceController
   def note
     load_object
     if request.get?
-      @notes = @object.client_notes
+      @notes = @object.client_notes.page( params[:note_page]).per(5)
     elsif request.post?
       @object.client_notes.create('note'=>params[:note], 'tip'=>params[:tip], 'user'=>current_user)
       redirect_to @object

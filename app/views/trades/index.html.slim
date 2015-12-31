@@ -27,7 +27,7 @@ div class='panel panel-success'
       tbody
         - @collection.each do |obj|
           tr
-            th== link_to "#{obj.client.shop_name}", client_path("id=#{obj.client_id}")
+            th== link_to "#{obj.client.shop_name}", client_path(obj.client_id)
             td== obj.sub_account
             td== obj.trade_amount
             td== obj.trade_date

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  post 'mark_tag/set_tag'
   devise_for :users
 
   get 'profile/info'
