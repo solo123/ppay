@@ -5,4 +5,6 @@ class SalesmenController < ResourceController
     @fields = %w(name)
     @field_titles = [ '姓名' ]
   end
+
+
 end

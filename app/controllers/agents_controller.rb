@@ -1,6 +1,21 @@
 class AgentsController < ApplicationController
   before_action :set_agent, only: [:show, :edit, :update, :destroy]
 
+  def add_salesman
+    set_agent
+    @agent.salesmen << Salesman.find(params[:salesman_id])
+
+    redirect_to @agent
+  end
+  def del_salesman
+    set_agent
+    s = Salesman.find(params[:salesman_id])
+    s.agent = nil
+    s.save
+    redirect_to @agent
+
+  end
+
   # GET /agents
   # GET /agents.json
   def index
@@ -10,24 +25,7 @@ class AgentsController < ApplicationController
   # GET /agents/1
   # GET /agents/1.json
   def show
-
     @salesman = @agent.salesmen.new(agent_id: @agent.id)
-
-    # 业务员 商户
-    # @salesman = Salesman.where("agent_id=", @agent.id) #.page(params[:page])
-
-    # if @clients==nil || @clients.count==0
-    #   @clients = []
-    #   @salesman.each do |aman|
-    #     @clients << aman.clients
-    #   end
-    # end
-    # @clients = []
-    # Salesman.all.each do |aman|
-    #   @clients << aman.clients
-    # end
-    # @clients
-
   end
 
   # GET /agents/new

@@ -15,9 +15,14 @@ Rails.application.routes.draw do
   get 'import/get_log_msg'
   get 'download/import_xls/:name', to: 'download#import_xls', as: :download_import_xls
 
-  resources :agents
   # resources :users必须在devise_for后面定义
   resources :users
+  resources :agents do
+    member do
+      post :del_salesman
+      post :add_salesman
+    end
+  end
 
   # agent data
   resources :clients do

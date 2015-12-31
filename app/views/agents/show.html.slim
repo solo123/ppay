@@ -1,20 +1,32 @@
-h6 
-  ==@agent.name 
-  ==@agent.mobile
-
 = link_to 'Back', agents_path
 
-h2 业务员
+.row
+  .col-md-6
+    == simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
+      == f.error_notification
+      == f.input :name
+      == f.input :mobile
+      .form-actions
+        == f.submit "save", :class => "btn btn-primary" 
+        == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+  .col-md-6
+    = simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
+      == f.error_notification
+      = f.input :password
+      = f.input :password_confirmation
+      .form-actions
+        = f.submit 'save', :class => "btn btn-primary" 
+        = submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
 
-p 添加业务员
 
-== simple_form_for(@salesman, html: {class: "input-group"}) do |f|
-  == f.input :agent_id
-  == f.input :contact_id
-  == f.input :name, class: 'form-control'
-  == f.button :submit
-
-
-
-h4 商户
-/ ==@clients
+.row#salesmen
+  .col-md-6
+    .list-group
+      .list-group-item.active 相关商户
+      - @agent.salesmen.each do |s|
+        = link_to "#{s.name}", del_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+  .col-md-6
+    .list-group
+      .list-group-item.active 未关联的商户
+      - Salesman.free_salesmen.each do |s|
+        = link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
