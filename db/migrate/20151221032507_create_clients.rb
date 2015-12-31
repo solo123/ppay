@@ -1,6 +1,8 @@
 class CreateClients < ActiveRecord::Migration
   def change
     create_table :clients do |t|
+      t.belongs_to :salesman
+      
       t.integer :shid
       t.string :shop_name
       t.string :shop_tel

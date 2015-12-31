@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20151230022028) do
 
   create_table "client_notes", force: :cascade do |t|
     t.integer  "client_id"
+    t.integer  "user_id"
     t.text     "note"
     t.string   "tip"
     t.datetime "created_at", null: false
@@ -55,19 +56,19 @@ ActiveRecord::Schema.define(version: 20151230022028) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string   "shid"
+    t.integer  "salesman_id"
+    t.integer  "shid"
     t.string   "shop_name"
     t.string   "shop_tel"
     t.integer  "category_id"
-    t.integer  "salesman_id"
     t.decimal  "rate",                    precision: 12, scale: 6
+    t.string   "join_date"
     t.decimal  "bank_card_limit_each",    precision: 12, scale: 2
     t.decimal  "bank_card_limit_month",   precision: 12, scale: 2
     t.decimal  "credit_card_limit_each",  precision: 12, scale: 2
     t.decimal  "credit_card_limit_month", precision: 12, scale: 2
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
-    t.string   "join_date"
   end
 
   create_table "clients_contacts", id: false, force: :cascade do |t|
@@ -290,7 +291,6 @@ ActiveRecord::Schema.define(version: 20151230022028) do
     t.integer  "client_id"
     t.string   "brand"
     t.string   "model"
-    t.string   "join_date"
     t.string   "info"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false

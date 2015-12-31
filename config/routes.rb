@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     member do
       post :tags
       get :tags
+      post :note
+      get :note
     end
   end
 

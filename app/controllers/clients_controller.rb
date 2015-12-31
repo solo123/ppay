@@ -21,11 +21,32 @@ class ClientsController < ResourceController
     @trades_for_pages = @trades.page( params[:page] ).per(20)
   end
 
+  # tag管理
   def tags
-    c = Client.find(params[:id])
-    c.tag_list = params[:tags]
-    c.save
-    redirect_to c
+    load_object
+    if request.get?
+      @tags = @object.tag_list
+    elsif request.post?
+      params[:tags].each do |tag|
+        @object.tag_list << tag
+      end
+      @object.save
+      redirect_to @object
+    else
+    end
+  end
+
+  # 备注管理
+  def note
+    load_object
+    if request.get?
+      @notes = @object.client_notes
+    elsif request.post?
+      @object.client_notes.create('note'=>params[:note], 'tip'=>params[:tip], 'user'=>current_user)
+      redirect_to @object
+    else
+    end
+
   end
 
 end

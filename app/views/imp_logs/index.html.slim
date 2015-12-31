@@ -19,7 +19,7 @@ div class='row'
               th 发件人
               th 导入信息
               th 详细数据
-              th 状态
+              
           tbody
             - @collection.each do |obj|
               tr
@@ -37,31 +37,3 @@ div class='row'
                     == link_to "交易：#{obj.imp_qf_trades.count}条/#{obj.imp_qf_trades.where(zt: 1).count}/#{obj.imp_qf_trades.where('zt <> 1').count}, ", imp_qf_trades_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
                     br
                     == link_to "清算：#{obj.imp_qf_clearings.count}条/#{obj.imp_qf_clearings.where(zt: 1).count}/#{obj.imp_qf_clearings.where('zt <> 1').count}", imp_qf_clearings_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
-
-= paginate @collection
-table class='table panel panel-success'
-  thead
-    tr
-      th 邮件id
-      th 邮件标题
-      th 接收日期
-      th 发件人
-      th 导入信息
-      th 详细数据
-      th 状态
-  tbody
-    - @collection.each do |obj|
-      tr
-        td== obj.uid
-        td== obj.title
-        td== obj.received_at
-        td== obj.mail_from
-        td== obj.detail
-        td
-          - if obj.status == 8
-            == link_to 'xls文件| ', download_import_xls_path(name: obj.uid)
-            == link_to "商户：#{obj.imp_qf_customers.count} 条, ", imp_qf_customers_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
-            == link_to "交易：#{obj.imp_qf_trades.count} 条, ", imp_qf_trades_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
-            == link_to "清算：#{obj.imp_qf_clearings.count} 条", imp_qf_clearings_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
-
-        td== obj.status

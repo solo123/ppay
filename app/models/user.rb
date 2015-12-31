@@ -1,10 +1,9 @@
 class User < ActiveRecord::Base
-  ROLES = %i[admin moderator author banned]
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [:mobile]
 
+  has_many :client_notes
 
   def email_required?
     false
