@@ -1,67 +1,193 @@
-h2 用户标签
+h2 商户生命周期
+.row
+  .col-md-2
+    h1.text-warning ==@object.join_days
+    b 入网时间
+  .col-md-2
+    h1.text-warning ==@object.trade_counts
+    b 交易笔数
+  .col-md-2
+    h1.text-warning ==@object.trade_amounts
+    b 交易总金额
+  .col-md-6
+    h1.text-warning ==@object.last_trade_datetime
+    b 最后交易时间
+.panel.panel-success
+  .panel-heading
+    h4.panel-title #{@object.shop_name}
+  .panel-body
+    h4 入网信息
+    .row
+      .col-md-6
+        p 经营类型: #{@object.shop_category.name}
+        p T1登录帐号:
+      .col-md-6
+        p 入网时间: #{@object.join_date}
+        p T0登录帐号:
+    h4 联系信息
+    .row
+      .col-md-6
+        p 联系人:
+        p 地区:
+      .col-md-6
+        p 联系手机: #{@object.shop_tel}
+        p 详细地址:
+    h4 终端信息
+    .row
+      .col-md-6
+        p 终端编号
+        p 15100000030010055
+        p 15100000030010044
+      .col-md-6
+        p 设备类型
+        p xxxxxx
+        p xxxxxx
+    h4 渠道信息
+    .row
+      .col-md-6
+        p 渠道名称:
+        p 业务员姓名: #{@object.salesman_info.name}
+      .col-md-6
+        p 渠道合作时间:
+        p 业务员手机:
+    h4 费率限额
+    .row
+      .col-md-6
+        p POS刷卡结算方式: T1
+        p 信用卡单笔限额:
+        p 借记卡单笔限额:
+        p POS刷卡结算方式: T0
+        p 信用卡单笔限额:
+        p 借记卡单笔限额:
+      .col-md-6
+        p 费率: #{@object.rate}
+        p 信用卡月限额:
+        p 借记卡月限额:
+        p 费率: 
+        p 信用卡月限额:
+        p 借记卡月限额:
+.panel.panel-success
+  .panel-heading
+    .btn-group.pull-right
+      button.btn.btn-warning.btn-xs 显示所有
+    h4.panel-title 客户服务信息
+  .panel-body
+    .alert.alert-success.fade.in
+      .row
+        .col-md-6
+          strong success : 
+          span xxxxxxxxxxxxxxxxxxxxxxxx
+        .col-md-2
+          span xxx
+        .col-md-2
+          span xxxx
+        .col-md-2
+          button.btn.btn-xs.btn-default 归档
+    .alert.alert-info.fade.in
+      .row
+        .col-md-6
+          strong success : 
+          span xxxxxxxxxxxxxxxxxxxxxxxx
+        .col-md-2
+          span xxx
+        .col-md-2
+          span xxxx
+        .col-md-2
+          button.btn.btn-xs.btn-default 归档
+    .alert.alert-danger.fade.in
+      .row
+        .col-md-6
+          strong success : 
+          span xxxxxxxxxxxxxxxxxxxxxxxx
+        .col-md-2
+          span xxx
+        .col-md-2
+          span xxxx
+        .col-md-2
+          button.btn.btn-xs.btn-default 归档
+  .row
+    .col-md-6
+      .container
+        h4 增加备注 
+        span 备注类型
+        label.checkbox-inline
+          input type='checkbox'
+          span 一般
+        label.checkbox-inline
+          input type='checkbox'
+          span 普通
+        label.checkbox-inline
+          input type='checkbox'
+          span 严重
+        label.checkbox-inline
+          input type='checkbox'
+          span 紧急
+      textarea.form-control rows='5' placeholder='Textarea'
+      button.btn.btn-danger.btn-lg 提交备注
+    col-md-6
+      h4 用户标签
+      p ==@object.tag_list
+      span 自定义标签
+      input placeholder='' value='#{@object.tag_list}'
+      button class="btn btn-default" type="button" 添加
+      br
+      span 常用标签
+      button.btn.btn-primary.m-l-5.m-b-5 type="button" tag1
+      button.btn.btn-info.m-l-5.m-b-5 type="button" tag2
+      button.btn.btn-success.m-l-5.m-b-5 type="button" tag3
+      button.btn.btn-warning.m-l-5.m-b-5 type="button" tag4
+      p 
+      |暂时可以用get方式访问如下
+      |url http://localhost:3000/clients/1/tags?tags=<tags list>
+      |就可以更新当前标签
+.panel.panel-success
+  .panel-heading
+    h4.panel-title
+      p 交易信息
+  .panel-body
+    = paginate @trades_for_pages
+    table class='table'
+      thead
+        tr
+          th 操作员
+          th 交易时间
+          th 交易类型
+          th 交易结果
+          th 交易额
+          th 交易机具编号
+      tbody
+      - @trades_for_pages.each do |trade|
+        tr
+          td
+          td ==trade.trade_date
+          td
+          td
+          td ==trade.trade_amount
+          td
+        
+        
 
 
-button class="btn btn-default" type="button" tag1
-button class="btn btn-default" type="button" tag2
-button class="btn btn-default" type="button" tag3
-button class="btn btn-default" type="button" tag4
-br
-input placeholder='' value="#{@object.tag_list}"
-p 当前的tags: 
-==@object.tag_list
-br
-button class="btn btn-default" type="button" 更新tags
-p 
- |暂时可以用get方式访问如下
- |url http://localhost:3000/clients/1/tags?tags=<tags list>
- |就可以更新当前标签
 
 
 
-br
-br
-br
 
-h4 统计信息
-p 加入天数
-==@object.join_days
-p 交易笔数
-==@object.trade_counts
-p 交易总金额
-==@object.trade_amounts
-p 最后交易时间
-==@object.last_trade_datetime
-br
-h4 基本信息
-p login name #{@object.shop_tel}
-p client rate #{@object.rate}
-p status ok
-p salesman #{@object.salesman_info.name}
-br
-h4 经营信息
-p 店铺名称 #{@object.shop_name}
-p 店铺类型 #{@object.shop_category.name}
-p 入网时间 #{@object.join_date}
-br
-h4 联系信息
 
-br
-h4 结算信息
-br
-h4 终端信息
-br
-h4 交易流水
-= paginate @trades_for_pages
-ul
-- @trades_for_pages.each do |trade|
-  li 
-    ==trade.trade_date
-    ==trade.trade_amount
-br
-h4 积分
 
-br
-h4 授信
-br
-h4 备注
-h4 风控
+
+
+
+
+
+
+
+
+
+
+    / h4 交易流水
+    
+    / h4 积分
+    / h4 授信
+    / h4 备注
+    / h4 风控
+    
