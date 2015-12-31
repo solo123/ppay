@@ -1,4 +1,7 @@
 var myjs =function () {
+	$('.pagination').addClass('m-t-0 m-b-10');
+	$('.pagination span').css('padding','10px');
+
 	$("#weixin").mouseover(function(){
 		$('#weixinjy').show();
 	})
@@ -69,4 +72,37 @@ var myjs =function () {
 		$('#sidemenu').children().eq(6).addClass('active');
 		$('#sidemenu').children().eq(6).find('ul li').eq(0).addClass('active');
 	};
+
+	$('#beizhubtn').click(function(){
+		var checkedradio = $(".radio-inline input[name='optionsRadios']:checked").val();
+	 	var bztextval = $('#beizhutext').val();
+	 	var mydate = new Date();
+		$('#beizhuxinxi').append("<div class='row'><div class='col-md-6'><strong>"+
+				checkedradio+"</strong><span>"+bztextval+
+				"</span></div><div class='col-md-2'><span>usename</span></div><div class='col-md-2'><span>"
+				+mydate+"</span></div><div class='col-md-2'><button class='btn btn-xs btn-default'>归档</button></div></div>");
+	});
+
+	$('#biaoqianbtn').click(function(){
+		var bqtextval=$('#biaoqiantext').val();
+		$('#biaoqianxinxi').append(bqtextval);
+		$.ajax({
+			type:'GET',
+			url:'http://localhost:3000/clients/1/tags?tags='+bqtextval,
+			dataType:'json',
+			success:function(data){
+				alert('ok');
+			},
+			error: function(jqXHR){
+				alert('no');
+			}
+
+		});
+	});
+	$('#cybq button').click(function(){
+		var cybqval = $(this).text();
+		var dqbqtextval=$('#biaoqiantext').val();
+		var newbqtextval=dqbqtextval+cybqval;
+		$('#biaoqiantext').val(newbqtextval);
+	});
 }
