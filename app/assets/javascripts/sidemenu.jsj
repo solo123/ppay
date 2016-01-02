@@ -73,7 +73,7 @@ var myjs =function () {
 		$('#sidemenu').children().eq(6).find('ul li').eq(0).addClass('active');
 	};
 
-	$('#beizhubtn').click(function(){
+	$('#beizhubtncc').click(function(){
 		var checkedradio = $(".radio-inline input[name='optionsRadios']:checked").val();
 	 	var bztextval = $('#beizhutext').val();
 	 	var mydate = new Date();
@@ -82,19 +82,38 @@ var myjs =function () {
 				"</span></div><div class='col-md-2'><span>usename</span></div><div class='col-md-2'><span>"
 				+mydate+"</span></div><div class='col-md-2'><button class='btn btn-xs btn-default'>归档</button></div></div>");
 	});
+  $('#beizhubtn').click(function() {
+    // body...
+    $.ajax({
+      type:'POST',
+			url:'http://localhost:3000/clients/1/note',
+			dataType:'json',
+      data: {
+        tip: 'info',
+        note: '你是天边的一度云啊，在那里飘荡啊.',
+        user_id: 1
+      }
+    });
+  });
+
 
 	$('#biaoqianbtn').click(function(){
 		var bqtextval=$('#biaoqiantext').val();
 		$('#biaoqianxinxi').append(bqtextval);
 		$.ajax({
-			type:'GET',
-			url:'http://localhost:3000/clients/1/tags?tags='+bqtextval,
+      // 以post方式发送
+			type:'POST',
+			url:'http://localhost:3000/clients/1/tags',
 			dataType:'json',
+      data: {
+        // 把标签以数组的形式放在这里
+        tags: ['王小波', 'laobangzhu']
+      },
 			success:function(data){
-				alert('ok');
+				console.log('ok---');
 			},
 			error: function(jqXHR){
-				alert('no');
+				console.log('error---');
 			}
 
 		});
