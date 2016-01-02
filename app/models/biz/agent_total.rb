@@ -11,8 +11,8 @@ module Biz
 
     def self.trade_detail_sum
       # 微信 刷卡 信用卡 trade_result trade_type
-      trade_type_id = CodeTable.where('name'=> "trade_type").last.id.to_i
-      trade_result_id = CodeTable.where('name'=> "trade_result").last.id.to_i
+      trade_type_id = 0 #CodeTable.where('name'=> "trade_type").last.id.to_i
+      trade_result_id = 0 #CodeTable.where('name'=> "trade_result").last.id.to_i
 
       # 交易类型 交易结果
       trade_types = CodeTable.where("parent_id=#{trade_type_id}")
