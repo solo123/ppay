@@ -56,11 +56,11 @@ ActiveRecord::Schema.define(version: 20151230022028) do
   end
 
   create_table "clients", force: :cascade do |t|
+    t.integer  "salesman_id"
     t.integer  "shid"
     t.string   "shop_name"
     t.string   "shop_tel"
     t.integer  "category_id"
-    t.integer  "salesman_id"
     t.decimal  "rate",                    precision: 12, scale: 6
     t.string   "join_date"
     t.decimal  "bank_card_limit_each",    precision: 12, scale: 2
