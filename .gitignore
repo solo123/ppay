@@ -20,3 +20,4 @@
 /public/color_admin/*
 *.keep
 dump*
+/config/database.yml
