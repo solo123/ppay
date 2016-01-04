@@ -30,7 +30,7 @@ module Biz
                 't0_num_sum'=>t0_result.count
               }
       end
-      tmp.take(10)
+      tmp
 
     end
   end

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+
+  get 'activeinfo/client'
+  get 'activeinfo/agent'
+  get 'activeinfo/month_sum'
+  get 'activeinfo/new_client'
+
   devise_for :users
 
   get 'profile/info'

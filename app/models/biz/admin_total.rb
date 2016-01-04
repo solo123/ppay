@@ -41,7 +41,7 @@ module Biz
       tmp
     end
 
-    def self.active_clients
+    def self.active_clients(y, m)
       # 规则: 最近两个月，交易数量>交易额 依次排序
       cur = Date.today
       last_info = Trade.where("trade_date > #{Date.new(cur.year, cur.month-2, cur.day)}").group("client_id").take(10)
