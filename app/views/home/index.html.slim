@@ -6,23 +6,23 @@
       .stats-icon
         i.fa.fa-desktop
       .stats-info
-        h3 总交易金额
+        h3 本月总交易金额
         p ==@trade_sum
       .stats-link
         a href='#'
-          span 查看详情
-          i.fa.fa-arrow-circle-o-down
+          span 总笔数 : 
+          span 8383
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
-        h3 微信交易金额
+        h3 本月微信交易金额
         p unknow
       .stats-link
         a href='#' 
-            span 查看详情
-            i.fa.fa-arrow-circle-o-down
+            span 10元以上笔数 : 
+            span 5650
     ul.list-group#weixinjy style='display:none;position:absolute;z-index:999;top:0;'
       - @trade_detail_sum.each do |t|
         li.list-group-item
@@ -34,75 +34,101 @@
       .stats-icon
         i.fa.fa-clock-o
       .stats-info
-        h3 预计分润
+        h3 本月T0交易金额
         p 7567
       .stats-link
         a href='#'
-          span 查看详情
-          i.fa.fa-arrow-circle-o-down
+          span 总笔数 : 
+          span 9393
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
         i.fa.fa-users
       .stats-info
-        h3 总商户数量
+        h3 本月新增商户
         p ==@client_sum
       .stats-link
         a href='#'
-          span 查看详情
-          i.fa.fa-arrow-circle-o-down
+          span 总商户数 : 
+          span 1663
   
 
 br
 .row
-  .col-md-8
+  .col-md-6
     .panel.panel-inverse
       .panel-heading
-        h4.panel-title 系统公告
+        .btn-group.pull-right data-toggle='button'
+          label.btn.btn-success.btn-xs 上一月
+          label.btn.btn-success.btn-xs 2015年12月
+          label.btn.btn-success.btn-xs 下一月
+        h4.panel-title 交易汇总表
       .panel-body
         .jumbotron
-          h2 单月销售额度超过20万的 将会有额外的奖励
+          h2 text...........
+        .jumbotron
+          h2 text...........
+        .jumbotron
+          h2 text...........
     
-  .col-md-4
+  .col-md-6
     .panel.panel-inverse
       .panel-heading
-        h4.panel-title 优惠活动
+        .btn-group.pull-right data-toggle='button'
+          label.btn.btn-success.btn-xs 上一月
+          label.btn.btn-success.btn-xs 2015年12月
+          label.btn.btn-success.btn-xs 下一月
+        h4.panel-title 交易变化曲线
       .panel-body
-        .list-group
-          <a href="#" class="list-group-item active">
-            | Cras justo odio
-          </a>
-          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-          <a href="#" class="list-group-item">Morbi leo risus</a>
-          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item">Vestibulum at eros</a>
+        .jumbotron
+          h2 text...........
 
-
-    
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 新增商户
+      .panel-body
+        .jumbotron
+          h2 text...........
     
 .row
-  .col-md-6
+  .col-md-12
     .panel.panel-inverse
       .panel-heading
-        h4.panel-title 新增加商户
-      .panel-body
-        ul.list-group
-          - @new_clients.each do |c|
-            a href="#{client_path(c)}" class="list-group-item"
-              ==c.shop_name 
-              span.badge ==c.shid
-
-
-  .col-md-6
-    .panel.panel-inverse
-      .panel-heading
+        .btn-group.pull-right data-toggle='button'
+          label.btn.btn-success.btn-xs 上一月
+          label.btn.btn-success.btn-xs 2015年12月
+          label.btn.btn-success.btn-xs style='margin-right:420px;' 下一月
+          label.btn.btn-success.btn-xs 总金额
+          label.btn.btn-success.btn-xs 总笔数
+          label.btn.btn-success.btn-xs 微金额
+          label.btn.btn-success.btn-xs 微笔数
+          label.btn.btn-success.btn-xs 支金额
+          label.btn.btn-success.btn-xs 支笔数
+          label.btn.btn-success.btn-xs T0金额
+          label.btn.btn-success.btn-xs T0笔数
         h4.panel-title 活跃用户
       .panel-body
-        ul.list-group
-          - @active_clients.each do |c|
-            a href="#{client_path(c)}" class="list-group-item"
-              ==c.shop_name 
-              span.badge ==c.shid
+        .jumbotron
+          h2 text...........
+
+.row
+  .col-md-12
+    .panel.panel-inverse
+      .panel-heading
+        .btn-group.pull-right data-toggle='button'
+          label.btn.btn-success.btn-xs 上一月
+          label.btn.btn-success.btn-xs 2015年12月
+          label.btn.btn-success.btn-xs style='margin-right:500px;' 下一月
+          label.btn.btn-success.btn-xs 入网商户
+          label.btn.btn-success.btn-xs 总金额
+          label.btn.btn-success.btn-xs 微金额
+          label.btn.btn-success.btn-xs 微笔数
+          label.btn.btn-success.btn-xs 支金额
+          label.btn.btn-success.btn-xs T0金额
+        h4.panel-title 活跃合作商
+      .panel-body
+        .jumbotron
+          h2 text...........
 
 
 
