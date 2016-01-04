@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230022028) do
+ActiveRecord::Schema.define(version: 20160104094816) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -28,8 +28,34 @@ ActiveRecord::Schema.define(version: 20151230022028) do
   create_table "agents", force: :cascade do |t|
     t.string   "name"
     t.string   "mobile"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "cooperation_type_id"
+    t.datetime "cooperation_date"
+    t.integer  "t0_enabled"
+    t.string   "bank_biz_types"
+    t.text     "cooperation_location"
+    t.decimal  "deposit",              precision: 12, scale: 2
+    t.decimal  "amounts_payable",      precision: 12, scale: 2
+  end
+
+  create_table "agents_contacts", id: false, force: :cascade do |t|
+    t.integer "agent_id"
+    t.integer "contact_id"
+  end
+
+  add_index "agents_contacts", ["agent_id"], name: "index_agents_contacts_on_agent_id"
+  add_index "agents_contacts", ["contact_id"], name: "index_agents_contacts_on_contact_id"
+
+  create_table "bank_cards", force: :cascade do |t|
+    t.integer  "bankcard_obj_id"
+    t.string   "bankcard_obj_type"
+    t.string   "bank_name"
+    t.string   "bank_sub_branch"
+    t.string   "account_name"
+    t.string   "account_number"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "clearings", force: :cascade do |t|
@@ -206,6 +232,15 @@ ActiveRecord::Schema.define(version: 20151230022028) do
 
   add_index "comfy_cms_snippets", ["site_id", "identifier"], name: "index_comfy_cms_snippets_on_site_id_and_identifier", unique: true
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position"
+
+  create_table "companies", force: :cascade do |t|
+    t.integer  "company_obj_id"
+    t.string   "company_obj_type"
+    t.text     "name"
+    t.string   "short_name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
