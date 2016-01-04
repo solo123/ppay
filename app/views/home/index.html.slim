@@ -1,17 +1,4 @@
 
-
-ul#selector
-  - @all_trade_sum.each do |t|
-    li
-      ul
-        li == t['num_sum']
-        li == t["amount_sum"]
-        li == t["weichat_num_sum"]
-        li == t["weichat_amount_sum"]
-        li == t["t0_amount_sum"]
-        li == t["t0_num_sum"]
-
-
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
@@ -72,8 +59,8 @@ br
       .panel-heading
         .btn-group.pull-right data-toggle='button'
           label.btn.btn-success.btn-xs 上一月
-          label.btn.btn-success.btn-xs 2015年12月
-          label.btn.btn-success.btn-xs 下一月
+          label.btn.btn-success.btn-xs#data_monthsum 2015年1月
+          label.btn.btn-success.btn-xs#nextmonth_monthsum 下一月
         h4.panel-title 交易汇总表
       .panel-body
         table.table
@@ -88,7 +75,7 @@ br
               th 支笔数
               th T0金额
               th T0笔数
-          tbody
+          tbody#monthsum_tbody
     
   .col-md-6
     .panel.panel-info
@@ -100,7 +87,8 @@ br
         h4.panel-title 交易变化曲线
       .panel-body
         
-
+.row
+  .col-md-12
     .panel.panel-warning
       .panel-heading
         h4.panel-title 新增商户
@@ -116,7 +104,7 @@ br
               th 费率
               th 入网时间
               th 操作
-          tbody
+          tbody#newclient_tbody
     
 .row
   .col-md-12
@@ -154,7 +142,7 @@ br
               th 支金额
               th T0金额
               th T0笔数
-          tbody
+          tbody#activeclient_tbody
 
 .row
   .col-md-12
@@ -189,7 +177,7 @@ br
               th 支金额
               th T0金额
               th 操作
-          tbody
+          tbody#activeagent_tbody
 
 
 
