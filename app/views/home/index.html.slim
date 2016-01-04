@@ -62,13 +62,13 @@ ul#selector
       .stats-link
         a href='#'
           span 总商户数 : 
-          span 1663
+          span ==@client_sum
   
 
 br
 .row
   .col-md-6
-    .panel.panel-inverse
+    .panel.panel-primary
       .panel-heading
         .btn-group.pull-right data-toggle='button'
           label.btn.btn-success.btn-xs 上一月
@@ -76,15 +76,22 @@ br
           label.btn.btn-success.btn-xs 下一月
         h4.panel-title 交易汇总表
       .panel-body
-        .jumbotron
-          h2 text...........
-        .jumbotron
-          h2 text...........
-        .jumbotron
-          h2 text...........
+        table.table
+          thead
+            tr
+              th 日期
+              th 总交易
+              th 总笔数
+              th 微金额
+              th 微笔数
+              th 支金额
+              th 支笔数
+              th T0金额
+              th T0笔数
+          tbody
     
   .col-md-6
-    .panel.panel-inverse
+    .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='button'
           label.btn.btn-success.btn-xs 上一月
@@ -92,19 +99,28 @@ br
           label.btn.btn-success.btn-xs 下一月
         h4.panel-title 交易变化曲线
       .panel-body
-        .jumbotron
-          h2 text...........
+        
 
-    .panel.panel-inverse
+    .panel.panel-warning
       .panel-heading
         h4.panel-title 新增商户
       .panel-body
-        .jumbotron
-          h2 text...........
+        table.table
+          thead
+            tr
+              th 商户名称
+              th 联系人
+              th 手机
+              th 地区
+              th 业务员
+              th 费率
+              th 入网时间
+              th 操作
+          tbody
     
 .row
   .col-md-12
-    .panel.panel-inverse
+    .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='button'
           label.btn.btn-success.btn-xs 上一月
@@ -120,12 +136,29 @@ br
           label.btn.btn-success.btn-xs T0笔数
         h4.panel-title 活跃用户
       .panel-body
-        .jumbotron
-          h2 text...........
+        table.table
+          thead
+            tr
+              th 排名
+              th 商户名称
+              th 联系人
+              th 手机
+              th 地区
+              th 业务员
+              th 渠道
+              th 入网时间
+              th 费率
+              th 总金额
+              th 微金额
+              th 微笔数
+              th 支金额
+              th T0金额
+              th T0笔数
+          tbody
 
 .row
   .col-md-12
-    .panel.panel-inverse
+    .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='button'
           label.btn.btn-success.btn-xs 上一月
@@ -139,8 +172,24 @@ br
           label.btn.btn-success.btn-xs T0金额
         h4.panel-title 活跃合作商
       .panel-body
-        .jumbotron
-          h2 text...........
+        table.table
+          thead
+            tr
+              th 排名
+              th 渠道名称
+              th 联系人
+              th 手机
+              th 合作时间
+              th 业务数
+              th 累计户
+              th 当月户
+              th 总金额
+              th 微金额
+              th 微笔数
+              th 支金额
+              th T0金额
+              th 操作
+          tbody
 
 
 
@@ -148,18 +197,4 @@ br
 p Lorem ipsum...
 == high_chart("some_id", @chart)
 
-.pagination.m-t-0.m-b-10
-  li.disabled
-    a href='#' <<
-  li.active
-    a href='#' 1
-  li
-    a href='#' 2
-  li
-    a href='#' 3
-  li
-    a ...
-  li
-    a href='#' 99
-  li
-    a href='#' >>
+
