@@ -1,5 +1,17 @@
 
 
+ul#selector
+  - @all_trade_sum.each do |t|
+    li
+      ul
+        li == t['num_sum']
+        li == t["amount_sum"]
+        li == t["weichat_num_sum"]
+        li == t["weichat_amount_sum"]
+        li == t["t0_amount_sum"]
+        li == t["t0_num_sum"]
+
+
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
