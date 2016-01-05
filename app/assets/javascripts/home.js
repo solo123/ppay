@@ -6,7 +6,6 @@ var homejs =function() {
 			var month=$('#data_monthsum').text().substr(5,2);
 		}
 		var year=$('#data_monthsum').text().substr(0,4);
-		alert(month);
 		$.ajax({
 			type:'GET',
 			url:'http://localhost:3000/activeinfo/month_sum.json?year='+year+'&&month='+month,

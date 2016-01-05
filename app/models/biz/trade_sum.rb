@@ -1,6 +1,6 @@
 module Biz
   module TradeSum
-    def self.sum_by(year, month)
+    def self.month_sum_by(year, month)
       t = Date.new( year, month)
       # if t > Date.current | month > 12 | month==0 |
       #   return ''

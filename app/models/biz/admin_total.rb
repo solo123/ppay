@@ -41,8 +41,8 @@ module Biz
       tmp
     end
 
-    def self.active_clients(y, m)
-      # 规则: 最近两个月，交易数量>交易额 依次排序
+    def self.active_clients(y, m, field)
+      # 总金额、总笔数、微金额、微笔数、支金额、支笔数、T0金额、T0笔数
       cur = Date.today
       last_info = Trade.where("trade_date > #{Date.new(cur.year, cur.month-2, cur.day)}").group("client_id").take(10)
       clients = []
@@ -52,5 +52,26 @@ module Biz
       clients
     end
 
+    def self.active_agents(y, m, field, sort_factor)
+      # 总金额、总笔数、微金额、微笔数、支金额、支笔数、T0金额、T0笔数
+      # 活跃代理商
+      cur = Date.today
+      field = 'count'
+      sort_by( sort_factor || [0, 0, 0])
+
+      Agent.all.each do |a|
+        all_trades = a.trades.where("trade_date > #{Date.new(cur.year, cur.month-2, cur.day)}")
+        # all_trades.where("trade_type_id"=>75).sum("trade_amount").count
+      end
+
+      Agent.order("sort DESC").take(10)
+
+    end
+
+    def sort_by(sort_factor)
+      [""]
+    end
+
   end
+
 end

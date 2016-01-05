@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+  resources :statistic_agents
+  resources :statistic_clients
+  resources :statistic_trades
   get 'activeinfo/client'
   get 'activeinfo/agent'
   get 'activeinfo/month_sum'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104094816) do
+ActiveRecord::Schema.define(version: 20160105040502) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160104094816) do
     t.text     "cooperation_location"
     t.decimal  "deposit",              precision: 12, scale: 2
     t.decimal  "amounts_payable",      precision: 12, scale: 2
+    t.integer  "sort"
   end
 
   create_table "agents_contacts", id: false, force: :cascade do |t|
@@ -346,6 +347,28 @@ ActiveRecord::Schema.define(version: 20160104094816) do
 
   add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id"
   add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id"
+
+  create_table "statistic_agents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "statistic_clients", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "statistic_infos", force: :cascade do |t|
+    t.integer  "statistic_model_id"
+    t.string   "statistic_model_type"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "statistic_trades", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
