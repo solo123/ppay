@@ -1,21 +1,27 @@
 module Biz
-  class TradesTotalsBiz
+  class TradesTotalBiz
 
-    def statistics_all
+    def total_all
       Trade.all.each do |t|
 
         total = TradesTotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date.to_date )
-        #
         total.total_amount += t.trade_amount
         total.total_count += 1
-        #
         type_code = trade_type(t)
         total["#{type_code}_amount"] += t.trade_amount
         total["#{type_code}_count"] += 1
-        #save
+        total.save
+
+        tm = TradesTotalMon.find_or_create_by(client: t.client, trade_date_year: t.trade_date.year, trade_date_month: t.trade_date.month)
+        tm.total_amount += t.trade_amount
+        tm.total_count += 1
+        type_code = trade_type(t)
+        tm["#{type_code}_amount"] += t.trade_amount
+        tm["#{type_code}_count"] += 1
+        tm.save
+
         t.status = 1
         t.save
-        total.save
       end
     end
 

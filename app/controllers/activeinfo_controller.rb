@@ -17,22 +17,10 @@ class ActiveinfoController < ApplicationController
 
 
   def month_sum
-    # 交易汇总
     @month_sum = []
-    sum_field = ['total_amount', 'total_count',
-                'weichat_amount', 'weichat_count', 'alipay_amount', 'alipay_count',
-                't0_amount', 't0_count', 't1_amount', 't1_count']
-    #
-    d = Date.new(params[:year].to_i || 2015, params[:month].to_i || 12)
-    d.all_month.each do |day|
-      all_trades = TradesTotal.where("trade_date"=>day)
-      h = {}
-      sum_field.each do |f|
-        h[f] = all_trades.sum(f)
-      end
-      @month_sum << h
+    TradesTotalMon.where(trade_date_year: params[:year], trade_date_month: params[:month]).each do |t|
+      @month_sum << t
     end
-
   end
 
   def new_client
