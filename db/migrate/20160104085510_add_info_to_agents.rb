@@ -1,4 +1,4 @@
-class AddInfoToAgent < ActiveRecord::Migration
+class AddInfoToAgents < ActiveRecord::Migration
   def change
     change_table(:agents) do |t|
       t.integer :cooperation_type_id

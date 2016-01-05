@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105040502) do
+ActiveRecord::Schema.define(version: 20160105040444) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20160105040502) do
     t.text     "cooperation_location"
     t.decimal  "deposit",              precision: 12, scale: 2
     t.decimal  "amounts_payable",      precision: 12, scale: 2
-    t.integer  "sort"
   end
 
   create_table "agents_contacts", id: false, force: :cascade do |t|
@@ -348,28 +347,6 @@ ActiveRecord::Schema.define(version: 20160105040502) do
   add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id"
   add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id"
 
-  create_table "statistic_agents", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "statistic_clients", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "statistic_infos", force: :cascade do |t|
-    t.integer  "statistic_model_id"
-    t.string   "statistic_model_type"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  create_table "statistic_trades", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -401,6 +378,23 @@ ActiveRecord::Schema.define(version: 20160105040502) do
     t.integer  "status",                                   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "trades_totals", force: :cascade do |t|
+    t.integer  "client_id"
+    t.date     "trade_date"
+    t.integer  "total_amount",   default: 0
+    t.integer  "total_count",    default: 0
+    t.integer  "weichat_amount", default: 0
+    t.integer  "weichat_count",  default: 0
+    t.integer  "alipay_amount",  default: 0
+    t.integer  "alipay_count",   default: 0
+    t.integer  "t0_amount",      default: 0
+    t.integer  "t0_count",       default: 0
+    t.integer  "t1_amount",      default: 0
+    t.integer  "t1_count",       default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade do |t|

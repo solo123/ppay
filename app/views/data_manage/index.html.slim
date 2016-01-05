@@ -9,5 +9,15 @@ div class='row'
     == link_to '测试服务端及时信息', import_do_import1_path, class: "btn btn-primary m-r-10 m-b-10", remote: true
 
 div class='row'
-  div class='col-md-6'
+  div class='col-md-4'
     == link_to "处理数据", import_parse_data_path, class: 'btn btn-primary m-r-10', remote: true
+  div class='col-md-4'
+    == link_to "统计数据", '#', class: 'btn btn-primary m-r-10', remote: true, id: 'statistic_btn'
+
+
+javascript:
+  $(document).ready(function(){
+    $("#statistic_btn").on('click', function(){
+      
+    });
+  });

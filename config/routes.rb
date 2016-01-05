@@ -1,21 +1,19 @@
 Rails.application.routes.draw do
 
 
-  resources :statistic_agents
-  resources :statistic_clients
-  resources :statistic_trades
+
+  # 异步请求活跃数据
   get 'activeinfo/client'
   get 'activeinfo/agent'
   get 'activeinfo/month_sum'
   get 'activeinfo/new_client'
-
-  devise_for :users
 
   get 'profile/info'
 
   get 'home/index'
   get 'home/profile'
 
+  # 数据操作
   get 'import/do_import'
   get 'import/do_import1'
   get 'import/parse_data'
@@ -23,16 +21,20 @@ Rails.application.routes.draw do
   get 'import/get_log_msg'
   get 'download/import_xls/:name', to: 'download#import_xls', as: :download_import_xls
 
-  # resources :users必须在devise_for后面定义
+  devise_for :users
+  # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
   resources :users
+
+  # 业务数据
+  resources :statistic_agents
+  resources :statistic_clients
+  resources :statistic_trades
   resources :agents do
     member do
       post :del_salesman
       post :add_salesman
     end
   end
-
-  # agent data
   resources :clients do
     member do
       post :tags
@@ -41,7 +43,6 @@ Rails.application.routes.draw do
       get :note
     end
   end
-
   resources :client_notes
   resources :trades
   resources :clearings
