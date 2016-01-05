@@ -1,12 +1,12 @@
 # agent额外辅助信息计算
 class Agent
   def clients
-    @clients = Client.where('salesman_id': self.salesman_ids).order('join_date ASC')
+    @clients = Client.where('salesman_id'=> self.salesman_ids).order('join_date ASC')
     @clients
   end
   def trades
     #商户的所有交易记录
-    @trades = Trade.where('client_id': self.clients.ids)
+    @trades = Trade.where('client_id'=> self.clients.ids)
     @trades
   end
 
