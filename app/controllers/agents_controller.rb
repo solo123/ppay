@@ -24,13 +24,15 @@ class AgentsController < ApplicationController
   # GET /agents/1
   # GET /agents/1.json
   def show
-    @client_count = @agent.clients_obj.count
-    @trade_amount_sum = @agent.trades_obj.sum('trade_amount')
+    @client_count = @agent.clients.count
+    @trade_amount_sum = @agent.trades.sum('trade_amount')
 
-    dif_date = DateTime.current - @agent.clients_obj.first.join_date.to_datetime
+    if @agent.clients.count > 0
+      dif_date = DateTime.current - @agent.clients.first.join_date.to_datetime
+      @join_days = dif_date.to_i.to_s
+      @last_date = @agent.clients.last.join_date.to_datetime
+    end
 
-    @join_days = dif_date.to_i.to_s
-    @last_date = @agent.clients_obj.last.join_date.to_datetime
 
   end
 

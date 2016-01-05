@@ -6,7 +6,7 @@ class ParseDataJob < ActiveJob::Base
     # do something before perform
     block.call
     # 生成统计表
-    StatisticsDataJob.perform_later nil
+    # TradesTotalsJob.perform_later nil
   end
 
   def perform(*args)
