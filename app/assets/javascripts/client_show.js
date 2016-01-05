@@ -24,7 +24,8 @@ var client_show = function() {
 
 	$('#biaoqianbtn').click(function(){
 		var urlval = window.location.pathname;
-		var urlval_last = urlval.substr(-1);
+		var urlval_last = urlval.substring(urlval.indexOf("clients/")+8);
+		alert(urlval_last);
 		var bqtextval=$('#biaoqiantext').val();
 		$('#biaoqianxinxi').append('，'+bqtextval);
 		$.ajax({

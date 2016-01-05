@@ -1,14 +1,12 @@
 var homejs =function() {
 	function month_sum () {
-		if ($('#data_monthsum').text().substr(7,1)=='') {
-			var month=$('#data_monthsum').text().substr(5,1);
-		}else {
-			var month=$('#data_monthsum').text().substr(5,2);
-		}
-		var year=$('#data_monthsum').text().substr(0,4);
+		var date_text=$('#date_monthsum').text();
+		var mydate=new Date(Date.parse(date_text));
+		var year=mydate.getFullYear();
+		var month=mydate.getMonth();
 		$.ajax({
 			type:'GET',
-			url:'http://localhost:3000/activeinfo/month_sum.json?year='+year+'&&month='+month,
+			url:'/activeinfo/month_sum.json?year='+year+'&&month='+month,
 			dataType:'json',
 			success:function(data){
 				var str='';
@@ -22,18 +20,26 @@ var homejs =function() {
 	}
 	month_sum();
 	$('#nextmonth_monthsum').click(function(){
-		if ($('#data_monthsum').text().substr(7,1)=='') {
-			var b=parseInt($('#data_monthsum').text().substr(5,1))+1;
-		}else {
-			var b=parseInt($('#data_monthsum').text().substr(5,2))+1;
-		}
-		$('#data_monthsum').text('2015年'+b+'月');
+		var month=parseInt($('#date_monthsum').text().substr(-2,2));
+		var year=parseInt($('#date_monthsum').text().substr(0,4));
+		if (month==12) {month=1;year+=1;}else {month+=1;}
+		a='0'+month;
+		// alert(a.substr(-2,2));
+		$('#date_monthsum').text(year+'-'+a.substr(-2,2));
+		month_sum();
+	});
+	$('#premonth_monthsum').click(function(){
+		var month=parseInt($('#date_monthsum').text().substr(-2,2));
+		var year=parseInt($('#date_monthsum').text().substr(0,4));
+		if (month==1) {year-=1;month=12;}else{month-=1;};
+		a='0'+month;
+		$('#date_monthsum').text(year+'-'+a.substr(-2,2));
 		month_sum();
 	});
 
 	$.ajax({
 		type:'GET',
-		url:'http://localhost:3000/activeinfo/new_client.json',
+		url:'http:/activeinfo/new_client.json',
 		dataType:'json',
 		success:function(data){
 			var str='';
@@ -44,22 +50,49 @@ var homejs =function() {
 		},
 	});
 
-	$.ajax({
-		type:'GET',
-		url:'http://localhost:3000/activeinfo/client.json',
-		dataType:'json',
-		success:function(data){
-			var str='';
-			for (var i = 0; i < data.length; i++) {
-				str+="<tr><td>"+data[i].id+"</td><td>"+data[i].shop_name+"</td><td>"+data[i].shid+"</td><td>"+data[i].shop_tel+"</td><td>"+data[i].category_id+"</td><td>"+data[i].salesman_id+"</td><td>"+data[i].qudao+"</td><td>"+data[i].created_at+"</td><td>"+data[i].rate+"</td></tr>"
-			};
-			$('#activeclient_tbody').append(str);
-		},
+
+	function active_client () {
+		var date_text=$('#date_activeclient').text();
+		var mydate=new Date(Date.parse(date_text));
+		var year=mydate.getFullYear();
+		var month=mydate.getMonth();
+		$.ajax({
+			type:'GET',
+			url:'http:/activeinfo/client.json?year='+year+'&&month='+month,
+			dataType:'json',
+			success:function(data){
+				var str='';
+				for (var i = 0; i < data.length; i++) {
+					str+="<tr><td>"+data[i].id+"</td><td>"+data[i].shop_name+"</td><td>"+data[i].shid+"</td><td>"+data[i].shop_tel+"</td><td>"+data[i].category_id+"</td><td>"+data[i].salesman_id+"</td><td>"+data[i].qudao+"</td><td>"+data[i].created_at+"</td><td>"+data[i].rate+"</td></tr>"
+				};
+				$('#activeclient_tbody').html(str);
+			},
+		});
+	}
+	active_client();
+	$('#nextmonth_activeclient').click(function(){
+		var month=parseInt($('#date_activeclient').text().substr(-2,2));
+		var year=parseInt($('#date_activeclient').text().substr(0,4));
+		if (month==12) {month=1;year+=1;}else {month+=1;}
+		a='0'+month;
+		// alert(a.substr(-2,2));
+		$('#date_activeclient').text(year+'-'+a.substr(-2,2));
+		active_client();
 	});
+	$('#premonth_activeclient').click(function(){
+		var month=parseInt($('#date_activeclient').text().substr(-2,2));
+		var year=parseInt($('#date_activeclient').text().substr(0,4));
+		if (month==1) {year-=1;month=12;}else{month-=1;};
+		a='0'+month;
+		$('#date_activeclient').text(year+'-'+a.substr(-2,2));
+		active_client();
+	});
+
+
 
 	$.ajax({
 		type:'GET',
-		url:'http://localhost:3000/activeinfo/agent.json',
+		url:'http:/activeinfo/agent.json',
 		dataType:'json',
 		success:function(data){
 			var str='';
