@@ -22,12 +22,22 @@ module Biz
         c_total["#{type_code}_amount"] += t.trade_amount
         c_total["#{type_code}_count"] += 1
 
-        tm = ClientMonthTradetotal.find_or_create_by(client: t.client, year: t.trade_date.year, month: t.trade_date.month)
+        # TradesTotalMon 改为 ClientMonthTradetotal 
+        cm = ClientMonthTradetotal.find_or_create_by(client: t.client, year: t.trade_date.year, month: t.trade_date.month)
+        cm.total_amount += t.trade_amount
+        cm.total_count += 1
+        type_code = trade_type(t)
+        cm["#{type_code}_amount"] += t.trade_amount
+        cm["#{type_code}_count"] += 1
+
+        #
+        tm = TradesTotalMon.find_or_create_by(client: t.client, trade_date_year: t.trade_date.year, trade_date_month: t.trade_date.month)
         tm.total_amount += t.trade_amount
         tm.total_count += 1
         type_code = trade_type(t)
         tm["#{type_code}_amount"] += t.trade_amount
         tm["#{type_code}_count"] += 1
+        tm.save
 
         p_total = PlatformDayTradetotal.find_or_create_by(trade_date: t.trade_date)
         @@sum_field.each do |field|
@@ -35,6 +45,7 @@ module Biz
         end
 
         tm.save
+        cm.save
         p_total.save
         t.status = 1
         t.save

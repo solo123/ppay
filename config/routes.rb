@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   resources :imp_qf_trades
   resources :imp_qf_customers
   resources :data_manage
+  resources :trades_totals
+  resources :trades_total_mons
 
   root to: 'home#index'
 

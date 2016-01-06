@@ -27,6 +27,11 @@ class ActiveinfoController < ApplicationController
     d.all_month.each do |t|
       @month_sum << PlatformDayTradetotal.where("trade_date": t).last || PlatformDayTradetotal.new
     end
+
+    # TradesTotalMon.where(trade_date_year: params[:year], trade_date_month: params[:month]).each do |t|
+    #   @month_sum << t
+    # end
+
   end
 
   def new_client
