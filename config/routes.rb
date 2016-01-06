@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   resources :users
 
   # 业务数据
+  resources :bank_cards
+  resources :companies
   resources :statistic_agents
   resources :statistic_clients
   resources :statistic_trades
