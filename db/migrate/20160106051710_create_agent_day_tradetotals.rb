@@ -1,7 +1,7 @@
-class CreateTradesTotals < ActiveRecord::Migration
+class CreateAgentDayTradetotals < ActiveRecord::Migration
   def change
-    create_table :trades_totals do |t|
-      t.belongs_to :client
+    create_table :agent_day_tradetotals do |t|
+      t.belongs_to :agent
       t.date :trade_date
 
       t.decimal :total_amount, precision: 12, scale: 2, default: 0

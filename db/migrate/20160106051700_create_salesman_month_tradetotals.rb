@@ -1,9 +1,9 @@
-class TradesTotalMon < ActiveRecord::Migration
+class CreateSalesmanMonthTradetotals < ActiveRecord::Migration
   def change
-    create_table :trades_total_mons do |t|
-      t.belongs_to :client
-      t.integer :trade_date_year
-      t.integer :trade_date_month
+    create_table :salesman_month_tradetotals do |t|
+      t.belongs_to :salesman
+      t.integer :year
+      t.integer :month
 
       t.decimal :total_amount, precision: 12, scale: 2, default: 0
       t.integer :total_count, default: 0
