@@ -1,4 +1,3 @@
-
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
@@ -178,3 +177,15 @@ br
               th T0金额
               th 操作
           tbody#activeagent_tbody
+
+
+.row
+  .col-md-3
+    p 按照月份请求平台所有的交易统计数据 URL: http://localhost:3000/activeinfo/month_sum.json?year=2015&month=12&order=total_count
+    p 活跃商户 URL: http://root.com/activeinfo/client.json?year=2015&month=11&order=total_count
+    p 活跃代理商 URL: http://root.com/activeinfo/agent.json?year=2015&month=11&order=total_count
+    p order为排序类型: ['total_amount', 'total_count',
+                'weichat_amount', 'weichat_count', 'alipay_amount', 'alipay_count',
+                't0_amount', 't0_count', 't1_amount', 't1_count']
+    #
+.row

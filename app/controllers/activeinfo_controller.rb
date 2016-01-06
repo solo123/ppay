@@ -1,45 +1,37 @@
 class ActiveinfoController < ApplicationController
   layout false
 
+  @@sum_field = ['total_amount', 'total_count',
+              'weichat_amount', 'weichat_count', 'alipay_amount', 'alipay_count',
+              't0_amount', 't0_count', 't1_amount', 't1_count']
+  #
   def client
-    sum_field = ['total_amount', 'total_count',
-                'weichat_amount', 'weichat_count', 'alipay_amount', 'alipay_count',
-                't0_amount', 't0_count', 't1_amount', 't1_count']
+    d = Date.new(params[:year].to_i, params[:month].to_i)
     #
-    d = Date.new(params[:year].to_i || 2015, params[:month].to_i || 12)
-    # 当月交易数据
-    all_trades = TradesTotal.where("trade_date > #{d.all_month.first}" ).group("client_id")
-
-    sql = "SELECT client_id"
-    sum_field.each do |f|
-      sql << ", SUM(#{f}) as #{f} "
-    end
-    sql <<  "   FROM trades_totals
-		        WHERE (trade_date > #{d.all_month.first})
-		        GROUP BY  client_id
-		        ORDER BY #{"weichat_amount"} DESC"
-
+    info = TradesTotalMon
+                .where("trade_date_year=#{d.year} and trade_date_month=#{d.month}" )
+                .order("#{params[:order] || "total_amount"} " + " DESC")
     #
-    all_clients = []
-    TradesTotal.find_by_sql(sql).each do |h|
-      # @active_clients << Array.new(Client.find(c[1])) + c[2..-1]
-      client  = Client.find(h["client_id"])
-      all_clients << {"client"=> client, "salesman"=>client.salesman, "total_info"=> h}
-    end
-
-    @active_clients = all_clients.take(1)
-
+    @active_clients = info.take(10)
+    logger.info '排序类型参数错误 需要传入参数 order。默认为: total_amount.'
 
   end
   def agent
-    @active_agents = Biz::AdminTotal.active_agents(params[:year].to_i || 2016, params[:month].to_i || 1, params[:field])
+    d = Date.new(params[:year].to_i, params[:month].to_i)
+    @active_agents = AgentMonthTradetotal.where("year=#{d.year} and month=#{d.month} and agent_id>0").order("#{params[:order] || "total_amount" }" + " DESC")
   end
 
   def month_sum
+    d = Date.new(params[:year].to_i, params[:month].to_i)
     @month_sum = []
-    TradesTotalMon.where(trade_date_year: params[:year], trade_date_month: params[:month]).each do |t|
-      @month_sum << t
+    d.all_month.each do |t|
+      @month_sum << PlatformDayTradetotal.where("trade_date": t).last || PlatformDayTradetotal.new
     end
+
+    # TradesTotalMon.where(trade_date_year: params[:year], trade_date_month: params[:month]).each do |t|
+    #   @month_sum << t
+    # end
+
   end
 
   def new_client
