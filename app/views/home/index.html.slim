@@ -58,11 +58,12 @@ br
     .panel.panel-primary
       .panel-heading
         .btn-group.pull-right data-toggle='button'
+          label.btn.btn-success.btn-xs= link_to 'Prev', trades_total_path(201511), remote: true
           label.btn.btn-success.btn-xs#premonth_monthsum 上一月
           label.btn.btn-success.btn-xs#date_monthsum 2016-01
           label.btn.btn-success.btn-xs#nextmonth_monthsum 下一月
         h4.panel-title 交易汇总表
-      .panel-body style='height:350px;overflow:auto;'
+      .panel-body#trades_totals_panel style='height:350px;overflow:auto;'
         table.table
           thead
             tr
@@ -178,9 +179,3 @@ br
               th T0金额
               th 操作
           tbody#activeagent_tbody
-
-
-
-
-
-
