@@ -27,15 +27,15 @@
   :data => [['用户管理', users_path],
   ['代理管理', agents_path],
   ['数据管理', data_manage_index_path ] ], 
-  :class => ' fa-2x fa-users' }
+  :class => ' fa-2x fa-sitemap' }
           
 == render 'shared/left_menu_item',
   :local => {:title => '代理商',
   :data => [ ['contact', contacts_path], ['address', addresses_path], ['pos_machine', pos_machines_path] ],
-  :class => 'fa-2x' }
+  :class => 'fa-2x fa-user' }
             
 == render 'shared/left_menu_item',
   :local => {:title => '个人设置',
   :data => [['资料', profile_info_path ] ], 
-  :class => 'fa-2x' }
+  :class => 'fa-2x fa-gear (alias)' }
               

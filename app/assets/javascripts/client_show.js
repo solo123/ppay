@@ -25,9 +25,9 @@ var client_show = function() {
 	$('#biaoqianbtn').click(function(){
 		var urlval = window.location.pathname;
 		var urlval_last = urlval.substring(urlval.indexOf("clients/")+8);
-		alert(urlval_last);
+		// alert(urlval_last);
 		var bqtextval=$('#biaoqiantext').val();
-		$('#biaoqianxinxi').append('，'+bqtextval);
+		$('#biaoqianxinxi').append(bqtextval+'，');
 		$.ajax({
       // 以post方式发送
       type:'POST',
