@@ -1,6 +1,11 @@
 class SalesCommissionsController < ApplicationController
   before_action :set_sales_commission, only: [:show, :edit, :update, :destroy]
 
+
+  def agents
+    @sales_commissions = SalesCommission.where("sales_commission_obj_id": params[:q])
+
+  end
   # GET /sales_commissions
   # GET /sales_commissions.json
   def index
@@ -14,7 +19,7 @@ class SalesCommissionsController < ApplicationController
 
   # GET /sales_commissions/new
   def new
-    @sales_commission = SalesCommission.new
+    @sales_commission = SalesCommission.new(sales_commission_obj_id: params[:q])
   end
 
   # GET /sales_commissions/1/edit

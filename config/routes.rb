@@ -32,12 +32,13 @@ Rails.application.routes.draw do
 
   # 业务数据
   resources :joinlast_clients
-  resources :sales_commissions
+  resources :sales_commissions do
+    collection do
+      get :agents
+    end
+  end
   resources :bank_cards
   resources :companies
-  resources :statistic_agents
-  resources :statistic_clients
-  resources :statistic_trades
   resources :agents do
     member do
       post :del_salesman

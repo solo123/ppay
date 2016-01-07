@@ -126,6 +126,11 @@ h1
             == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
     
     h4 分润比例
+    .row
+      .col-md-12
+        label.btn.btn-success= link_to '分润比例', agents_sales_commissions_path("q"=>@agent.id), id:'sales_commission_content_btn', remote: true
+        .panel-body#sales_commission_content
+
     
 
 .panel.panel-primary
@@ -147,3 +152,7 @@ h1
             == link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
       /
   
+javascript:
+  $(document).ready(function(){
+    $("#sales_commission_content_btn").trigger("click");
+  });
