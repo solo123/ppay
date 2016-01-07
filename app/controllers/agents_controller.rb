@@ -39,6 +39,7 @@ class AgentsController < ApplicationController
   # GET /agents/new
   def new
     @agent = Agent.new
+    2.times {@agent.bank_cards.build}
   end
 
   # GET /agents/1/edit
@@ -48,7 +49,7 @@ class AgentsController < ApplicationController
   # POST /agents
   # POST /agents.json
   def create
-    @agent = Agent.new(agent_params)
+    @agent = Agent.new()
 
     respond_to do |format|
       if @agent.save
@@ -89,10 +90,17 @@ class AgentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_agent
       @agent = Agent.find(params[:id])
+      2.times {@agent.bank_cards.build}
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params
-      params.require(:agent).permit(:name, :mobile)
+      params.require(:agent).permit(
+        :name, :mobile, :cooperation_date, :cooperation_type_id,
+        :cooperation_date, :t0_enabled, :bank_biz_types,
+        :cooperation_location, :deposit, :amounts_payable,
+        :bank_cards, :company
+      )
     end
 end

@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
 
 
+  get 'joinlast_clients/index'
 
-  # 异步请求活跃数据
-  get 'activeinfo/client'
-  get 'activeinfo/agent'
-  get 'activeinfo/month_sum'
-  get 'activeinfo/new_client'
+
+  resources :agent_day_tradetotals do
+    collection do
+      get :active
+    end
+  end
+  resources :salesman_day_tradetotals
+  resources :client_day_tradetotals do
+    collection do
+      get :month
+      get :active
+    end
+  end
 
   get 'profile/info'
-
   get 'home/index'
   get 'home/profile'
 
@@ -61,8 +69,6 @@ Rails.application.routes.draw do
   resources :imp_qf_trades
   resources :imp_qf_customers
   resources :data_manage
-  resources :trades_totals
-  resources :trades_total_mons
 
   root to: 'home#index'
 

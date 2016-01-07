@@ -6,7 +6,7 @@ class Client < ActiveRecord::Base
   belongs_to :category, class_name: 'CodeTable'
   has_many :addresses, as: :addr_obj
   has_many :client_notes
-  has_many :trades_totals
+  has_many :client_day_tradetotals
 
   # tag
   acts_as_taggable
