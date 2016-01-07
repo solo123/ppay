@@ -3,12 +3,12 @@ var sidemenu =function () {
 	$('.pagination span').css('padding','10px');
 	$('.pagination span').css('font-size','18px');
 
-	$("#weixin").mouseover(function(){
-		$('#weixinjy').show();
-	})
-	$("#weixin").mouseout(function(){
-		$('#weixinjy').hide();
-	})
+	// $("#weixin").mouseover(function(){
+	// 	$('#weixinjy').show();
+	// })
+	// $("#weixin").mouseout(function(){
+	// 	$('#weixinjy').hide();
+	// })
 
 	if (window.location.pathname=='/') {
 		$('#sidemenu').children().eq(0).addClass('active');

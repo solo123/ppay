@@ -25,7 +25,7 @@ class ActiveinfoController < ApplicationController
     d = Date.new(params[:year].to_i, params[:month].to_i)
     @month_sum = []
     d.all_month.each do |t|
-      @month_sum << PlatformDayTradetotal.where("trade_date": t).last || PlatformDayTradetotal.new
+      @month_sum << PlatformDayTradetotal.where("trade_date"=> t).last || PlatformDayTradetotal.new
     end
 
     # TradesTotalMon.where(trade_date_year: params[:year], trade_date_month: params[:month]).each do |t|
