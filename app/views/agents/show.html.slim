@@ -132,6 +132,113 @@ h1
           th 当月交易金额
           th caozuo
 
+h2 编辑相关属性
+h4 银行卡
+== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
+  == f.input :name
+  == f.association :bank_cards do |bc|
+    == bc.input :bank_name
+    == bc.input :bank_sub_branch
+  .form-actions
+    == f.submit "save", :class => "btn btn-primary" 
+    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
+h1 New Fitting
+= simple_form_for @agent do |f|
+  = f.input :name
+  = f.simple_fields_for :bank_cards_attributes do |d|
+    = d.input :bank_name
+  = f.button :submit
+
+
+
+
+== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
+  == f.error_notification
+  == f.input :name
+  == f.input :mobile
+  == f.input :cooperation_date
+  == f.input :cooperation_type_id
+  == f.input :cooperation_date
+  == f.input :t0_enabled
+  == f.input :bank_biz_types
+  == f.input :cooperation_location
+  == f.input :deposit
+  == f.input :amounts_payable
+  .form-actions
+    == f.submit "save", :class => "btn btn-primary" 
+    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
+
+h2 可以编辑部分信息
+== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
+  == f.input :bank_biz_types
+  == f.input :cooperation_location
+  == f.input :deposit
+  .form-actions
+    == f.submit "save", :class => "btn btn-primary" 
+    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
+
+
+
+hr
+hr
+h1 代理商生命周期
+p 合作时长 #{@join_days}
+p 最近入网时间 #{@last_date}
+p 上月交易总额
+
+ul#selector
+  li 总交易金额 #{@trade_amount_sum}
+  li 微信支付
+  li 预计分润
+  li 总商户数 #{@client_count}
+  
+h4 机构信息
+p 企业全称 创建时间 简称 经营地址
+
+h4 业务信息
+p 合作形式 状态 合作收单类型(微信、支付宝、QPOS) 是否开通T+0 合作区域
+
+h4 联系信息
+p 联系人角色 联系人 邮箱 地址
+
+h4 结算信息
+p 开户行 开户支行 账户名 银行帐号
+
+== @agent.bank_cards.each do |card|
+  == card.bank_name
+  == card.bank_sub_branch
+  == card.account_name
+  == card.account_number
+  = form_for(card) do |f|
+    .field
+      = f.label :bank_name
+      br
+      = f.text_field :bank_name
+    .field
+      = f.label :bank_sub_branch
+      br
+      = f.text_field :bank_sub_branch
+    .field
+      = f.label :account_name
+      br
+      = f.text_field :account_name
+    .field
+      = f.label :account_number
+      br
+      = f.text_field :account_number
+    .actions
+      = f.submit
+
+
+
+h1 关联信息
+h2 业务员
+h2 商户
+h2 分润规则
+
 / 后面的东西不要修改
 .row
   .col-md-6

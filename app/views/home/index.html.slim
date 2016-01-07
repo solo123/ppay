@@ -5,27 +5,23 @@
         i.fa.fa-desktop
       .stats-info
         h3 本月总交易金额
-        p ==@trade_sum
+        p ==@total_amount
       .stats-link
         a href='#'
           span 总笔数 : 
-          span 8383
+          span == @total_count
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
         h3 本月微信交易金额
-        p unknow
+        p == @wechat_amount
       .stats-link
         a href='#' 
-            span 10元以上笔数 : 
-            span 5650
-    ul.list-group#weixinjy style='display:none;position:absolute;z-index:999;top:0;'
-      - @trade_detail_sum.each do |t|
-        li.list-group-item
-          == t['type']
-          == t['sum']
+          span 10元以上笔数 : 
+          span == @wechat_count
+
 
   .col-md-3
     .widget.widget-stats.bg-purple
@@ -33,22 +29,22 @@
         i.fa.fa-clock-o
       .stats-info
         h3 本月T0交易金额
-        p 7567
+        p == @t0_amount
       .stats-link
         a href='#'
           span 总笔数 : 
-          span 9393
+          span == @t0_count
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
         i.fa.fa-users
       .stats-info
         h3 本月新增商户
-        p ==@client_sum
+        p ==@new_clienter_count
       .stats-link
         a href='#'
           span 总商户数 : 
-          span ==@client_sum
+          span ==@clienter_count
   
 
 br
@@ -57,25 +53,13 @@ br
     .panel.panel-primary
       .panel-heading
         .btn-group.pull-right data-toggle='button'
-          label.btn.btn-success.btn-xs= link_to 'shuaxin', trades_total_path(201511), remote: true
+          label.btn.btn-success.btn-xs= link_to 'Prev', month_client_day_tradetotals_path("q"=>201511), id: 'month_client_day_tradetotals_path',  remote: true
           label.btn.btn-success.btn-xs#premonth_monthsum 上一月
           label.btn.btn-success.btn-xs#date_monthsum 2016-01
           label.btn.btn-success.btn-xs#nextmonth_monthsum 下一月
         h4.panel-title 交易汇总表
-      .panel-body#trades_totals_panel style='height:350px;overflow:auto;'
-        table.table
-          thead
-            tr
-              th 日期
-              th 总交易
-              th 总笔数
-              th 微金额
-              th 微笔数
-              th 支金额
-              th 支笔数
-              th T0金额
-              th T0笔数
-          tbody#monthsum_tbody
+      .panel-body#mon_trades_total style='height:350px;overflow:auto;'
+        /
     
   .col-md-6
     .panel.panel-info
@@ -91,26 +75,18 @@ br
   .col-md-12
     .panel.panel-warning
       .panel-heading
+        .btn-group.pull-right data-toggle='button'
+          label.btn.btn-success.btn-xs= link_to 'Prev', joinlast_clients_index_path, id:'joinlast_clients_index_path', remote: true
         h4.panel-title 新增商户
-      .panel-body
-        table.table
-          thead
-            tr
-              th 商户名称
-              th 联系人
-              th 手机
-              th 地区
-              th 业务员
-              th 费率
-              th 入网时间
-              th 操作
-          tbody#newclient_tbody
+      .panel-body#joinlast_clients
+        /
     
 .row
   .col-md-12
     .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='button'
+          label.btn.btn-success.btn-xs= link_to 'Prev', active_client_day_tradetotals_path("q"=>201512), id:'active_client_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeclient 上一月
           label.btn.btn-success.btn-xs#date_activeclient 2016-01
           label.btn.btn-success.btn-xs#nextmonth_activeclient style='margin-right:420px;' 下一月
@@ -123,32 +99,16 @@ br
           label.btn.btn-success.btn-xs T0金额
           label.btn.btn-success.btn-xs T0笔数
         h4.panel-title 活跃用户
-      .panel-body
-        table.table
-          thead
-            tr
-              th 排名
-              th 商户名称
-              th 联系人
-              th 手机
-              th 地区
-              th 业务员
-              th 渠道
-              th 入网时间
-              th 费率
-              th 总金额
-              th 微金额
-              th 微笔数
-              th 支金额
-              th T0金额
-              th T0笔数
-          tbody#activeclient_tbody
+      .panel-body#active_clients_total
+        /
+          
 
 .row
   .col-md-12
     .panel.panel-info
       .panel-heading
-        .btn-group.pull-right data-toggle='button'
+        .btn-group.pull-right data-toggle='button' 
+          label.btn.btn-success.btn-xs= link_to 'Prev', active_agent_day_tradetotals_path("q"=>201512), id: 'agent_day_tradetotal_path', remote: true
           label.btn.btn-success.btn-xs 上一月
           label.btn.btn-success.btn-xs 2015年12月
           label.btn.btn-success.btn-xs style='margin-right:500px;' 下一月
@@ -159,34 +119,11 @@ br
           label.btn.btn-success.btn-xs 支金额
           label.btn.btn-success.btn-xs T0金额
         h4.panel-title 活跃合作商
-      .panel-body
-        table.table
-          thead
-            tr
-              th 排名
-              th 渠道名称
-              th 联系人
-              th 手机
-              th 合作时间
-              th 业务数
-              th 累计户
-              th 当月户
-              th 总金额
-              th 微金额
-              th 微笔数
-              th 支金额
-              th T0金额
-              th 操作
-          tbody#activeagent_tbody
+      .panel-body#active_agent_total
+        /
 
-
-.row
-  .col-md-3
-    p 按照月份请求平台所有的交易统计数据 URL: http://localhost:3000/activeinfo/month_sum.json?year=2015&month=12&order=total_count
-    p 活跃商户 URL: http://root.com/activeinfo/client.json?year=2015&month=11&order=total_count
-    p 活跃代理商 URL: http://root.com/activeinfo/agent.json?year=2015&month=11&order=total_count
-    p order为排序类型: ['total_amount', 'total_count',
-                'weichat_amount', 'weichat_count', 'alipay_amount', 'alipay_count',
-                't0_amount', 't0_count', 't1_amount', 't1_count']
-    #
-.row
+javascript:
+  $('#month_client_day_tradetotals_path').trigger("click");
+  $('#active_client_day_tradetotals_path').trigger("click");
+  $('#agent_day_tradetotal_path').trigger("click");
+  $('#joinlast_clients_index_path').trigger("click");

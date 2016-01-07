@@ -2,7 +2,10 @@ class Agent < ActiveRecord::Base
   has_many :salesmen
   has_many :bank_cards, as: :bankcard_obj
   has_one :company, as: :company_obj
+  has_many :agent_day_tradetotals
 
+  accepts_nested_attributes_for :bank_cards # 编辑关联对象
+  # accepts_nested_attributes_for :company # 公司机构
 
   after_initialize do |agent|
 
@@ -21,6 +24,10 @@ class Agent < ActiveRecord::Base
 
   def new_clients
     self.clients.take(10)
+  end
+
+  def current_month_clients
+    self.clients.where("join_date": Date.current.all_month)
   end
 
   def trade_groupby_client
