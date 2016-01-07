@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107052107) do
+ActiveRecord::Schema.define(version: 20160107160113) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -280,6 +280,8 @@ ActiveRecord::Schema.define(version: 20160107052107) do
     t.string   "company_obj_type"
     t.text     "name"
     t.string   "short_name"
+    t.date     "establish_date"
+    t.string   "location"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
@@ -371,6 +373,17 @@ ActiveRecord::Schema.define(version: 20160107052107) do
     t.string   "info"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "sales_commissions", force: :cascade do |t|
+    t.integer  "sales_commission_obj_id"
+    t.string   "sales_commission_obj_type"
+    t.string   "sales_type"
+    t.integer  "start_count",                                        default: 0
+    t.integer  "end_count",                                          default: 0
+    t.decimal  "percent",                   precision: 12, scale: 2, default: 0.0
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
   end
 
   create_table "salesman_day_tradetotals", force: :cascade do |t|

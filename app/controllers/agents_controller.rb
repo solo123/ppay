@@ -32,14 +32,23 @@ class AgentsController < ApplicationController
       @join_days = dif_date.to_i.to_s
       @last_date = @agent.clients.last.join_date.to_datetime
     end
+    if !@agent.bank_card
+      c = BankCard.new
+      @agent.bank_card = c
+    end
+    if !@agent.company
+      c = Company.new
+      @agent.company = c
+    end
 
-
+    @bcard = @agent.bank_card
+    @company = @agent.company
+    @contact = Contact.new
   end
 
   # GET /agents/new
   def new
     @agent = Agent.new
-    2.times {@agent.bank_cards.build}
   end
 
   # GET /agents/1/edit
@@ -90,8 +99,6 @@ class AgentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_agent
       @agent = Agent.find(params[:id])
-      2.times {@agent.bank_cards.build}
-
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

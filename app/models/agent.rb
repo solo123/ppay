@@ -1,10 +1,11 @@
 class Agent < ActiveRecord::Base
   has_many :salesmen
-  has_many :bank_cards, as: :bankcard_obj
+  has_one :bank_card, as: :bankcard_obj
   has_one :company, as: :company_obj
   has_many :agent_day_tradetotals
+  has_many :sales_commissions, as: :sales_commission_obj
 
-  accepts_nested_attributes_for :bank_cards # 编辑关联对象
+  # accepts_nested_attributes_for :bank_cards # 编辑关联对象
   # accepts_nested_attributes_for :company # 公司机构
 
   after_initialize do |agent|

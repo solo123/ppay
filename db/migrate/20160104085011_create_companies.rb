@@ -4,10 +4,11 @@ class CreateCompanies < ActiveRecord::Migration
       t.integer :company_obj_id
       t.string :company_obj_type
 
-
       t.text :name
       t.string :short_name
-
+      t.date :establish_date
+      t.string :location
+      
       t.timestamps null: false
     end
   end

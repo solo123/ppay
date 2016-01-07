@@ -20,9 +20,17 @@ div class='row'
           tr
             td== agent.name
             td== agent.mobile
+            td== agent.cooperation_type_id
+            td== agent.cooperation_date
+            td== agent.t0_enabled
+            td== agent.bank_biz_types
+            td== agent.cooperation_location
+            td== agent.deposit
+            td== agent.amounts_payable
+          
+          
             td
-              == link_to 'Show', agent
-              == link_to 'Edit', edit_agent_path(agent)
-              == link_to 'Destroy', agent, method: :delete, data: { confirm: 'Are you sure?' }
+              == link_to '详情', agent
+              == link_to '删除', agent, method: :delete, data: { confirm: 'Are you sure?' }
     br
-    = link_to 'New Agent', new_agent_path
+    = link_to '添加代理商', new_agent_path

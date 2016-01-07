@@ -2,6 +2,17 @@
   == f.error_notification
   == f.input :name
   == f.input :mobile
+  == f.input :name
+  == f.input :mobile
+  == f.input :cooperation_type_id
+  == f.input :cooperation_date
+  == f.input :t0_enabled
+  == f.input :bank_biz_types
+  == f.input :cooperation_location
+  == f.input :deposit
+  == f.input :amounts_payable
+
+
   .form-actions
     == f.submit "save", :class => "btn btn-primary" 
     == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 

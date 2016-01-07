@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-
-  get 'joinlast_clients/index'
-
-
   resources :agent_day_tradetotals do
     collection do
       get :active
@@ -35,6 +31,8 @@ Rails.application.routes.draw do
   resources :users
 
   # 业务数据
+  resources :joinlast_clients
+  resources :sales_commissions
   resources :bank_cards
   resources :companies
   resources :statistic_agents
