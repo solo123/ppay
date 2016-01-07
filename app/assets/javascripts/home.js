@@ -3,18 +3,23 @@ var homejs =function() {
 		var date_text=$('#date_monthsum').text();
 		var mydate=new Date(Date.parse(date_text));
 		var year=mydate.getFullYear();
-		var month=mydate.getMonth();
+		var month=mydate.getMonth()+1;
 		$.ajax({
 			type:'GET',
-			url:'/activeinfo/month_sum.json?year='+year+'&&month='+month,
+			url:'/activeinfo/month_sum.json?year='+year+'&month='+month+'&random=' + Math.random(),
 			dataType:'json',
 			success:function(data){
 				var str='';
-				for (var i = 0; i < data.length-1; i++) {
-					str+="<tr><td>"+(i+1)+"</td><td>"+data[i].amount_sum+"</td><td>"+data[i].num_sum+"</td><td>"+data[i].weichat_amount_sum+"</td><td>"+data[i].weichat_num_sum+"</td><td>"+data[i].alipay_amount_sum+"</td><td>"+data[i].alipay_num_sum+"</td><td>"+data[i].t0_amount_sum+"</td><td>"+data[i].t0_num_sum+"</td></tr>"
-				};
-				var str_last ="<tr><td>汇总"+"</td><td>"+data[data.length-1].amount_sum+"</td><td>"+data[data.length-1].num_sum+"</td><td>"+data[data.length-1].weichat_amount_sum+"</td><td>"+data[data.length-1].weichat_num_sum+"</td><td>"+data[data.length-1].alipay_amount_sum+"</td><td>"+data[data.length-1].alipay_num_sum+"</td><td>"+data[data.length-1].t0_amount_sum+"</td><td>"+data[data.length-1].t0_num_sum+"</td></tr>"
-				$('#monthsum_tbody').html(str+str_last);
+				for (var i = 0; i < data.length; i++) {
+					if (data[i]==null) {
+						str+="<tr><td>"+(i+1)+"</td><td>"+0+"</td><td>"+0+"</td><td>"+0+"</td><td>"+0+"</td><td>"+0+"</td><td>"+0+"</td><td>"+0+"</td><td>"+0+"</td></tr>";
+					}else{
+						str+="<tr><td>"+(i+1)+"</td><td>"+data[i].total_amount+"</td><td>"+data[i].total_count+"</td><td>"+data[i].weichat_amount+"</td><td>"+data[i].weichat_count+"</td><td>"+data[i].alipay_amount+"</td><td>"+data[i].alipay_count+"</td><td>"+data[i].t0_amount+"</td><td>"+data[i].t0_count+"</td></tr>";
+					}
+				}
+				// alert(str);
+				// str +="<tr><td>汇总"+"</td><td>"+data[data.length-1].total_amount+"</td><td>"+data[data.length-1].total_count+"</td><td>"+data[data.length-1].weichat_amount+"</td><td>"+data[data.length-1].weichat_count+"</td><td>"+data[data.length-1].alipay_amount+"</td><td>"+data[data.length-1].alipay_count+"</td><td>"+data[data.length-1].t0_amount+"</td><td>"+data[data.length-1].t0_count+"</td></tr>";
+				$('#monthsum_tbody').html(str);
 			},
 		});
 	}
@@ -26,6 +31,7 @@ var homejs =function() {
 		a='0'+month;
 		// alert(a.substr(-2,2));
 		$('#date_monthsum').text(year+'-'+a.substr(-2,2));
+		// alert($('#date_monthsum').text());
 		month_sum();
 	});
 	$('#premonth_monthsum').click(function(){
@@ -58,7 +64,8 @@ var homejs =function() {
 		var month=mydate.getMonth();
 		$.ajax({
 			type:'GET',
-			url:'http:/activeinfo/client.json?year='+year+'&&month='+month,
+			// url:'http:/activeinfo/client.json?year='+year+'&&month='+month,
+			url:'http://root.com/activeinfo/client.json?year=2015&month=11&order=total_count',
 			dataType:'json',
 			success:function(data){
 				var str='';
