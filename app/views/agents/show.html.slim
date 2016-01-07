@@ -1,5 +1,7 @@
-= link_to 'Back', agents_path
-
+ol.breadcrumb.pull-right
+  li ==link_to 'Home', '/'
+  li ==link_to '代理管理', 'agents_path'
+  li 详细信息
 h1 
   span 代理商生命周期
   small  合作时长: #{@join_days}, 最近入网时间: #{@last_date}, 上月交易总额: 
