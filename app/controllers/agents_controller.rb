@@ -1,4 +1,6 @@
 class AgentsController < ResourceController
+  def create_login
+  end
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params

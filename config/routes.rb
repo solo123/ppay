@@ -41,9 +41,11 @@ Rails.application.routes.draw do
   resources :companies
   resources :agents do
     member do
+      get :create_login
       post :del_salesman
       post :add_salesman
     end
+    resources :contacts
   end
   resources :clients do
     member do
@@ -68,6 +70,7 @@ Rails.application.routes.draw do
   resources :imp_qf_trades
   resources :imp_qf_customers
   resources :data_manage
+  resources :code_tables
 
   root to: 'home#index'
 

@@ -10,7 +10,7 @@
       = addr.input :street
       = addr.input :post_code
   
-  == f.input :cooperation_type_id
+  == f.association :cooperation_type, collection: CodeTable.childs('cooperation_type')
   == f.input :cooperation_date
   == f.input :t0_enabled
   == f.input :bank_biz_types
