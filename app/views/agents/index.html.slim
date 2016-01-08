@@ -1,10 +1,11 @@
-.pull-right
-  tags.btn.btn-warning.btn-lg
-    = link_to '添加代理商', new_agent_path
 h1
   span 合作商摘要
   small 湖南：70个（代理商：50，分销商：292），广东：80个（代理商：50，分销商：292）
 br
+.pull-right
+  tags.btn.btn-warning.btn-lg
+    = link_to '添加代理商', new_agent_path
+
 br
 table.table
   thead
@@ -35,3 +36,4 @@ table.table
       td= link_to '删除', agent, method: :delete, data: { confirm: 'Are you sure?' }
     /
     
+= debug(params)

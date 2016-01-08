@@ -19,13 +19,16 @@ class ClientDayTradetotalsController < ResourceController
     day_trade_total.take(10).each do |t|
       idx += 1
       c = Client.find(t.client_id)
-      c_contact = Contact.find( ClientsContact.find_by("client_id"=> t.client_id).contact_id )
 
+      if c.contacts.count==0
+        c.contacts << Contact.new
+        c.save
+      end
       h = {}
       h["idx"] = idx
       h['shop_name'] = c.shop_name
-      h["contact_name"] = c_contact.name
-      h["contact_tel"] = c_contact.tel
+      h["contact_name"] = c.contacts.last.name
+      h["contact_tel"] = c.contacts.last.tel
       h["location"] = ''
       h['salesman.name'] = c.salesman.name
       h['salesman.url'] = salesman_path(c.salesman)
@@ -41,12 +44,6 @@ class ClientDayTradetotalsController < ResourceController
 
       @collection << h
     end
-
-
-
-
-    puts '--' * 42
-    puts @collection.first
 
   end
 end

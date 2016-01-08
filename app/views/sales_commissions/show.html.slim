@@ -3,19 +3,19 @@ p#notice
 p
   strong
     | Sales type:
-  = @sales_commission.sales_type
+  = @object.sales_type
 p
   strong
     | start_count:
-  = @sales_commission.start_count
+  = @object.start_count
 p
   strong
     | end_count:
-  = @sales_commission.end_count
+  = @object.end_count
 p
   strong
     | Percent:
-  = @sales_commission.percent
-= link_to 'Edit', edit_sales_commission_path(@sales_commission)
+  = @object.percent
+= link_to 'Edit', edit_sales_commission_path(@object)
 |  | 
 = link_to 'Back', sales_commissions_path

@@ -91,13 +91,15 @@ h1
     h4 联系信息
     .row
       .col-md-4
-        p 联系人角色
-        p 联系人
-        p 邮箱
-      .col-md-8
-        p
-        p 联系人手机
-        p 地址
+        - @object.contacts.each do |cc|
+          ul
+            li 联系人
+            | #{cc.name}
+            li 联系人角色
+            | #{cc.roles}
+            li 联系人手机
+            | #{cc.tel}
+    /
     h4 业务信息
     .row
       .col-md-8

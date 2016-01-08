@@ -15,21 +15,21 @@ table
         | Percent
       th[colspan="3"]
   tbody
-    - @sales_commissions.each do |sales_commission|
+    - @collection.each do |object|
       tr
         td
-          = sales_commission.sales_type
+          = object.sales_type
         td
-          = sales_commission.start_count
+          = object.start_count
         td
-          = sales_commission.end_count
+          = object.end_count
         td
-          = sales_commission.percent
+          = object.percent
         td
-          = link_to 'Show', sales_commission
+          = link_to 'Show', @object
         td
-          = link_to 'Edit', edit_sales_commission_path(sales_commission)
+          = link_to 'Edit', edit_sales_commission_path(object)
         td
-          = link_to 'Destroy', sales_commission, method: :delete, data: { confirm: 'Are you sure?' }
+          = link_to 'Destroy', object, method: :delete, data: { confirm: 'Are you sure?' }
 br
 = link_to 'New Sales commission', new_sales_commission_path
