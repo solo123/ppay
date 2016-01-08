@@ -27,7 +27,7 @@ class Agent < ActiveRecord::Base
   end
 
   def current_month_clients
-    self.clients.where("join_date": Date.current.all_month)
+    self.clients.where("join_date"=> Date.current.all_month)
   end
 
   def trade_groupby_client
