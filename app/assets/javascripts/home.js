@@ -1,3 +1,67 @@
+var homejs=function(){
+	$('#nextmonth_monthsum').click(function(){
+		var month=parseInt($('#date_monthsum').text().substr(-2,2));
+		var year=parseInt($('#date_monthsum').text().substr(0,4));
+		if (month==12) {month=1;year+=1;}else {month+=1;}
+		$('#date_monthsum').text(year+'-'+('0'+month).substr(-2,2));
+		$('#month_client_day_tradetotals_path').attr('href','/client_day_tradetotals/month?q='+year+month);
+		$('#month_client_day_tradetotals_path').trigger("click");
+	});
+	$('#premonth_monthsum').click(function(){
+		var month=parseInt($('#date_monthsum').text().substr(-2,2));
+		var year=parseInt($('#date_monthsum').text().substr(0,4));
+		if (month==1) {year-=1;month=12;}else{month-=1;};
+		$('#date_monthsum').text(year+'-'+('0'+month).substr(-2,2));
+		$('#month_client_day_tradetotals_path').attr('href','/client_day_tradetotals/month?q='+year+month);
+		$('#month_client_day_tradetotals_path').trigger("click");
+	});
+
+	$('#nextmonth_activeclient').click(function(){
+		var month=parseInt($('#date_activeclient').text().substr(-2,2));
+		var year=parseInt($('#date_activeclient').text().substr(0,4));
+		if (month==12) {month=1;year+=1;}else {month+=1;}
+		$('#date_activeclient').text(year+'-'+('0'+month).substr(-2,2));
+		$('#active_client_day_tradetotals_path').attr('href','/client_day_tradetotals/active?q='+year+month);
+		$('#active_client_day_tradetotals_path').trigger("click");
+	});
+	$('#premonth_activeclient').click(function(){
+		var month=parseInt($('#date_activeclient').text().substr(-2,2));
+		var year=parseInt($('#date_activeclient').text().substr(0,4));
+		if (month==1) {year-=1;month=12;}else{month-=1;};
+		$('#date_activeclient').text(year+'-'+('0'+month).substr(-2,2));
+		$('#active_client_day_tradetotals_path').attr('href','/client_day_tradetotals/active?q='+year+month);
+		$('#active_client_day_tradetotals_path').trigger("click");
+	});
+
+	$('#nextmonth_activeagent').click(function(){
+		var month=parseInt($('#date_activeagent').text().substr(-2,2));
+		var year=parseInt($('#date_activeagent').text().substr(0,4));
+		if (month==12) {month=1;year+=1;}else {month+=1;}
+		$('#date_activeagent').text(year+'-'+('0'+month).substr(-2,2));
+		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month);
+		$('#agent_day_tradetotal_path').trigger("click");
+	});
+	$('#premonth_activeagent').click(function(){
+		var month=parseInt($('#date_activeagent').text().substr(-2,2));
+		var year=parseInt($('#date_activeagent').text().substr(0,4));
+		if (month==1) {year-=1;month=12;}else{month-=1;};
+		$('#date_activeagent').text(year+'-'+('0'+month).substr(-2,2));
+		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month);
+		$('#agent_day_tradetotal_path').trigger("click");
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // var homejs =function() {
 // 	function month_sum () {
 // 		var date_text=$('#date_monthsum').text();

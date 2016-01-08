@@ -7,8 +7,6 @@ var client_show = function() {
 				checkedradio+"</strong><span>"+bztextval+
 				"</span></div><div class='col-md-2'><span>usename</span></div><div class='col-md-2'><span>"
 				+mydate+"</span></div><div class='col-md-2'><button class='btn btn-xs btn-default'>归档</button></div></div>");
-	});
-	$('#beizhubtn').click(function() {
 		$.ajax({
 			type:'POST',
 			url:'http://localhost:3000/clients/1/note',

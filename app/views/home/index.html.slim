@@ -53,9 +53,9 @@ br
     .panel.panel-primary
       .panel-heading
         .btn-group.pull-right data-toggle='button'
-          label.btn.btn-success.btn-xs= link_to 'Prev', month_client_day_tradetotals_path("q"=>201511), id: 'month_client_day_tradetotals_path',  remote: true
+          label.btn.btn-success.btn-xs= link_to '刷新', month_client_day_tradetotals_path("q"=>201511), id: 'month_client_day_tradetotals_path',  remote: true
           label.btn.btn-success.btn-xs#premonth_monthsum 上一月
-          label.btn.btn-success.btn-xs#date_monthsum 2016-01
+          label.btn.btn-success.btn-xs#date_monthsum 2015-11
           label.btn.btn-success.btn-xs#nextmonth_monthsum 下一月
         h4.panel-title 交易汇总表
       .panel-body#mon_trades_total style='height:350px;overflow:auto;'
@@ -76,6 +76,9 @@ br
     .panel.panel-warning
       .panel-heading
         .btn-group.pull-right data-toggle='button'
+
+          label.btn.btn-success.btn-xs= link_to '刷新', joinlast_clients_index_path, id:'joinlast_clients_index_path', remote: true
+
           label.btn.btn-success.btn-xs= link_to 'Prev', joinlast_clients_path, id:'joinlast_clients_index_path', remote: true
         h4.panel-title 新增商户
       .panel-body#joinlast_clients
@@ -86,9 +89,9 @@ br
     .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='button'
-          label.btn.btn-success.btn-xs= link_to 'Prev', active_client_day_tradetotals_path("q"=>201512), id:'active_client_day_tradetotals_path', remote: true
+          label.btn.btn-success.btn-xs= link_to '刷新', active_client_day_tradetotals_path("q"=>201511), id:'active_client_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeclient 上一月
-          label.btn.btn-success.btn-xs#date_activeclient 2016-01
+          label.btn.btn-success.btn-xs#date_activeclient 2015-11
           label.btn.btn-success.btn-xs#nextmonth_activeclient style='margin-right:420px;' 下一月
           label.btn.btn-success.btn-xs 总金额
           label.btn.btn-success.btn-xs 总笔数
@@ -109,9 +112,9 @@ br
       .panel-heading
         .btn-group.pull-right data-toggle='button' 
           label.btn.btn-success.btn-xs= link_to 'Prev', active_agent_day_tradetotals_path("q"=>201512), id: 'agent_day_tradetotal_path', remote: true
-          label.btn.btn-success.btn-xs 上一月
-          label.btn.btn-success.btn-xs 2015年12月
-          label.btn.btn-success.btn-xs style='margin-right:500px;' 下一月
+          label.btn.btn-success.btn-xs#premonth_activeagent 上一月
+          label.btn.btn-success.btn-xs#date_activeagent 2015-11
+          label.btn.btn-success.btn-xs#nextmonth_activeagent style='margin-right:500px;' 下一月
           label.btn.btn-success.btn-xs 入网商户
           label.btn.btn-success.btn-xs 总金额
           label.btn.btn-success.btn-xs 微金额

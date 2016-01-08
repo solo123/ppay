@@ -19,7 +19,7 @@ class ClientDayTradetotalsController < ResourceController
     day_trade_total.take(10).each do |t|
       idx += 1
       c = Client.find(t.client_id)
-      c_contact = Contact.find( ClientsContact.find_by("client_id": t.client_id).contact_id )
+      c_contact = Contact.find( ClientsContact.find_by("client_id"=> t.client_id).contact_id )
 
       h = {}
       h["idx"] = idx
