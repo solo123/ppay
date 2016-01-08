@@ -9,6 +9,7 @@ class CreateAgents < ActiveRecord::Migration
       t.text :cooperation_location
       t.decimal :deposit, precision: 12, scale: 2
       t.decimal :amounts_payable, precision: 12, scale: 2
+      t.integer :status, default: 0
 
       t.timestamps null: false
     end

@@ -8,6 +8,7 @@ class CreateBankCards < ActiveRecord::Migration
       t.string :bank_sub_branch
       t.string :account_name
       t.string :account_number
+      t.integer :status, default: 0
 
       t.timestamps null: false
     end

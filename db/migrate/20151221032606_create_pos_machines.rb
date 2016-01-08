@@ -6,6 +6,8 @@ class CreatePosMachines < ActiveRecord::Migration
       t.string :brand
       t.string :model
       t.string :info
+      t.integer :status, default: 0
+
 
       t.timestamps null: false
     end

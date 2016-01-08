@@ -10,6 +10,7 @@ class CreateClearings < ActiveRecord::Migration
       t.decimal :actual_amount, precision: 12, scale: 2
       t.belongs_to :clearing_status
       t.integer :status, default: 0
+      
       t.timestamps
     end
   end

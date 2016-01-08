@@ -8,6 +8,7 @@ class CreateSalesCommissions < ActiveRecord::Migration
       t.integer :start_count, default: 0
       t.integer :end_count, default: 0
       t.decimal :percent, precision: 12, scale: 2, default: 0
+      t.integer :status, default: 0
 
       t.timestamps null: false
     end

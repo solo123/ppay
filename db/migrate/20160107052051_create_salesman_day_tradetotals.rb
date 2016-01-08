@@ -18,6 +18,7 @@ class CreateSalesmanDayTradetotals < ActiveRecord::Migration
       t.decimal :actual_amount, precision: 12, scale: 2, default: 0
       t.decimal :diff_amount, precision: 12, scale: 2, default: 0
       t.decimal :diff_total_amount, precision: 12, scale: 2, default: 0
+      t.integer :status, default: 0
 
       t.timestamps null: false
     end
