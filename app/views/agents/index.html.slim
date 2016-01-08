@@ -35,3 +35,36 @@ table.table
         == link_to '更改', edit_agent_path(agent)
         == link_to '删除', agent, method: :delete, data: { confirm: 'Are you sure?' }
   
+
+    p#notice
+      = notice
+    h1
+      | 代理
+
+    = paginate @collection
+    table class='table'
+      thead
+        tr
+          th
+            | Name
+          th
+            | Mobile
+          th[colspan="3"]
+      tbody
+        - @collection.each do |agent|
+          tr
+            td== agent.company.name if agent.company
+            td== agent.cooperation_type_id
+            td== agent.cooperation_date
+            td== agent.t0_enabled
+            td== agent.bank_biz_types
+            td== agent.cooperation_location
+            td== agent.deposit
+            td== agent.amounts_payable
+          
+          
+            td
+              == link_to '详情', agent
+              == link_to '删除', agent, method: :delete, data: { confirm: 'Are you sure?' }
+    br
+    = link_to '添加代理商', new_agent_path

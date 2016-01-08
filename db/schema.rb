@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106071741) do
+ActiveRecord::Schema.define(version: 20160107160113) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -30,30 +30,8 @@ ActiveRecord::Schema.define(version: 20160106071741) do
     t.date     "trade_date"
     t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
     t.integer  "total_count",                                default: 0
-    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
-    t.integer  "weichat_count",                              default: 0
-    t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
-    t.integer  "alipay_count",                               default: 0
-    t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t0_count",                                   default: 0
-    t.decimal  "t1_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t1_count",                                   default: 0
-    t.decimal  "expected_amount",   precision: 12, scale: 2, default: 0.0
-    t.decimal  "actual_amount",     precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_amount",       precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_total_amount", precision: 12, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-  end
-
-  create_table "agent_month_tradetotals", force: :cascade do |t|
-    t.integer  "agent_id"
-    t.integer  "year"
-    t.integer  "month"
-    t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
-    t.integer  "total_count",                                default: 0
-    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
-    t.integer  "weichat_count",                              default: 0
+    t.decimal  "wechat_amount",     precision: 12, scale: 2, default: 0.0
+    t.integer  "wechat_count",                               default: 0
     t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
     t.integer  "alipay_count",                               default: 0
     t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
@@ -69,10 +47,7 @@ ActiveRecord::Schema.define(version: 20160106071741) do
   end
 
   create_table "agents", force: :cascade do |t|
-    t.string   "name"
-    t.string   "mobile"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.integer  "company_id"
     t.integer  "cooperation_type_id"
     t.datetime "cooperation_date"
     t.integer  "t0_enabled"
@@ -80,6 +55,8 @@ ActiveRecord::Schema.define(version: 20160106071741) do
     t.text     "cooperation_location"
     t.decimal  "deposit",              precision: 12, scale: 2
     t.decimal  "amounts_payable",      precision: 12, scale: 2
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
   end
 
   create_table "agents_contacts", id: false, force: :cascade do |t|
@@ -120,30 +97,8 @@ ActiveRecord::Schema.define(version: 20160106071741) do
     t.date     "trade_date"
     t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
     t.integer  "total_count",                                default: 0
-    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
-    t.integer  "weichat_count",                              default: 0
-    t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
-    t.integer  "alipay_count",                               default: 0
-    t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t0_count",                                   default: 0
-    t.decimal  "t1_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t1_count",                                   default: 0
-    t.decimal  "expected_amount",   precision: 12, scale: 2, default: 0.0
-    t.decimal  "actual_amount",     precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_amount",       precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_total_amount", precision: 12, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-  end
-
-  create_table "client_month_tradetotals", force: :cascade do |t|
-    t.integer  "client_id"
-    t.integer  "year"
-    t.integer  "month"
-    t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
-    t.integer  "total_count",                                default: 0
-    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
-    t.integer  "weichat_count",                              default: 0
+    t.decimal  "wechat_amount",     precision: 12, scale: 2, default: 0.0
+    t.integer  "wechat_count",                               default: 0
     t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
     t.integer  "alipay_count",                               default: 0
     t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
@@ -168,11 +123,11 @@ ActiveRecord::Schema.define(version: 20160106071741) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.integer  "salesman_id"
     t.integer  "shid"
     t.string   "shop_name"
     t.string   "shop_tel"
     t.integer  "category_id"
+    t.integer  "salesman_id"
     t.decimal  "rate",                    precision: 12, scale: 6
     t.string   "join_date"
     t.decimal  "bank_card_limit_each",    precision: 12, scale: 2
@@ -320,10 +275,13 @@ ActiveRecord::Schema.define(version: 20160106071741) do
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position"
 
   create_table "companies", force: :cascade do |t|
+    t.integer  "address_id"
     t.integer  "company_obj_id"
     t.string   "company_obj_type"
     t.text     "name"
     t.string   "short_name"
+    t.date     "establish_date"
+    t.string   "location"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
@@ -407,26 +365,6 @@ ActiveRecord::Schema.define(version: 20160106071741) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "platform_day_tradetotals", force: :cascade do |t|
-    t.date     "trade_date"
-    t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
-    t.integer  "total_count",                                default: 0
-    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
-    t.integer  "weichat_count",                              default: 0
-    t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
-    t.integer  "alipay_count",                               default: 0
-    t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t0_count",                                   default: 0
-    t.decimal  "t1_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t1_count",                                   default: 0
-    t.decimal  "expected_amount",   precision: 12, scale: 2, default: 0.0
-    t.decimal  "actual_amount",     precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_amount",       precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_total_amount", precision: 12, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-  end
-
   create_table "pos_machines", force: :cascade do |t|
     t.string   "serial_number"
     t.integer  "client_id"
@@ -437,35 +375,24 @@ ActiveRecord::Schema.define(version: 20160106071741) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "sales_commissions", force: :cascade do |t|
+    t.integer  "sales_commission_obj_id"
+    t.string   "sales_commission_obj_type"
+    t.string   "sales_type"
+    t.integer  "start_count",                                        default: 0
+    t.integer  "end_count",                                          default: 0
+    t.decimal  "percent",                   precision: 12, scale: 2, default: 0.0
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
+  end
+
   create_table "salesman_day_tradetotals", force: :cascade do |t|
     t.integer  "salesman_id"
     t.date     "trade_date"
     t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
     t.integer  "total_count",                                default: 0
-    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
-    t.integer  "weichat_count",                              default: 0
-    t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
-    t.integer  "alipay_count",                               default: 0
-    t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t0_count",                                   default: 0
-    t.decimal  "t1_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t1_count",                                   default: 0
-    t.decimal  "expected_amount",   precision: 12, scale: 2, default: 0.0
-    t.decimal  "actual_amount",     precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_amount",       precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_total_amount", precision: 12, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-  end
-
-  create_table "salesman_month_tradetotals", force: :cascade do |t|
-    t.integer  "salesman_id"
-    t.integer  "year"
-    t.integer  "month"
-    t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
-    t.integer  "total_count",                                default: 0
-    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
-    t.integer  "weichat_count",                              default: 0
+    t.decimal  "wechat_amount",     precision: 12, scale: 2, default: 0.0
+    t.integer  "wechat_count",                               default: 0
     t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
     t.integer  "alipay_count",                               default: 0
     t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
@@ -527,6 +454,49 @@ ActiveRecord::Schema.define(version: 20160106071741) do
     t.integer  "status",                                   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "trades_total_mons", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "trade_date_year"
+    t.integer  "trade_date_month"
+    t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
+    t.integer  "total_count",                                default: 0
+    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
+    t.integer  "weichat_count",                              default: 0
+    t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
+    t.integer  "alipay_count",                               default: 0
+    t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
+    t.integer  "t0_count",                                   default: 0
+    t.decimal  "t1_amount",         precision: 12, scale: 2, default: 0.0
+    t.integer  "t1_count",                                   default: 0
+    t.decimal  "expected_amount",   precision: 12, scale: 2, default: 0.0
+    t.decimal  "actual_amount",     precision: 12, scale: 2, default: 0.0
+    t.decimal  "diff_amount",       precision: 12, scale: 2, default: 0.0
+    t.decimal  "diff_total_amount", precision: 12, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+  end
+
+  create_table "trades_totals", force: :cascade do |t|
+    t.integer  "client_id"
+    t.date     "trade_date"
+    t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
+    t.integer  "total_count",                                default: 0
+    t.decimal  "weichat_amount",    precision: 12, scale: 2, default: 0.0
+    t.integer  "weichat_count",                              default: 0
+    t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
+    t.integer  "alipay_count",                               default: 0
+    t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
+    t.integer  "t0_count",                                   default: 0
+    t.decimal  "t1_amount",         precision: 12, scale: 2, default: 0.0
+    t.integer  "t1_count",                                   default: 0
+    t.decimal  "expected_amount",   precision: 12, scale: 2, default: 0.0
+    t.decimal  "actual_amount",     precision: 12, scale: 2, default: 0.0
+    t.decimal  "diff_amount",       precision: 12, scale: 2, default: 0.0
+    t.decimal  "diff_total_amount", precision: 12, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
   end
 
   create_table "users", force: :cascade do |t|

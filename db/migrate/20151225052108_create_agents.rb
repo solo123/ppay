@@ -1,9 +1,8 @@
 class CreateAgents < ActiveRecord::Migration
   def change
     create_table :agents do |t|
-      t.string :name
-      t.string :mobile
-      t.integer :cooperation_type_id
+      t.belongs_to :company
+      t.belongs_to :cooperation_type
       t.datetime :cooperation_date
       t.integer :t0_enabled
       t.string :bank_biz_types

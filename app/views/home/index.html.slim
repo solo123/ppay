@@ -76,7 +76,10 @@ br
     .panel.panel-warning
       .panel-heading
         .btn-group.pull-right data-toggle='button'
+
           label.btn.btn-success.btn-xs= link_to '刷新', joinlast_clients_index_path, id:'joinlast_clients_index_path', remote: true
+
+          label.btn.btn-success.btn-xs= link_to 'Prev', joinlast_clients_path, id:'joinlast_clients_index_path', remote: true
         h4.panel-title 新增商户
       .panel-body#joinlast_clients
         /

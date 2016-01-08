@@ -1,7 +1,24 @@
-== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
+- @object.build_company unless @object.company
+- @object.company.build_address unless @object.company.address
+
+== simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
   == f.error_notification
-  == f.input :name
-  == f.input :mobile
+  == f.simple_fields_for :company do |c|
+    == c.input :name
+    == c.input :short_name
+    == c.simple_fields_for :address do |addr|
+      = addr.input :street
+      = addr.input :post_code
+  
+  == f.input :cooperation_type_id
+  == f.input :cooperation_date
+  == f.input :t0_enabled
+  == f.input :bank_biz_types
+  == f.input :cooperation_location
+  == f.input :deposit
+  == f.input :amounts_payable
+
+
   .form-actions
     == f.submit "save", :class => "btn btn-primary" 
     == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 

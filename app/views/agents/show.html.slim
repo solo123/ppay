@@ -1,6 +1,6 @@
 ol.breadcrumb.pull-right
-  li ==link_to 'Home', '/'
-  li ==link_to '代理管理', 'agents_path'
+  li ==link_to 'Home', root_path
+  li ==link_to '代理管理', '#'
   li 详细信息
 h1 
   span 代理商生命周期
@@ -62,13 +62,48 @@ h1
     h4.panel-title 合作商基础信息
   .panel-body
     h4 机构信息
+    table
+      tr
+        td 公司
+        td= @object.company_id
+      tr
+        td 合作类型
+        td= @object.cooperation_type_id
+      tr
+        td 合作日期
+        td= @object.cooperation_date
+      tr
+        td T0
+        td= @object.t0_enabled
+      tr
+        td 合作收单类型
+        td= @object.bank_biz_types
+      tr
+        td 合作区域
+        td= @object.cooperation_location
+      tr
+        td 保证金
+        td= @object.deposit
+      tr
+        td 待结算分润
+        td= @object.amounts_payable
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 合作商基础信息
+  .panel-body
+    h4 机构信息
     .row
-      .col-md-4
-        p 企业全称:
-        p 创建时间:
       .col-md-8
-        p 简称:
-        p 经营地址:
+        == simple_form_for @company,  :html => {:class => 'well form-horizontal'}  do |f|
+          == f.input :name, label: '企业全称:'
+          == f.input :short_name, label: '简称:'
+          == f.input :establish_date, label: '创建时间:'
+          == f.input :location, label: '经营地址:'
+          .form-actions
+            == f.submit "save", :class => "btn btn-primary" 
+            == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger", remote: true 
+
     h4 联系信息
     .row
       .col-md-4
@@ -81,192 +116,74 @@ h1
         p 地址
     h4 业务信息
     .row
-      .col-md-4
-        p 合作形式
-        p 状态
-        p 合作收单类型
       .col-md-8
-        p 合作时间
-        p 是否开通T+0
-        p 合作区域
+        == simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
+          == f.error_notification
+          == f.input :cooperation_date, label: '合作时间'
+          == f.input :cooperation_type_id
+          == f.input :t0_enabled, label: '是否开通T+0'
+          == f.input :bank_biz_types, label: '合作收单类型'
+          == f.input :cooperation_location, label: '合作区域'
+          == f.input :deposit
+          == f.input :amounts_payable
+          .form-actions
+            == f.submit "save", :class => "btn btn-primary" 
+            == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
+        p 合作形式  状态
+        
+        
     h4 结算信息
     .row
-      .col-md-4
-        p 开户行
-        p 账户名
       .col-md-8
-        p 开户支行
-        p 银行帐号
+        == simple_form_for @bcard,  :html => {:class => 'well form-horizontal'}  do |f|
+          == f.input :bank_name, label: '开户行'
+          == f.input :bank_sub_branch, label: '开户支行'
+          == f.input :account_name, label: '账户名'
+          == f.input :account_number, label: '银行帐号'
+          .form-actions
+            == f.submit "save", :class => "btn btn-primary" 
+            == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
     h4 财务信息
     .row
-      .col-md-4
-        p 保证金
-        p 待结算分润
+      .col-md-8
+        == simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
+          == f.error_notification
+          == f.input :deposit, label: '保证金'
+          == f.input :amounts_payable, label: '待结算分润'
+          .form-actions
+            == f.submit "save", :class => "btn btn-primary" 
+            == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+    
+    h4 分润比例
+    .row
+      .col-md-12
+        label.btn.btn-success= link_to '分润比例', agents_sales_commissions_path("q"=>@agent.id), id:'sales_commission_content_btn', remote: true
+        .panel-body#sales_commission_content
+
+    
+
 .panel.panel-primary
   .panel-heading
     h4.panel-title 渠道信息
   .panel-body
     h3 业务员
-    table.table
-      thead
-        tr
-          th 业务员姓名
-          th 手机号
-          th 下级代理名称
-          th 入网时间
-          th 累计发展商户
-          th 当月发展商户
-          th 累计交易金额
-          th 当月交易金额
-    h3 下级渠道信息
-    table.table
-      thead
-        tr
-          th 渠道名称
-          th 联系人
-          th 手机号
-          th 入网时间          
-          th 累计发展商户
-          th 当月发展商户
-          th 累计交易金额
-          th 当月交易金额
-          th caozuo
 
-h2 编辑相关属性
-h4 银行卡
-== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
-  == f.input :name
-  == f.association :bank_cards do |bc|
-    == bc.input :bank_name
-    == bc.input :bank_sub_branch
-  .form-actions
-    == f.submit "save", :class => "btn btn-primary" 
-    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
-
-h1 New Fitting
-= simple_form_for @agent do |f|
-  = f.input :name
-  = f.simple_fields_for :bank_cards_attributes do |d|
-    = d.input :bank_name
-  = f.button :submit
-
-
-
-
-== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
-  == f.error_notification
-  == f.input :name
-  == f.input :mobile
-  == f.input :cooperation_date
-  == f.input :cooperation_type_id
-  == f.input :cooperation_date
-  == f.input :t0_enabled
-  == f.input :bank_biz_types
-  == f.input :cooperation_location
-  == f.input :deposit
-  == f.input :amounts_payable
-  .form-actions
-    == f.submit "save", :class => "btn btn-primary" 
-    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
-
-
-h2 可以编辑部分信息
-== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
-  == f.input :bank_biz_types
-  == f.input :cooperation_location
-  == f.input :deposit
-  .form-actions
-    == f.submit "save", :class => "btn btn-primary" 
-    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
-
-
-
-
-hr
-hr
-h1 代理商生命周期
-p 合作时长 #{@join_days}
-p 最近入网时间 #{@last_date}
-p 上月交易总额
-
-ul#selector
-  li 总交易金额 #{@trade_amount_sum}
-  li 微信支付
-  li 预计分润
-  li 总商户数 #{@client_count}
+    .row#salesmen
+      .col-md-6
+        .list-group
+          .list-group-item.active 相关业务员
+          - @agent.salesmen.each do |s|
+            == link_to "#{s.name}", del_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+      .col-md-6
+        .list-group
+          .list-group-item.active 未关联的业务员
+          - Salesman.free_salesmen.each do |s|
+            == link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+      /
   
-h4 机构信息
-p 企业全称 创建时间 简称 经营地址
-
-h4 业务信息
-p 合作形式 状态 合作收单类型(微信、支付宝、QPOS) 是否开通T+0 合作区域
-
-h4 联系信息
-p 联系人角色 联系人 邮箱 地址
-
-h4 结算信息
-p 开户行 开户支行 账户名 银行帐号
-
-== @agent.bank_cards.each do |card|
-  == card.bank_name
-  == card.bank_sub_branch
-  == card.account_name
-  == card.account_number
-  = form_for(card) do |f|
-    .field
-      = f.label :bank_name
-      br
-      = f.text_field :bank_name
-    .field
-      = f.label :bank_sub_branch
-      br
-      = f.text_field :bank_sub_branch
-    .field
-      = f.label :account_name
-      br
-      = f.text_field :account_name
-    .field
-      = f.label :account_number
-      br
-      = f.text_field :account_number
-    .actions
-      = f.submit
-
-
-
-h1 关联信息
-h2 业务员
-h2 商户
-h2 分润规则
-
-/ 后面的东西不要修改
-.row
-  .col-md-6
-    == simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
-      == f.error_notification
-      == f.input :name
-      == f.input :mobile
-      .form-actions
-        == f.submit "save", :class => "btn btn-primary" 
-        == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
-  .col-md-6
-    = simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
-      == f.error_notification
-      = f.input :password
-      = f.input :password_confirmation
-      .form-actions
-        = f.submit 'save', :class => "btn btn-primary" 
-        = submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
-
-
-.row#salesmen
-  .col-md-6
-    .list-group
-      .list-group-item.active 相关商户
-      - @agent.salesmen.each do |s|
-        = link_to "#{s.name}", del_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
-  .col-md-6
-    .list-group
-      .list-group-item.active 未关联的商户
-      - Salesman.free_salesmen.each do |s|
-        = link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+javascript:
+  $(document).ready(function(){
+    $("#sales_commission_content_btn").trigger("click");
+  });
