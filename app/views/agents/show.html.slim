@@ -62,6 +62,37 @@ h1
     h4.panel-title 合作商基础信息
   .panel-body
     h4 机构信息
+    table
+      tr
+        td 公司
+        td= @object.company_id
+      tr
+        td 合作类型
+        td= @object.cooperation_type_id
+      tr
+        td 合作日期
+        td= @object.cooperation_date
+      tr
+        td T0
+        td= @object.t0_enabled
+      tr
+        td 合作收单类型
+        td= @object.bank_biz_types
+      tr
+        td 合作区域
+        td= @object.cooperation_location
+      tr
+        td 保证金
+        td= @object.deposit
+      tr
+        td 待结算分润
+        td= @object.amounts_payable
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 合作商基础信息
+  .panel-body
+    h4 机构信息
     .row
       .col-md-8
         == simple_form_for @company,  :html => {:class => 'well form-horizontal'}  do |f|

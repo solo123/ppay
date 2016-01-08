@@ -6,7 +6,7 @@ div class='row'
     h1
       | 代理
 
-    = paginate @agents
+    = paginate @collection
     table class='table'
       thead
         tr
@@ -16,10 +16,9 @@ div class='row'
             | Mobile
           th[colspan="3"]
       tbody
-        - @agents.each do |agent|
+        - @collection.each do |agent|
           tr
-            td== agent.name
-            td== agent.mobile
+            td== agent.company.name if agent.company
             td== agent.cooperation_type_id
             td== agent.cooperation_date
             td== agent.t0_enabled
