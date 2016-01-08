@@ -280,15 +280,13 @@ ActiveRecord::Schema.define(version: 20160107160113) do
 
   create_table "companies", force: :cascade do |t|
     t.integer  "address_id"
-    t.integer  "company_obj_id"
-    t.string   "company_obj_type"
     t.text     "name"
     t.string   "short_name"
     t.date     "establish_date"
     t.string   "location"
-    t.integer  "status",           default: 0
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "status",         default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "contacts", force: :cascade do |t|

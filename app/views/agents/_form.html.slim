@@ -1,24 +1,55 @@
-- @object.build_company unless @object.company
-- @object.company.build_address unless @object.company.address
 
-== simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
-  == f.error_notification
-  == f.simple_fields_for :company do |c|
-    == c.input :name
-    == c.input :short_name
-    == c.simple_fields_for :address do |addr|
-      = addr.input :street
-      = addr.input :post_code
+= simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
+  = f.error_notification
   
-  == f.input :cooperation_type_id
-  == f.input :cooperation_date
-  == f.input :t0_enabled
-  == f.input :bank_biz_types
-  == f.input :cooperation_location
-  == f.input :deposit
-  == f.input :amounts_payable
-
+  h4 机构信息
+  = f.simple_fields_for :company do |c|
+    .form    
+      .container
+        = c.input :name, label: '自定义'
+        = c.input :short_name
+        = c.input :establish_date
+        = c.input :location
+        = c.simple_fields_for :address do |addr|
+          h4 机构地址
+          .container
+            = addr.input :street
+            = addr.input :post_code
+  h4 联系信息
+  .container
+    = f.simple_fields_for :contacts do |c|
+      = c.input :name
+      = c.input :tel
+      = c.input :roles
+      = c.input :qq
+    
+  h4 业务信息
+  .container
+    = f.input :cooperation_type_id
+    = f.input :cooperation_date
+    = f.input :t0_enabled
+    = f.input :bank_biz_types
+    = f.input :cooperation_location
+    = f.input :deposit
+    = f.input :amounts_payable
+  h4 结算信息
+  .container
+    = f.simple_fields_for :bank_cards do |bc|
+      = bc.input :bank_name
+      = bc.input :bank_sub_branch
+      = bc.input :account_name
+      = bc.input :account_number    
+  h4 分润规则
+  .container
+    = f.simple_fields_for :sales_commissions do |sc|
+      = sc.input :sales_type
+      = sc.input :start_count
+      = sc.input :end_count
+      = sc.input :percent
 
   .form-actions
-    == f.submit "save", :class => "btn btn-primary" 
-    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+    = f.submit "save", :class => "btn btn-primary" 
+    = submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
+/
+= debug(params)
