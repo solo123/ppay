@@ -132,14 +132,15 @@ h1
       .col-md-6
         .list-group
           .list-group-item.active 相关业务员
-          /- @agent.salesmen.each do |s|
-          /  == link_to "#{s.name}", del_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+          - @object.salesmen.each do |s|
+          
+            == link_to "#{s.name}", del_salesman_agent_path(@object, salesman_id: s.id), method: :post, class: "list-group-item"
       .col-md-6
         .list-group
           .list-group-item.active 未关联的业务员
-          /- Salesman.free_salesmen.each do |s|
-          /  == link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
-      /
+          - Salesman.free_salesmen.each do |s|
+            == link_to "#{s.name}", add_salesman_agent_path(@object, salesman_id: s.id), method: :post, class: "list-group-item"
+      /                             
   
 javascript:
   $(document).ready(function(){

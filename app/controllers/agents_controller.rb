@@ -14,4 +14,11 @@ class AgentsController < ResourceController
     #   )
     # end
 
+    def del_salesman
+
+    end
+    def add_salesman
+
+    end
+
 end
