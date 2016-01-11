@@ -3,7 +3,7 @@ h1
 = render 'form'
 
 #login_user
-  = render 'login_user'
+  / = render 'login_user'
 
 - @parent = @object  
 #contacts_div
@@ -12,3 +12,6 @@ h1
 = link_to 'Show', @object
 |  | 
 = link_to 'Back', agents_path
+
+/
+= debug(params)

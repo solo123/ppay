@@ -53,10 +53,11 @@ var homejs=function(){
 
 
 
-
-
-
-
+// 活跃用户排序，请求参数 order=<>
+//
+// trade_date, total_amount, total_count, wechat_amount,
+// wechat_count, alipay_amount, alipay_count,
+// t0_amount, t0_count
 
 
 
