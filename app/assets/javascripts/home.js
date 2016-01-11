@@ -1,4 +1,5 @@
 var homejs=function(){
+	// 分页button 
 	$('#nextmonth_monthsum').click(function(){
 		var month=parseInt($('#date_monthsum').text().substr(-2,2));
 		var year=parseInt($('#date_monthsum').text().substr(0,4));
@@ -47,6 +48,19 @@ var homejs=function(){
 		if (month==1) {year-=1;month=12;}else{month-=1;};
 		$('#date_activeagent').text(year+'-'+('0'+month).substr(-2,2));
 		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month);
+		$('#agent_day_tradetotal_path').trigger("click");
+	});
+//  商户以及代理商的排序button
+	$('#orderbtn-client').children().click(function(){
+		var month=parseInt($('#date_activeclient').text().substr(-2,2));
+		var year=parseInt($('#date_activeclient').text().substr(0,4));
+		$('#active_client_day_tradetotals_path').attr('href','/client_day_tradetotals/active?q='+year+month+'&order='+$(this).attr('value'));
+		$('#active_client_day_tradetotals_path').trigger("click");
+	});
+	$('#orderbtn-agent').children().click(function(){
+		var month=parseInt($('#date_activeagent').text().substr(-2,2));
+		var year=parseInt($('#date_activeagent').text().substr(0,4));
+		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month+'&order='+$(this).attr('value'));
 		$('#agent_day_tradetotal_path').trigger("click");
 	});
 }
