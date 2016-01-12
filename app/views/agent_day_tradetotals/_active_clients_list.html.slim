@@ -24,7 +24,7 @@ table.table
         td= r["contact_name"]
         th= r["contact_tel"]
         td= r["location"]
-        td= link_to(r["salesman.name"], r["salesman.url"])
+        td= link_to(r["salesman.name"], salesman_path(r["salesman.url"]) )
         td= r["qudao"]
         td= r['join_date']
         th= r["rate"]

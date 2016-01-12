@@ -8,6 +8,9 @@ class AgentsController < ResourcesController
       u.password = c.tel
       u.save
     end
+    @object.user = u
+    @object.save
+
   end
   def del_salesman
     load_object
@@ -22,19 +25,18 @@ class AgentsController < ResourcesController
     s.save
   end
 
+  def show
+    super
+    # 交易汇总
+    @cur_trade_total = AgentDayTradetotal.select("agent_id, trade_date, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
+            .where("trade_date"=>Date.current.all_month)
+    #
+    puts 'h-'*42
+    puts @cur_trade_total
+    puts 'h'*42
+
+  end
+
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    # def agent_params
-    #   params.require(:agent).permit(
-    #     :id,
-    #     :cooperation_date, :cooperation_type_id,
-    #     :t0_enabled, :bank_biz_types,
-    #     :cooperation_location, :deposit,
-    #     :amounts_payable,
-    #     company_attributes: [:name, :short_name],
-    #   )
-    # end
-
-
 
 end

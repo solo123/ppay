@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
   resources :agent_day_tradetotals do
-    collection do
-      get :active
+    member do
+      get :active_clients
+      get :active_salesmen
     end
   end
   resources :salesman_day_tradetotals
@@ -42,10 +43,11 @@ Rails.application.routes.draw do
   resources :agents do
     member do
       get :create_login
-      post :del_salesman
-      post :add_salesman
+      get :del_salesman
+      get :add_salesman
     end
     resources :contacts
+    resources :sales_commissions
   end
   resources :clients do
     member do

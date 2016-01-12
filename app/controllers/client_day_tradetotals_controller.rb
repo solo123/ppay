@@ -40,6 +40,7 @@ class ClientDayTradetotalsController < ResourceController
       h["wechat_amount"] = t.wechat_amount
       h["wechat_count"] = t.wechat_count
       h["alipay_amount"] = t.alipay_amount
+      h["alipay_count"] = t.alipay_count
       h["t0_amount"] = t.alipay_count
       h["t0_count"] = t.t0_count
 

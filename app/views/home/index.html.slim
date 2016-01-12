@@ -108,7 +108,7 @@ br
     .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='button' 
-          label.btn.btn-success.btn-xs= link_to 'Prev', active_agent_day_tradetotals_path("q"=>201512), id: 'agent_day_tradetotal_path', remote: true
+          label.btn.btn-success.btn-xs= link_to 'Prev', agent_day_tradetotals_path("q"=>201512), id: 'agent_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeagent 上一月
           label.btn.btn-success.btn-xs#date_activeagent 2015-11
           label.btn.btn-success.btn-xs#nextmonth_activeagent style='margin-right:500px;' 下一月
@@ -119,11 +119,11 @@ br
           label.btn.btn-success.btn-xs 支金额
           label.btn.btn-success.btn-xs T0金额
         h4.panel-title 活跃合作商
-      .panel-body#active_agent_total
+      .panel-body#agent_tradetotals
         /
 
 javascript:
   $('#month_client_day_tradetotals_path').trigger("click");
   $('#active_client_day_tradetotals_path').trigger("click");
-  $('#agent_day_tradetotal_path').trigger("click");
+  $('#agent_day_tradetotals_path').trigger("click");
   $('#joinlast_clients_index_path').trigger("click");
