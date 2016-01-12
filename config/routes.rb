@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :agent_day_tradetotals do
-    member do
+    collection do
       get :active_clients
       get :active_salesmen
     end
