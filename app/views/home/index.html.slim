@@ -5,22 +5,25 @@
         i.fa.fa-desktop
       .stats-info
         h3 本月总交易金额
-        p ==@total_amount
+        p ==@cur_month_total.total_amount
       .stats-link
         a href='#'
           span 总笔数 : 
-          span == @total_count
+          span == @cur_month_total.total_count
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
         h3 本月微信交易金额
-        p == @wechat_amount
+        p == @cur_month_total.wechat_amount
       .stats-link
         a href='#' 
-          span 10元以上笔数 : 
-          span == @wechat_count
+          span 总笔数: 
+          span = @cur_month_total.wechat_count
+          span = '    '
+          span 10元以上笔数:
+          span = @wechat_than_ten_count
 
 
   .col-md-3
@@ -29,11 +32,11 @@
         i.fa.fa-clock-o
       .stats-info
         h3 本月T0交易金额
-        p == @t0_amount
+        p == @cur_month_total.t0_amount
       .stats-link
         a href='#'
           span 总笔数 : 
-          span == @t0_count
+          span == @cur_month_total.t0_count
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
