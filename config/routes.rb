@@ -14,6 +14,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :report do
+    collection do
+      get :clients_days
+    end
+  end
+
+
   get 'profile/info'
   get 'home/index'
   get 'home/profile'
@@ -43,6 +50,7 @@ Rails.application.routes.draw do
   resources :agents do
     member do
       get :create_login
+      get :del_login
       get :del_salesman
       get :add_salesman
     end
@@ -73,6 +81,11 @@ Rails.application.routes.draw do
   resources :imp_qf_customers
   resources :data_manage
   resources :code_tables
+  resource :summary do
+    member do
+      get :home_sum
+    end
+  end
 
   root to: 'home#index'
 

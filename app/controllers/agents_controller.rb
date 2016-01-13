@@ -1,19 +1,31 @@
 class AgentsController < ResourcesController
   def create_login
     load_object
-    # 创建代理商登录帐号
-    c = Contact.find(params[:contact_id].to_i)
-
-    u = User.find_or_create_by("mobile"=>c.tel, "name"=>c.name, 'email'=> c.tel + "@pooul.cn")
-    if u
-      u.password = c.tel
-      u.agent = @object
-      u.save
+    contact = Contact.find(params[:contact_id].to_i)
+    if contact
+      user = User.find_or_create_by(mobile: contact.tel)
+      user.agent = @object
+      user.name = contact.name
+      #user.email = contact.email
+      if user.new_record?
+        user.password = user.mobile
+      end
+      user.save!
     end
-    # @object.user = u
-    # @object.save
-
   end
+
+  def del_login
+    load_object
+    contact = Contact.find(params[:contact_id].to_i)
+    if contact
+      user = User.find_by(mobile: contact.tel)
+      if user
+        user.agent = nil
+        user.save!
+      end
+    end
+  end
+
   def del_salesman
     load_object
     s = Salesman.find(params[:salesman_id])

@@ -1,5 +1,5 @@
 module Biz
-  class TradesTotalBiz
+  class TradesTotalsBiz
 
     @@sum_field = ['total_amount', 'total_count',
                 'wechat_amount', 'wechat_count', 'alipay_amount', 'alipay_count',
@@ -7,9 +7,12 @@ module Biz
     #
 
     def total_all
+      $redis.set(:trades_totals_flag, 'running')
       total_clients
       total_salesmen
       total_agents
+      slog('import_end')
+      $redis.set(:trades_totals_flag, '')
     end
 
     def total_clients
@@ -70,6 +73,10 @@ module Biz
       end
       return re_type_code
 
+    end
+    def slog(msg)
+      puts msg
+      $redis.lpush(:trades_totals_log, msg)
     end
 
   end

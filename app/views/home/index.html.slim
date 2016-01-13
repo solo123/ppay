@@ -5,25 +5,26 @@
         i.fa.fa-desktop
       .stats-info
         h3 本月总交易金额
-        p ==@total_amount
+        p#month_total_amount
       .stats-link
         a href='#'
           span 总笔数 : 
-          span == @total_count
+          span#month_total_count
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
         h3 本月微信交易金额
-        p == @wechat_amount
+        p#month_wechart_amount
       .stats-link
         a href='#' 
-          span 总笔数: 
-          span = @wechat_count
-          span = '    '
-          span 10元以上笔数:
-          span = @wechat_than_ten_count
+          span 10元以上笔数: 
+          span#month_wechart_count10
+          span = ' ('
+          span 总笔数:
+          span#month_wechart_count
+          span )
 
 
   .col-md-3
@@ -32,22 +33,22 @@
         i.fa.fa-clock-o
       .stats-info
         h3 本月T0交易金额
-        p == @t0_amount
+        p#month_t0_amount
       .stats-link
         a href='#'
           span 总笔数 : 
-          span == @t0_count
+          span#month_t0_count
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
         i.fa.fa-users
       .stats-info
         h3 本月新增商户
-        p ==@new_clienter_count
+        p#month_clients_count
       .stats-link
         a href='#'
           span 总商户数 : 
-          span ==@clienter_count
+          span#total_clients_count
   
 
 br
@@ -152,7 +153,10 @@ br
         /
 
 javascript:
-  $('#month_client_day_tradetotals_path').trigger("click");
-  $('#active_client_day_tradetotals_path').trigger("click");
-  $('#agent_day_tradetotals_btn').trigger("click");
-  $('#joinlast_clients_index_path').trigger("click");
+  //$('#month_client_day_tradetotals_path').trigger("click");
+  //$('#active_client_day_tradetotals_path').trigger("click");
+  //$('#agent_day_tradetotals_btn').trigger("click");
+  //$('#joinlast_clients_index_path').trigger("click");
+  $(function(){
+    $.getScript("#{home_sum_summary_path}");
+  });

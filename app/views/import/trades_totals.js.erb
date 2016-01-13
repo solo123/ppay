@@ -4,7 +4,7 @@ alert('<%= err %>');
 <% end %>
 <% else %>
 function load_status(){
-  $.get('import/get_log_msg?log_name=trades_totals', function(data){
+  $.get('import/get_log_msg?log_name=trades_totals_log', function(data){
     if (data){
       msgs = data.split('|');
       var d = $('#import_dialog').find('#dialog_messages');
