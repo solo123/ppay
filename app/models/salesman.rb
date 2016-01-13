@@ -19,4 +19,6 @@ class Salesman < ActiveRecord::Base
   def new_clients
     self.clients_all.where("join_date"=>Date.current.all_month)
   end
+
+  
 end
