@@ -1,15 +1,17 @@
 class AgentsController < ResourcesController
   def create_login
+    load_object
     # 创建代理商登录帐号
     c = Contact.find(params[:contact_id].to_i)
 
-    u = User.find_or_create_by("mobile"=>c.tel, "name"=>c.name)
+    u = User.find_or_create_by("mobile"=>c.tel, "name"=>c.name, 'email'=> c.tel + "@pooul.cn")
     if u
       u.password = c.tel
+      u.agent = @object
       u.save
     end
-    @object.user = u
-    @object.save
+    # @object.user = u
+    # @object.save
 
   end
   def del_salesman
@@ -26,15 +28,26 @@ class AgentsController < ResourcesController
   end
 
   def show
-    super
     # 交易汇总
-    @cur_trade_total = AgentDayTradetotal.select("agent_id, trade_date, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
-            .where("trade_date"=>Date.current.all_month)
+    # @cur_trade_total = {}
+    # tmp = AgentDayTradetotal.where("trade_date"=>Date.new(2015,12,1).all_month, "agent_id"=> params[:id] )
     #
-    puts 'h-'*42
-    puts @cur_trade_total
-    puts 'h'*42
+    # ["total_amount", "total_count", "wechat_amount", "wechat_count", "t0_amount", "t0_count"].each do |key|
+    #   @cur_trade_total[key] = tmp.sum(key)
+    # end
+    # super
 
+
+
+    # 交易汇总
+    @cur_trade_total = AgentDayTradetotal
+            .select("sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
+            .where("trade_date"=>Date.new(2015,12,1).all_month, "agent_id"=> params[:id] )
+            .group("id")
+            .last
+    #
+    # 后调用super 暂时不知道原因
+    super
   end
 
   private

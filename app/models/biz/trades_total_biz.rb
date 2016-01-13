@@ -27,7 +27,6 @@ module Biz
 
         t.status = 1
         t.save
-        c_total.status = 1
         c_total.save
 
       end
@@ -39,7 +38,8 @@ module Biz
         @@sum_field.each do |field|
           s_day[field] += t[field]
         end
-        s_day.status = 1
+        t.status = 1
+        t.save
         s_day.save
       end
     end
@@ -51,7 +51,8 @@ module Biz
         @@sum_field.each do |field|
           a_day[field] += t[field]
         end
-        a_day.status = 1
+        t.status = 1
+        t.save
         a_day.save
       end
     end
