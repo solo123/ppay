@@ -49,7 +49,12 @@ class AgentsController < ResourcesController
     # end
     # super
 
-
+    load_object
+    if @object.company==nil
+      c = Company.create
+      @object.company = c
+      @object.save
+    end
 
     # 交易汇总
     @cur_trade_total = AgentDayTradetotal
