@@ -26,7 +26,6 @@
           span#month_wechart_count
           span )
 
-
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
@@ -49,6 +48,7 @@
         a href='#'
           span 总商户数 : 
           span#total_clients_count
+  
 br
 .row
   .col-md-6
@@ -106,6 +106,7 @@ br
           label.btn.btn-success.btn-xs value='t0_count'
             input type='radio' name='options' T0笔数
         .btn-group.pull-right data-toggle='buttons'  style='margin-right:420px;'
+          label.btn.btn-success.btn-xs= link_to '刷新', '', id:'active_client_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeclient
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeclient 2015-11
@@ -142,10 +143,6 @@ br
         /
 
 javascript:
-  //$('#month_client_day_tradetotals_path').trigger("click");
-  //$('#active_client_day_tradetotals_path').trigger("click");
-  //$('#agent_day_tradetotals_btn').trigger("click");
-  //$('#joinlast_clients_index_path').trigger("click");
   $(function(){
     $.getScript("#{home_sum_summary_path}");
     $.getScript("#{clients_days_report_path(q: Date.today.strftime('%Y-%m'))}");
