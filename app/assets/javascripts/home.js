@@ -39,16 +39,16 @@ var homejs=function(){
 		var year=parseInt($('#date_activeagent').text().substr(0,4));
 		if (month==12) {month=1;year+=1;}else {month+=1;}
 		$('#date_activeagent').text(year+'-'+('0'+month).substr(-2,2));
-		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month);
-		$('#agent_day_tradetotal_path').trigger("click");
+		$('#agent_day_tradetotals_btn').attr('href','/agent_day_tradetotals?q='+year+month);
+		$('#agent_day_tradetotals_btn').trigger("click");
 	});
 	$('#premonth_activeagent').click(function(){
 		var month=parseInt($('#date_activeagent').text().substr(-2,2));
 		var year=parseInt($('#date_activeagent').text().substr(0,4));
 		if (month==1) {year-=1;month=12;}else{month-=1;};
 		$('#date_activeagent').text(year+'-'+('0'+month).substr(-2,2));
-		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month);
-		$('#agent_day_tradetotal_path').trigger("click");
+		$('#agent_day_tradetotals_btn').attr('href','/agent_day_tradetotals?q='+year+month);
+		$('#agent_day_tradetotals_btn').trigger("click");
 	});
 //  商户以及代理商的排序button
 	$('#orderbtn-client').children().click(function(){
@@ -60,8 +60,8 @@ var homejs=function(){
 	$('#orderbtn-agent').children().click(function(){
 		var month=parseInt($('#date_activeagent').text().substr(-2,2));
 		var year=parseInt($('#date_activeagent').text().substr(0,4));
-		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month+'&order='+$(this).attr('value'));
-		$('#agent_day_tradetotal_path').trigger("click");
+		$('#agent_day_tradetotals_btn').attr('href','/agent_day_tradetotals?q='+year+month+'&order='+$(this).attr('value'));
+		$('#agent_day_tradetotals_btn').trigger("click");
 	});
 }
 
