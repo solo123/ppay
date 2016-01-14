@@ -1,3 +1,4 @@
+# coding: utf-8
 class AgentsController < ResourcesController
   def create_login
     load_object
@@ -10,9 +11,6 @@ class AgentsController < ResourcesController
       u.agent = @object
       u.save
     end
-    # @object.user = u
-    # @object.save
-
   end
   def del_salesman
     load_object
@@ -28,15 +26,6 @@ class AgentsController < ResourcesController
   end
 
   def show
-    # 交易汇总
-    # @cur_trade_total = {}
-    # tmp = AgentDayTradetotal.where("trade_date"=>Date.new(2015,12,1).all_month, "agent_id"=> params[:id] )
-    #
-    # ["total_amount", "total_count", "wechat_amount", "wechat_count", "t0_amount", "t0_count"].each do |key|
-    #   @cur_trade_total[key] = tmp.sum(key)
-    # end
-    # super
-
     load_object
     if @object.company==nil
       c = Company.create
@@ -47,7 +36,7 @@ class AgentsController < ResourcesController
     # 交易汇总
     @cur_trade_total = AgentDayTradetotal
             .select("sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
-            .where("trade_date"=>Date.new(2015,12,1).all_month, "agent_id"=> params[:id] )
+            .where("trade_date"=>Date.current.all_month, "agent_id"=> params[:id] )
             .group("id")
             .last
     #
@@ -56,5 +45,11 @@ class AgentsController < ResourcesController
   end
 
   private
+
+
+  def pri_salesmaninfo
+    puts 'old'
+  end
+
 
 end

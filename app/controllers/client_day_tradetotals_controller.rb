@@ -1,20 +1,29 @@
 class ClientDayTradetotalsController < ResourceController
   def month
-    year = params[:q][0..3].to_i
-    month = params[:q][4..6].to_i
-    dt = Date.new(year, month, 1)
-    @collection = ClientDayTradetotal.select("trade_date, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count").where(trade_date: (dt..dt.end_of_month)).group(:trade_date)
+    dt = Date.new(params[:year].to_i, params[:month].to_i, 1)
+    @collection = ClientDayTradetotal.select("trade_date, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count").where(trade_date: (dt..dt.end_of_month)).group(:trade_date).order("trade_date")
+    keys = ['total_amount', 'total_count', 'wechat_amount', 'wechat_count', 'alipay_amount', 'alipay_count', 't0_amount', 't0_count' ]
+
+    tmp = ClientDayTradetotal.where("trade_date"=>dt.all_month)
+    @total_sums = {}
+    keys.each do |k|
+      @total_sums[k] = tmp.sum(k).to_f
+    end
+
   end
 
   def active
-    year = params[:q][0..3].to_i
-    month = params[:q][4..6].to_i
-    dt = Date.new(year, month, 1)
+    dt = Date.new(params[:year].to_i || 0, params[:month].to_i || 0, 1)
     order = params[:order] || "wechat_count"
-    day_trade_total = ClientDayTradetotal.select("client_id, trade_date, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
-            .where(trade_date: (dt..dt.end_of_month))
-            .group(:trade_date).order("#{order} DESC")
+    day_trade_total = ClientDayTradetotal
+            .includes(:client)
+            .select("client_id, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
+            .where("trade_date"=>dt.all_month)
+            .group("client_id")
+            .order("#{order} DESC")
     #
+
+
     @collection = []
     idx = 0
     day_trade_total.take(10).each do |t|

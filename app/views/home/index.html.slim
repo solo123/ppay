@@ -52,21 +52,21 @@
 
 br
 .row
-  .col-md-6
+  .col-md-8
     .panel.panel-primary
       .panel-heading
         .btn-group.pull-right data-toggle='buttons'
-          label.btn.btn-success.btn-xs= link_to '刷新', month_client_day_tradetotals_path("q"=>201511), id: 'month_client_day_tradetotals_path',  remote: true
+          label.btn.btn-success.btn-xs= link_to '刷新', month_client_day_tradetotals_path("year"=>"#{Date.current.year}", "month"=>"#{Date.current.month}"), id: 'month_client_day_tradetotals_path',  remote: true
           label.btn.btn-success.btn-xs#premonth_monthsum
             input type='radio' name='options' 上一月
-          label.btn.btn-success.btn-xs#date_monthsum 2015-11
+          label.btn.btn-success.btn-xs#date_monthsum 1
           label.btn.btn-success.btn-xs#nextmonth_monthsum
             input type='radio' name='options' 下一月
         h4.panel-title 交易汇总表
-      .panel-body#mon_trades_total style='height:350px;overflow:auto;'
+      .panel-body#mon_trades_total style='overflow:auto;'
         /
     
-  .col-md-6
+  .col-md-4
     .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='buttons'
@@ -112,7 +112,7 @@ br
           label.btn.btn-success.btn-xs value='t0_count'
             input type='radio' name='options' T0笔数
         .btn-group.pull-right data-toggle='buttons'  style='margin-right:420px;'
-          label.btn.btn-success.btn-xs= link_to '刷新', active_client_day_tradetotals_path("q"=>201511), id:'active_client_day_tradetotals_path', remote: true
+          label.btn.btn-success.btn-xs= link_to '刷新', active_client_day_tradetotals_path("year"=>"#{Date.current.year}", "month"=>"#{Date.current.month}"), id:'active_client_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeclient
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeclient 2015-11
@@ -141,7 +141,7 @@ br
           label.btn.btn-success.btn-xs value='t0_amount'
             input type='radio' name='options' T0金额
         .btn-group.pull-right data-toggle='buttons' style='margin-right:500px;' 
-          label.btn.btn-success.btn-xs= link_to 'Prev', agent_day_tradetotals_path("q"=>201511), id: 'agent_day_tradetotals_btn', remote: true
+          label.btn.btn-success.btn-xs= link_to 'Prev', agent_day_tradetotals_path("year"=>"#{Date.current.year}", "month"=>"#{Date.current.month}"), id: 'agent_day_tradetotals_btn', remote: true
           label.btn.btn-success.btn-xs#premonth_activeagent
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeagent 2015-11
@@ -156,3 +156,4 @@ javascript:
   $('#active_client_day_tradetotals_path').trigger("click");
   $('#agent_day_tradetotals_btn').trigger("click");
   $('#joinlast_clients_index_path').trigger("click");
+  
