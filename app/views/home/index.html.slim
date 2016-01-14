@@ -26,7 +26,6 @@
           span#month_wechart_count
           span )
 
-
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
@@ -50,7 +49,6 @@
           span 总商户数 : 
           span#total_clients_count
   
-
 br
 .row
   .col-md-6
@@ -84,11 +82,10 @@ br
     .panel.panel-warning
       .panel-heading
         .btn-group.pull-right data-toggle='button'
-          label.btn.btn-success.btn-xs= link_to '刷新', joinlast_clients_path, id:'joinlast_clients_index_path', remote: true
+          label.btn.btn-success.btn-xs= link_to '刷新', '', id:'joinlast_clients_index_path', remote: true
         h4.panel-title 新增商户
       .panel-body#joinlast_clients
         /
-    
 .row
   .col-md-12
     .panel.panel-info
@@ -113,7 +110,7 @@ br
           label.btn.btn-success.btn-xs value='t0_count'
             input type='radio' name='options' T0笔数
         .btn-group.pull-right data-toggle='buttons'  style='margin-right:420px;'
-          label.btn.btn-success.btn-xs= link_to '刷新', active_client_day_tradetotals_path("q"=>201511), id:'active_client_day_tradetotals_path', remote: true
+          label.btn.btn-success.btn-xs= link_to '刷新', '', id:'active_client_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeclient
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeclient 2015-11
@@ -122,8 +119,6 @@ br
         h4.panel-title 活跃用户
       .panel-body#active_clients_total
         /
-          
-
 .row
   .col-md-12
     .panel.panel-info
@@ -142,7 +137,7 @@ br
           label.btn.btn-success.btn-xs value='t0_amount'
             input type='radio' name='options' T0金额
         .btn-group.pull-right data-toggle='buttons' style='margin-right:500px;' 
-          label.btn.btn-success.btn-xs= link_to '刷新', agent_day_tradetotals_path("q"=>201511), id: 'agent_day_tradetotals_btn', remote: true
+          label.btn.btn-success.btn-xs= link_to '刷新', '', id: 'agent_day_tradetotals_btn', remote: true
           label.btn.btn-success.btn-xs#premonth_activeagent
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeagent 2015-11
@@ -153,10 +148,6 @@ br
         /
 
 javascript:
-  $('#month_client_day_tradetotals_path').trigger("click");
-  $('#active_client_day_tradetotals_path').trigger("click");
-  $('#agent_day_tradetotals_btn').trigger("click");
-  $('#joinlast_clients_index_path').trigger("click");
   $(function(){
     $.getScript("#{home_sum_summary_path}");
   });
