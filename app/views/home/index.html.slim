@@ -49,31 +49,27 @@
         a href='#'
           span 总商户数 : 
           span#total_clients_count
-  
-
 br
 .row
   .col-md-6
     .panel.panel-primary
       .panel-heading
         .btn-group.pull-right data-toggle='buttons'
-          label.btn.btn-success.btn-xs= link_to '刷新', month_client_day_tradetotals_path("q"=>201511), id: 'month_client_day_tradetotals_path',  remote: true
-          label.btn.btn-success.btn-xs#premonth_monthsum
-            input type='radio' name='options' 上一月
-          label.btn.btn-success.btn-xs#date_monthsum 2015-11
-          label.btn.btn-success.btn-xs#nextmonth_monthsum
-            input type='radio' name='options' 下一月
+          label.btn.btn-success.btn-xs#mon_trades_prev
+            input#mon_trades_prev type='radio' name='options' 上一月
+          label.btn.btn-xs#mon_trades_title 2015-11
+          label.btn.btn-success.btn-xs#mon_trades_next
+            input#mon_trades_next type='radio' name='options' 下一月
         h4.panel-title 交易汇总表
       .panel-body#mon_trades_total style='height:350px;overflow:auto;'
-        /
-    
+
   .col-md-6
     .panel.panel-info
       .panel-heading
         .btn-group.pull-right data-toggle='buttons'
           label.btn.btn-success.btn-xs
             input type='radio' name='options' 上一月
-          label.btn.btn-success.btn-xs 2015年12月
+          label 2015年12月
           label.btn.btn-success.btn-xs
             input type='radio' name='options' 下一月
         h4.panel-title 交易变化曲线
@@ -83,11 +79,8 @@ br
   .col-md-12
     .panel.panel-warning
       .panel-heading
-        .btn-group.pull-right data-toggle='button'
-          label.btn.btn-success.btn-xs= link_to '刷新', joinlast_clients_path, id:'joinlast_clients_index_path', remote: true
         h4.panel-title 新增商户
-      .panel-body#joinlast_clients
-        /
+      .panel-body#new_clients
     
 .row
   .col-md-12
@@ -113,16 +106,13 @@ br
           label.btn.btn-success.btn-xs value='t0_count'
             input type='radio' name='options' T0笔数
         .btn-group.pull-right data-toggle='buttons'  style='margin-right:420px;'
-          label.btn.btn-success.btn-xs= link_to '刷新', active_client_day_tradetotals_path("q"=>201511), id:'active_client_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeclient
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeclient 2015-11
           label.btn.btn-success.btn-xs#nextmonth_activeclient
             input type='radio' name='options' 下一月
         h4.panel-title 活跃用户
-      .panel-body#active_clients_total
-        /
-          
+      .panel-body#active_clients
 
 .row
   .col-md-12
@@ -142,14 +132,13 @@ br
           label.btn.btn-success.btn-xs value='t0_amount'
             input type='radio' name='options' T0金额
         .btn-group.pull-right data-toggle='buttons' style='margin-right:500px;' 
-          label.btn.btn-success.btn-xs= link_to 'Prev', agent_day_tradetotals_path("q"=>201511), id: 'agent_day_tradetotals_btn', remote: true
           label.btn.btn-success.btn-xs#premonth_activeagent
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeagent 2015-11
           label.btn.btn-success.btn-xs#nextmonth_activeagent
             input type='radio' name='options' 下一月
         h4.panel-title 活跃合作商
-      .panel-body#agent_day_tradetotals
+      .panel-body#active_agents
         /
 
 javascript:
@@ -159,4 +148,8 @@ javascript:
   //$('#joinlast_clients_index_path').trigger("click");
   $(function(){
     $.getScript("#{home_sum_summary_path}");
+    $.getScript("#{clients_days_report_path(q: Date.today.strftime('%Y-%m'))}");
+    $.getScript("#{new_clients_report_path}");
+    $.getScript("#{active_clients_report_path(q: Date.today.strftime('%Y-%m'))}");
+    $.getScript("#{active_agents_report_path(q: Date.today.strftime('%Y-%m'))}");
   });

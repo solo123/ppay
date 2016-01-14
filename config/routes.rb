@@ -7,16 +7,13 @@ Rails.application.routes.draw do
     end
   end
   resources :salesman_day_tradetotals
-  resources :client_day_tradetotals do
-    collection do
-      get :month
-      get :active
-    end
-  end
 
   resource :report do
     collection do
       get :clients_days
+      get :new_clients
+      get :active_clients
+      get :active_agents
     end
   end
 

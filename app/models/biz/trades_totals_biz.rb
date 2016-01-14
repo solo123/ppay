@@ -1,10 +1,8 @@
 module Biz
   class TradesTotalsBiz
-
     @@sum_field = ['total_amount', 'total_count',
                 'wechat_amount', 'wechat_count', 'alipay_amount', 'alipay_count',
                 't0_amount', 't0_count', 't1_amount', 't1_count']
-    #
 
     def total_all
       $redis.set(:trades_totals_flag, 'running')
@@ -17,7 +15,6 @@ module Biz
 
     def total_clients
       Trade.where("status"=>0).each do |t|
-
         c_total = ClientDayTradetotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date )
         puts c_total.client_id
         puts t.trade_amount
@@ -31,7 +28,6 @@ module Biz
         t.status = 1
         t.save
         c_total.save
-
       end
     end
 
