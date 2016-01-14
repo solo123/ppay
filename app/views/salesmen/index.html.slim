@@ -27,8 +27,8 @@ table class='table panel panel-success'
     - @collection.each do |obj|
       tr
         - if obj.agent
-          td== link_to "#{obj.agent_info.name}", agent_path(obj.agent_info)
+          td== link_to "代理", agent_path(obj.agent)
         -else
-          td 
+          td 无
         th== obj.contact_id
         td== obj.updated_at

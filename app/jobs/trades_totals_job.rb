@@ -4,6 +4,6 @@ class TradesTotalsJob < ActiveJob::Base
   def perform(*args)
     # Do something later
     imp = Biz::TradesTotalsBiz.new
-    imp.statistics_all
+    imp.total_all
   end
 end

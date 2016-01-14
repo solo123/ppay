@@ -1,5 +1,5 @@
 module Biz
-  class TradesTotalBiz
+  class TradesTotalsBiz
 
     @@sum_field = ['total_amount', 'total_count',
                 'wechat_amount', 'wechat_count', 'alipay_amount', 'alipay_count',
@@ -7,13 +7,17 @@ module Biz
     #
 
     def total_all
+      $redis.set(:trades_totals_flag, 'running')
       total_clients
       total_salesmen
       total_agents
+      slog('import_end')
+      $redis.set(:trades_totals_flag, '')
     end
 
     def total_clients
-      Trade.all.each do |t|
+      Trade.where("status"=>0).each do |t|
+
         c_total = ClientDayTradetotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date )
         puts c_total.client_id
         puts t.trade_amount
@@ -32,22 +36,26 @@ module Biz
     end
 
     def total_salesmen
-      ClientDayTradetotal.all.each do |t|
+      ClientDayTradetotal.where("status"=>0).each do |t|
         s_day = SalesmanDayTradetotal.find_or_create_by(salesman_id: t.client.salesman_id, trade_date: t.trade_date )
         @@sum_field.each do |field|
           s_day[field] += t[field]
         end
+        t.status = 1
+        t.save
         s_day.save
       end
     end
 
 
     def total_agents
-      SalesmanDayTradetotal.all.each do |t|
+      SalesmanDayTradetotal.where("status"=>0).each do |t|
         a_day = AgentDayTradetotal.find_or_create_by(agent_id: t.salesman.agent_id, trade_date: t.trade_date )
         @@sum_field.each do |field|
           a_day[field] += t[field]
         end
+        t.status = 1
+        t.save
         a_day.save
       end
     end
@@ -65,6 +73,10 @@ module Biz
       end
       return re_type_code
 
+    end
+    def slog(msg)
+      puts msg
+      $redis.lpush(:trades_totals_log, msg)
     end
 
   end
