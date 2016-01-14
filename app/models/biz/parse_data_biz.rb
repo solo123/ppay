@@ -9,10 +9,12 @@ module Biz
 
     end
     def parse_all
+      $redis.set(:parse_data_flag, 'running')
       parse_customers
       parse_trades
       parse_clearings
       slog('import_end')
+      $redis.set(:parse_data_flag, '')
     end
     def parse_customers
       slog(':h1 开始解析客户数据...')

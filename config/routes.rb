@@ -7,12 +7,16 @@ Rails.application.routes.draw do
     end
   end
   resources :salesman_day_tradetotals
-  resources :client_day_tradetotals do
+
+  resource :report do
     collection do
-      get :month
-      get :active
+      get :clients_days
+      get :new_clients
+      get :active_clients
+      get :active_agents
     end
   end
+
 
   get 'profile/info'
   get 'home/index'
@@ -43,6 +47,7 @@ Rails.application.routes.draw do
   resources :agents do
     member do
       get :create_login
+      get :del_login
       get :del_salesman
       get :add_salesman
     end
@@ -73,6 +78,11 @@ Rails.application.routes.draw do
   resources :imp_qf_customers
   resources :data_manage
   resources :code_tables
+  resource :summary do
+    member do
+      get :home_sum
+    end
+  end
 
   root to: 'home#index'
 
