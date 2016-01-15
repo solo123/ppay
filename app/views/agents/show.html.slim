@@ -12,7 +12,7 @@ h1
         i.fa.fa-desktop
       .stats-info
         h3 本月总交易金额
-        p #{@cur_trade_total.total_amount}
+        p #{@cur_trade_total["total_amount"]}
       .stats-link
         a href='#'
           span 总笔数 : 
@@ -51,11 +51,11 @@ h1
         i.fa.fa-users
       .stats-info
         h3 总商户数
-        p #{@object.clients_all.count}
+        p #{@cur_trade_total["clients_count"]}
       .stats-link
         a href='#'
           span 本月新增商户 : 
-          span #{@object.new_clients.count}
+          span #{@cur_trade_total["new_clients_count"]}
 
 /
 .row
@@ -76,8 +76,8 @@ h1
       h4 机构信息
       table class='table table-hover'
         tr
-        td 全称: #{@object.company.name}
-        td 简称: #{@object.company.short_name}
+        td 全称: #{@cur_trade_total["company"].name}
+        td 简称: #{@cur_trade_total["company"].short_name}
         td 地区:
         td 经营地址:
     .row
@@ -122,32 +122,33 @@ h1
       h4 分润比例
       .panel-body#sales_commission_content
 
-/ = render 'active_list'
 h2 活跃商户
-.btn.btn-success= link_to '刷新', active_clients_agent_day_tradetotals_path("agent_id"=>2,"date"=>201511, "order"=>"total_amount"), id: 'active_clients_agent_day_tradetotal_btn',  remote: true
 .panel-body#active_clients_agent_day_tradetotal
 
 
 h2 活跃业务员
-.btn.btn-success= link_to '刷新', active_salesmen_agent_day_tradetotals_path("agent_id"=>2,"date"=>201511, "order"=>"total_amount"), id: 'active_salesmen_agent_day_tradetotal_btn',  remote: true
 .panel-body#active_salesmen_agent_day_tradetotal
-
-/ = render 'salesman_list'                             
 
 .panel.panel-primary
   .panel-heading
     h4.panel-title 渠道信息
   .panel-body
     h3 业务员
-    - @object.salesmen.each do |s|
-      ul#selector
-        li 
-          = link_to "#{s.name}", salesman_path(s), class: "list-group-item"
-
+    table.table
+      thead
+        tr
+          th 名称
+          th 状态
+      tbody
+        - @object.salesmen.each do |r|
+          tr
+            td= r.name
+            td= r.status
+            td= link_to('detail', salesman_path(r))
+          
 javascript:
   $(document).ready(function(){
-    $("#sales_commission_content_btn").trigger("click");
-    $('#active_clients_agent_day_tradetotal_btn').trigger("click");
-    $('#active_salesmen_agent_day_tradetotal_btn').trigger("click");
+    $.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
+    $.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
   });
   

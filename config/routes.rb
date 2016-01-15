@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :agent_day_tradetotals do
-    collection do
-      get :active_clients
-      get :active_salesmen
-    end
-  end
   resources :salesman_day_tradetotals
 
   resource :report do
@@ -50,6 +44,8 @@ Rails.application.routes.draw do
       get :del_login
       get :del_salesman
       get :add_salesman
+      get :active_clients
+      get :active_salesmen
     end
     resources :contacts
     resources :sales_commissions

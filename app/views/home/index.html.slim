@@ -61,7 +61,7 @@ br
           label.btn.btn-success.btn-xs#mon_trades_next
             input#mon_trades_next type='radio' name='options' 下一月
         h4.panel-title 交易汇总表
-      .panel-body#mon_trades_total style='height:350px;overflow:auto;'
+      .panel-body#mon_trades_total style='overflow:auto;'
 
   .col-md-6
     .panel.panel-info
@@ -106,7 +106,6 @@ br
           label.btn.btn-success.btn-xs value='t0_count'
             input type='radio' name='options' T0笔数
         .btn-group.pull-right data-toggle='buttons'  style='margin-right:420px;'
-          label.btn.btn-success.btn-xs= link_to '刷新', '', id:'active_client_day_tradetotals_path', remote: true
           label.btn.btn-success.btn-xs#premonth_activeclient
             input type='radio' name='options' 上一月
           label.btn.btn-success.btn-xs#date_activeclient 2015-11
@@ -144,9 +143,15 @@ br
 
 javascript:
   $(function(){
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = d.getMonth();
+    
     $.getScript("#{home_sum_summary_path}");
     $.getScript("#{clients_days_report_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{new_clients_report_path}");
     $.getScript("#{active_clients_report_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{active_agents_report_path(q: Date.today.strftime('%Y-%m'))}");
+
+    
   });
