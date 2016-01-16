@@ -11,24 +11,24 @@
 
 
 
-div class='panel panel-success'
-  div class='panel-heading'
-    h4 class='panel-title' == @table_head
-
-= paginate @collection
-table class='table panel panel-success'
-  thead
-    tr          
-      th 代理商
-      th 联系信息
-      th 更新时间
-      
-  tbody
-    - @collection.each do |obj|
-      tr
-        - if obj.agent
-          td== link_to "代理", agent_path(obj.agent)
-        -else
-          td 无
-        th== obj.contact_id
-        td== obj.updated_at
+.panel.panel-success
+  .panel-heading
+    h4.panel-title == @table_head
+  .panel-body
+    = paginate @collection
+    table class='table table-hover'
+      thead
+        tr          
+          th 代理商
+          th 联系信息
+          th 更新时间
+          
+      tbody
+        - @collection.each do |obj|
+          tr
+            - if obj.agent
+              td== link_to "代理", agent_path(obj.agent)
+            -else
+              td 无
+            th== obj.contact_id
+            td== obj.updated_at
