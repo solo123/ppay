@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :new_clients
       get :active_clients
       get :active_agents
+      get :home_summary
     end
   end
 

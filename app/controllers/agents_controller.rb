@@ -40,13 +40,8 @@ class AgentsController < ResourcesController
     s.save
   end
 
-  def show
+  def show123
     load_object
-    if @object.company==nil
-      c = Company.create
-      @object.company = c
-      @object.save
-    end
 
     # 交易汇总
     @cur_trade_total = AgentDayTradetotal
@@ -54,9 +49,6 @@ class AgentsController < ResourcesController
             .where("trade_date"=>Date.current.all_month, "agent_id"=> params[:id] )
             .group("id")
             .last
-    #
-    # 后调用super 暂时不知道原因
-    super
   end
 
   private

@@ -61,7 +61,7 @@ br
           label.btn.btn-success.btn-xs#mon_trades_next
             input#mon_trades_next type='radio' name='options' 下一月
         h4.panel-title 交易汇总表
-      .panel-body#mon_trades_total style='height:350px;overflow:auto;'
+      .panel-body#mon_trades_total
 
   .col-md-6
     .panel.panel-info
@@ -144,7 +144,7 @@ br
 
 javascript:
   $(function(){
-    $.getScript("#{home_sum_summary_path}");
+    $.getScript("#{home_summary_report_path}");
     $.getScript("#{clients_days_report_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{new_clients_report_path}");
     $.getScript("#{active_clients_report_path(q: Date.today.strftime('%Y-%m'))}");

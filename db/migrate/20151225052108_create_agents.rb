@@ -1,6 +1,7 @@
 class CreateAgents < ActiveRecord::Migration
   def change
     create_table :agents do |t|
+      t.belongs_to :parent
       t.belongs_to :company
       t.belongs_to :cooperation_type
 
