@@ -11,8 +11,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-  get 'profile/info'
   get 'home/index'
   get 'home/profile'
 

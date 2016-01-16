@@ -19,6 +19,11 @@ module Biz
       @trades
     end
 
+    def clearings_all
+      @clearings = Clearing.where("client_id"=> self.clients_all.ids)
+      @clearings
+    end
+
 
     def active_clients
       sql = %Q{
