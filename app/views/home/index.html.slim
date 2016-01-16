@@ -147,7 +147,7 @@ javascript:
     var y = d.getFullYear();
     var m = d.getMonth();
     
-    $.getScript("#{home_sum_summary_path}");
+    $.getScript("#{home_summary_report_path}");
     $.getScript("#{clients_days_report_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{new_clients_report_path}");
     $.getScript("#{active_clients_report_path(q: Date.today.strftime('%Y-%m'))}");
