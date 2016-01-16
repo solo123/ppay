@@ -15,10 +15,10 @@ module Biz
 
     def total_clients
       Trade.where("status"=>0).each do |t|
-        c_total = ClientDayTradetotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date )
-        puts c_total.client_id
-        puts t.trade_amount
-        puts c_total.total_amount
+        # Trade.trade_date数据格式:DateTime  ClientDayTradetotal.trade_date数据格式:Date
+        # 必须先转换格式 交由数据库转换格式会出错
+        c_total = ClientDayTradetotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date.to_date )
+
         c_total.total_amount += t.trade_amount
         c_total.total_count += 1
         type_code = trade_type(t)
