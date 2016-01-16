@@ -22,6 +22,12 @@ class ClientsController < ResourceController
 
     # notes
     @notes_for_pages = @object.client_notes.page( params[:page]).per(10)
+
+    #total
+    c_total = Biz::ClientTotalBiz.new(params[:id])
+    @total_info = c_total.trade_total
+    @last_trade_datetime  = c_total.last_trade_datetime
+
   end
 
   # tag管理
