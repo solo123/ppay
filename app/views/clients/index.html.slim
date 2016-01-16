@@ -63,7 +63,4 @@ div class='panel panel-success'
               p 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万
               p 借记卡: #{obj.bank_card_limit_each/10000}万|#{obj.bank_card_limit_month/10000}万
             td style='font-size:25px;color:orange;' #{obj.rate*100}%
-          tr class="#{obj.note[:type]}"
-            - if obj.client_notes.last
-              td colspan='10' style='margin:4px 15px;' #{obj.client_notes.last.note}
-          
+        /
