@@ -4,6 +4,7 @@ class AgentsController < ResourcesController
     load_object
     contact = Contact.find(params[:contact_id].to_i)
     if contact
+      # 如果这个电话号码已经存在就不能再次绑定到新的代理商
       user = User.find_or_create_by(mobile: contact.tel)
       user.agent = @object
       user.name = contact.name
@@ -40,18 +41,16 @@ class AgentsController < ResourcesController
     s.save
   end
 
-  def show123
+  def show
     load_object
     agent_total = Biz::AgentTotalBiz.new params[:id]
-    puts '-' * 42
     @cur_trade_total  = agent_total.trades_sum(Date.current)
     puts @cur_trade_total
 
     @cur_trade_total["clients_count"] = agent_total.clients_all.count
     @cur_trade_total["new_clients_count"] = agent_total.new_clients.count
     @cur_trade_total["company"] = Company.new
-    puts '-' * 42
-    puts @cur_trade_total
+
   end
 
   def pri_salesmaninfo
