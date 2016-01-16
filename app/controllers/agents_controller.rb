@@ -40,7 +40,7 @@ class AgentsController < ResourcesController
     s.save
   end
 
-  def show
+  def show123
     load_object
     agent_total = Biz::AgentTotalBiz.new params[:id]
     puts '-' * 42
