@@ -1,0 +1,6 @@
+= simple_form_for [@parent, @object], remote: true do |f|
+  = f.input :name, :label=>'姓名'
+  = f.input :tel, :label=>'手机'
+  = f.input :roles, :label=>'角色'
+  = f.input :status, :label=>'状态'
+  = f.submit :value=>'更新联系人', :class=>'btn btn-success'

@@ -1,0 +1,26 @@
+h1 联系人信息
+.panel.panel-success
+  .panel-heading
+    h4.panel-title == @table_head
+  .panel-body
+    = paginate @collection
+    table.table.table-hover
+      thead
+        tr
+          th 姓名
+          th 电话
+          th QQ
+          th 身份证
+          th 角色
+          th 状态
+          th 操作
+      tbody
+        - @collection.each do |r|
+          tr
+            td= r.name
+            td= r.tel
+            td= r.qq
+            td= r.cid
+            td= r.roles
+            td= r.status
+            td= link_to '更改', edit_contact_url(r)

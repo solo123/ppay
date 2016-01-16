@@ -1,7 +1,19 @@
-== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
-  == f.error_notification
-  == f.input :name
-  == f.input :mobile
+- @object.build_company unless @object.company
+= simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
+  = f.error_notification
+  
+  = f.simple_fields_for :company do |fc|
+    = fc.input :name
+    = fc.input :short_name
+  = f.association :cooperation_type, collection: CodeTable.childs('cooperation_type'), :label=> '合作类型' 
+  = f.input :cooperation_date, :label=> '合作时间' 
+  = f.input :t0_enabled, :label=> '是否开启T0' 
+  = f.input :bank_biz_types, :label=> '银行卡类型' 
+  = f.input :cooperation_location, :label=> '合作区域' 
+  = f.input :deposit, :label=> '保证金'
+  = f.input :amounts_payable, :label=> '代结算分润'
+
+
   .form-actions
-    == f.submit "save", :class => "btn btn-primary" 
-    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+    = f.submit "保存", :class => "btn btn-primary" 
+    = submit_tag '取消', :type => :reset, :class => "btn btn-danger" 

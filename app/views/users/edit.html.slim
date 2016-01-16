@@ -1,6 +1,7 @@
+ol.breadcrumb.pull-right
+  li ==link_to 'Home', '/'
+  li ==link_to '用户管理', users_path
+  li.active 更新用户
 h1
-  | Editing User
+  | 更新用户
 = render 'form'
-= link_to 'Show', @user
-|  | 
-= link_to 'Back', users_path

@@ -1,0 +1,2 @@
+class ClientDayTradetotalsController < ResourceController
+end

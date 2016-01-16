@@ -1,16 +1,20 @@
+ol.breadcrumb.pull-right
+  li ==link_to 'Home', '/'
+  li ==link_to '商户资料', clients_path
+  li 详细信息
 h2 商户生命周期
 .row
   .col-md-2
-    h1.text-warning ==@object.join_days
+    h1.text-warning =@object.join_days
     b 入网时间
   .col-md-2
-    h1.text-warning ==@object.trade_counts
+    h1.text-warning =@total_info["total_count"]
     b 交易笔数
   .col-md-2
-    h1.text-warning ==@object.trade_amounts
+    h1.text-warning =@total_info["total_amount"]
     b 交易总金额
   .col-md-6
-    h1.text-warning ==@object.last_trade_datetime
+    h1.text-warning ==@last_trade_datetime
     b 最后交易时间
 .panel.panel-success
   .panel-heading
@@ -27,8 +31,8 @@ h2 商户生命周期
     h4 联系信息
     .row
       .col-md-6
-        p 联系人:
-        p 地区:
+        p 联系人: #{@object.contact_info}
+        p 地区: #{@object.addr_info}
       .col-md-6
         p 联系手机: #{@object.shop_tel}
         p 详细地址:
@@ -54,15 +58,15 @@ h2 商户生命周期
     .row
       .col-md-6
         p POS刷卡结算方式: T1
-        p 信用卡单笔限额:
-        p 借记卡单笔限额:
+        p 信用卡单笔限额: #{@object.credit_card_limit_each/10000}万
+        p 借记卡单笔限额: #{@object.bank_card_limit_each/10000}万
         p POS刷卡结算方式: T0
-        p 信用卡单笔限额:
+        p 信用卡单笔限额: 
         p 借记卡单笔限额:
       .col-md-6
         p 费率: #{@object.rate}
-        p 信用卡月限额:
-        p 借记卡月限额:
+        p 信用卡月限额: #{@object.credit_card_limit_month/10000}万
+        p 借记卡月限额: #{@object.bank_card_limit_month/10000}万
         p 费率: 
         p 信用卡月限额:
         p 借记卡月限额:
@@ -111,25 +115,26 @@ h2 商户生命周期
         h4 增加备注 
         span 备注类型
         label.radio-inline
-          input type='radio' value='一般' name='optionsRadios' checked=''
+          input type='radio' value='一般' name='optionsRadios' checked='' active='alert-success'
           span 一般
         label.radio-inline
-          input type='radio' value='普通' name='optionsRadios'
+          input type='radio' value='普通' name='optionsRadios' active='alert-info'
           span 普通
         label.radio-inline 
-          input type='radio' value='严重' name='optionsRadios'
+          input type='radio' value='严重' name='optionsRadios' active='alert-warning'
           span 严重
         label.radio-inline
-          input type='radio' value='紧急' name='optionsRadios'
+          input type='radio' value='紧急' name='optionsRadios' active='alert-danger'
           span 紧急
       textarea.form-control#beizhutext rows='5' placeholder='Textarea'
       button.btn.btn-danger.btn-lg#beizhubtn 提交备注
     col-md-6
-      h4 用户标签
+      h4 用户标签:
       p#biaoqianxinxi ==@object.tag_list
       span 自定义标签
       input id='biaoqiantext' placeholder='' value='#{@object.tag_list}'
       button id='biaoqianbtn' class="btn btn-default" type="button" 添加
+      button#biaoqiandbtn.btn.btn-default.m-l-5 type="button" 删除已有标签
       br
       span 常用标签
       #cybq

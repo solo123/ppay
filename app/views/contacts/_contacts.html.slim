@@ -1,0 +1,23 @@
+h2 联系人
+.panel
+  .panel-body
+    i.fa.fa-2x.fa-plus-circle
+    = link_to '添加联系人', new_agent_contact_path(@parent), remote: true
+    table.table
+      tr
+        th 姓名
+        th 电话
+        th
+      - @parent.contacts.each do |c|
+        tr
+          td= c.name
+          td= c.tel
+          td
+            .btn-group
+              - if User.find_by("mobile=? and agent_id>0", c.tel)
+                = link_to '允许登录', '#', class: 'btn btn-info btn-xs disabled'
+                = link_to '禁止登录', del_login_agent_path(@parent, contact_id: c.id), remote: true, class: 'btn btn-info btn-xs'
+              - else
+                = link_to '允许登录', create_login_agent_path(@parent, contact_id: c.id), remote: true, class: 'btn btn-info btn-xs'
+                = link_to '禁止登录', '#', class: 'btn btn-info btn-xs disabled'
+          

@@ -21,6 +21,16 @@ class ImportController < ApplicationController
     end
   end
 
+  def trades_totals
+    if $redis.get(:trades_totals_flag) == 'running'
+      flash[:error] ||= []
+      flash[:error] << "[取消] 在上次统计数据结束前，不能重复统计数据。"
+    else
+      $redis.lpush :trades_totals_log, "0. 准备统计数据..."
+      TradesTotalsJob.perform_later nil
+    end
+  end
+
   def get_import_msg
     r = ""
     while (msg = $redis.rpop(:import_log))
@@ -36,12 +46,5 @@ class ImportController < ApplicationController
       r << msg
     end
     render text: r.join('|').html_safe
-  end
-
-  def pre_process
-    logger.info 'start pre process the raw data'
-    ProcessForAgentJob.perform_later nil
-
-    redirect_to root_path
   end
 end

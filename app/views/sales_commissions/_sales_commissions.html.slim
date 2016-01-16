@@ -1,0 +1,17 @@
+h2 分润规则
+.panel
+	.panel-body
+		i.fa.fa-2x.fa-plus-circle
+		= link_to '添加规则', new_agent_sales_commission_path(@parent), remote: true
+		table.table
+		  tr
+		    th 类型
+		    th start
+		    th end
+		  - @parent.sales_commissions.each do |c|
+		    tr
+		      td= c.sales_type
+		      td= c.start_count
+		      td= c.end_count
+
+/

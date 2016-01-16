@@ -1,2 +1,3 @@
 class DataManageController < ApplicationController
+
 end

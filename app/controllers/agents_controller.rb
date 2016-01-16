@@ -1,96 +1,72 @@
-class AgentsController < ApplicationController
-  before_action :set_agent, only: [:show, :edit, :update, :destroy]
-
-  # manage salesman
-  def add_salesman
-    set_agent
-    @agent.salesmen << Salesman.find(params[:salesman_id])
-    redirect_to @agent
+# coding: utf-8
+class AgentsController < ResourcesController
+  def create_login
+    load_object
+    contact = Contact.find(params[:contact_id].to_i)
+    if contact
+      # 如果这个电话号码已经存在就不能再次绑定到新的代理商
+      user = User.find_or_create_by(mobile: contact.tel)
+      user.agent = @object
+      user.name = contact.name
+      #user.email = contact.email
+      if user.new_record?
+        user.password = user.mobile
+      end
+      user.save!
+    end
   end
+
+  def del_login
+    load_object
+    contact = Contact.find(params[:contact_id].to_i)
+    if contact
+      user = User.find_by(mobile: contact.tel)
+      if user
+        user.agent = nil
+        user.save!
+      end
+    end
+  end
+
   def del_salesman
-    set_agent
+    load_object
     s = Salesman.find(params[:salesman_id])
     s.agent = nil
     s.save
-    redirect_to @agent
+  end
+  def add_salesman
+    load_object
+    s = Salesman.find(params[:salesman_id])
+    @object.salesmen << s
+    s.save
   end
 
-  # GET /agents
-  # GET /agents.json
-  def index
-    @agents = Agent.page(params[:page])
-  end
-
-  # GET /agents/1
-  # GET /agents/1.json
   def show
-    @client_count = @agent.clients_obj.count
-    @trade_amount_sum = @agent.trades_obj.sum('trade_amount')
+    load_object
+    agent_total = Biz::AgentTotalBiz.new params[:id]
+    @cur_trade_total  = agent_total.trades_sum(Date.current)
+    puts @cur_trade_total
 
-    dif_date = DateTime.current - @agent.clients_obj.first.join_date.to_datetime
-
-    @join_days = dif_date.to_i.to_s
-    @last_date = @agent.clients_obj.last.join_date.to_datetime
+    @cur_trade_total["clients_count"] = agent_total.clients_all.count
+    @cur_trade_total["new_clients_count"] = agent_total.new_clients.count
+    @cur_trade_total["company"] = Company.new
 
   end
 
-  # GET /agents/new
-  def new
-    @agent = Agent.new
+  def pri_salesmaninfo
+    puts 'old'
   end
 
-  # GET /agents/1/edit
-  def edit
+  def active_clients
+    load_object
+    total = Biz::AgentTotalBiz.new(@object.id)
+    @collection_clients = total.active_clients
+  end
+  def active_salesmen
+    load_object
+    total = Biz::AgentTotalBiz.new(@object.id)
+    @collection_salesmen = total.active_salesmen
   end
 
-  # POST /agents
-  # POST /agents.json
-  def create
-    @agent = Agent.new(agent_params)
 
-    respond_to do |format|
-      if @agent.save
-        format.html { redirect_to @agent, notice: 'Agent was successfully created.' }
-        format.json { render :show, status: :created, location: @agent }
-      else
-        format.html { render :new }
-        format.json { render json: @agent.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /agents/1
-  # PATCH/PUT /agents/1.json
-  def update
-    respond_to do |format|
-      if @agent.update(agent_params)
-        format.html { redirect_to @agent, notice: 'Agent was successfully updated.' }
-        format.json { render :show, status: :ok, location: @agent }
-      else
-        format.html { render :edit }
-        format.json { render json: @agent.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /agents/1
-  # DELETE /agents/1.json
-  def destroy
-    @agent.destroy
-    respond_to do |format|
-      format.html { redirect_to agents_url, notice: 'Agent was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_agent
-      @agent = Agent.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def agent_params
-      params.require(:agent).permit(:name, :mobile)
-    end
 end

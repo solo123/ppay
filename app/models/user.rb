@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
          :authentication_keys => [:mobile]
 
   has_many :client_notes
+  belongs_to :agent
 
   def email_required?
     false
