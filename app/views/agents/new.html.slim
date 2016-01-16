@@ -1,4 +1,7 @@
+ol.breadcrumb.pull-right
+  li ==link_to 'Home', '/'
+  li ==link_to '代理管理', agents_path
+  li.active 添加代理商
 h1
-  | New Agent
+  | 新建代理商
 = render 'form'
-= link_to 'Back', agents_path
