@@ -11,9 +11,3 @@ User.create('name'=>'helapu', 'mobile'=>'18684048270', 'email'=>'helapu@pooul.cn
 User.create('name'=>'wxl', 'mobile'=>'18346827602', 'email'=>'wxl@pooul.cn', 'password'=>'wxl@pooul.cn')
 User.create('name'=>'ljn', 'mobile'=>'15914039837', 'email'=>'ljn@pooul.cn', 'password'=>'ljn@pooul.cn')
 puts "已创建完毕公司员工默认用户."
-
-
-puts '创建代理商'
-Agent.create('cooperation_location'=>'深圳')
-Agent.create('cooperation_location'=>'德国')
-puts "已创建完毕代理商默认用户"
