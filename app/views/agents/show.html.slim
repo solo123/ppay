@@ -12,7 +12,7 @@ h1
         i.fa.fa-desktop
       .stats-info
         h3 本月总交易金额
-        p #{@cur_trade_total["total_amount"]}
+        p 
       .stats-link
         a href='#'
           span 总笔数 : 
@@ -51,11 +51,11 @@ h1
         i.fa.fa-users
       .stats-info
         h3 总商户数
-        p #{@cur_trade_total["clients_count"]}
+        p 
       .stats-link
         a href='#'
           span 本月新增商户 : 
-          span #{@cur_trade_total["new_clients_count"]}
+          span 
 
 /
 .row
@@ -76,8 +76,8 @@ h1
       h4 机构信息
       table class='table table-hover'
         tr
-        td 全称: #{@cur_trade_total["company"].name}
-        td 简称: #{@cur_trade_total["company"].short_name}
+        td 全称: 
+        td 简称: 
         td 地区:
         td 经营地址:
     .row
@@ -143,12 +143,13 @@ h2 活跃业务员
         - @object.salesmen.each do |r|
           tr
             td= r.name
-            td= r.status
+            td
             td= link_to('detail', salesman_path(r))
           
 javascript:
+/
   $(document).ready(function(){
-    $.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
-    $.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
+    //$.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
+    //$.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
   });
   
