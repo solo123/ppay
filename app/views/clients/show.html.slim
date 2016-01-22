@@ -8,13 +8,13 @@ h2 商户生命周期
     h1.text-warning =@object.join_days
     b 入网时间
   .col-md-2
-    h1.text-warning =@total_info["total_count"]
+    h1.text-warning 
     b 交易笔数
   .col-md-2
-    h1.text-warning =@total_info["total_amount"]
+    h1.text-warning 
     b 交易总金额
   .col-md-6
-    h1.text-warning ==@last_trade_datetime
+    h1.text-warning
     b 最后交易时间
 .panel.panel-success
   .panel-heading
@@ -151,7 +151,7 @@ h2 商户生命周期
     h4.panel-title
       p 交易信息
   .panel-body
-    = paginate @trades_for_pages
+    / = paginate @trades_for_pages
     table class='table'
       thead
         tr
@@ -162,13 +162,13 @@ h2 商户生命周期
           th 交易额
           th 交易机具编号
       tbody
-      - @trades_for_pages.each do |trade|
+      / - @trades_for_pages.each do |trade|
         tr
           td
-          td ==trade.trade_date
+        /  td ==trade.trade_date
           td
           td
-          td ==trade.trade_amount
+        /  td ==trade.trade_amount
           td
 
 

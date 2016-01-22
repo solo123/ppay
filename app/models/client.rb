@@ -11,6 +11,8 @@ class Client < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :skills, :interests
 
+  default_scope {order('join_date desc')}
+
   def contact_info
     if self.contacts.count > 0
       c = self.contacts.first
