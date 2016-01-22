@@ -1,0 +1,35 @@
+p#notice
+  = notice
+h1
+  | Listing Bulletin Board Systems
+table.table
+  thead
+    tr
+      th
+        | Deadtime
+      th
+        | Title
+      th
+        | Content
+      th
+        | Publisher
+      th[colspan="3"]
+  tbody
+    - @collection.each do |r|
+      tr
+        td
+          = r.deadtime
+        td
+          = r.title
+        td
+          = r.content
+        td
+          = r.publisher_id
+        td
+          = link_to 'Show', r
+        td
+          = link_to 'Edit', edit_bulletin_board_system_path(r)
+        td
+          = link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Bulletin board system', new_bulletin_board_system_path
