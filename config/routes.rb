@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
   resources :users
 
+  # 通知
+  resources :bulletin_board_systems
+
   # 业务数据
   resources :joinlast_clients
   resources :sales_commissions do
