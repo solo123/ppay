@@ -3,13 +3,15 @@ class Client < ActiveRecord::Base
   has_and_belongs_to_many :contacts
   has_many :pos_machines
   belongs_to :category, class_name: 'CodeTable'
-  has_many :addresses, as: :addr_obj
+  belongs_to :address
   has_many :client_notes
   has_many :client_day_tradetotals
 
   # tag
   acts_as_taggable
   acts_as_taggable_on :skills, :interests
+
+  default_scope {order('join_date desc')}
 
   def contact_info
     if self.contacts.count > 0
@@ -20,9 +22,8 @@ class Client < ActiveRecord::Base
     end
   end
   def addr_info
-    if self.addresses.count > 0
-      addr = self.addresses.first
-      CodeTable.find(addr.province_id).name.to_s + ' ' + CodeTable.find(addr.city_id).name.to_s
+    if self.address
+      "#{self.address.province.name} #{self.address.city.name} #{self.address.street}"
     else
       ''
     end

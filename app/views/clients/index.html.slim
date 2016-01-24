@@ -48,18 +48,24 @@ div class='panel panel-success'
       tbody
         - @collection.each do |obj|
           tr.info
-            td colspan='6' style='padding:4px 15px;' ID: #{obj.shid} 商户名称: #{obj.shop_name}
+            td colspan='6' style='padding:4px 15px;' 
+              | ID: #{obj.shid} 
+              | 商户名称: #{obj.shop_name}
+              | 地址：#{obj.addr_info}
             td colspan='3' style='padding:4px 15px; text-align:right;' 
-              ==link_to '详情', client_path(obj)
+              = link_to '详情', client_path(obj)
 
-          tr rowsspan='2' align="center"
-            td== obj.contact_info
-            td== link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
-            td== obj.addr_info
-            td== link_to "#{obj.salesman.name}", salesman_path(obj.salesman)
-            td== obj.category.name
+          tr
+            td= obj.contact_info
+            td
+              = link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
+              br
+              = obj.join_date
+            td= obj.addr_info
+            td= link_to "#{obj.salesman.name}", salesman_path(obj.salesman)
+            td= obj.category.name
 
-            td colspan='3'
+            td
               p 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万
               p 借记卡: #{obj.bank_card_limit_each/10000}万|#{obj.bank_card_limit_month/10000}万
             td style='font-size:25px;color:orange;' #{obj.rate*100}%

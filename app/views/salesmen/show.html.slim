@@ -4,6 +4,18 @@ p
   strong
     | Name:
   = @object.name
-/ = link_to 'Edit', edit_salesmen_path(@object)
-|  | 
-/ = link_to 'Back', scalesmen_path
+
+  - if @object.client
+    table.table
+      tr
+        td 商户名称：
+        td= @object.client.shop_name
+      tr
+        td 联系电话：
+        td= @object.client.shop_tel 
+  - else
+    | {未指定对应商户}
+
+  = link_to 'Edit', edit_salesman_path(@object)
+  |  | 
+  = link_to 'Back', salesmen_path

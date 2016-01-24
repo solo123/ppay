@@ -1,0 +1,28 @@
+= form_for(@object) do |f|
+  - if @object.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@object.errors.count, "error")
+        |  prohibited this bulletin_board_system from being saved:
+      ul
+        - @object.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = f.label :deadtime
+    br
+    = f.datetime_select :deadtime
+  .field
+    = f.label :title
+    br
+    = f.text_field :title
+  .field
+    = f.label :content
+    br
+    = f.text_area :content, cols: 100, rows: 10
+  .field
+    = f.label :publisher_id
+    br
+    = f.text_field :publisher_id
+  .actions
+    = f.submit

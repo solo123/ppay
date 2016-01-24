@@ -1,6 +1,23 @@
 h1
-  | Editing Scalesman
-= render 'form'
+  | 编辑业务员
+
+.row
+  .col-md-6
+    table.table
+      tr
+        td 姓名：
+        td= @object.name
+        
+  .col-md-6
+    table.table
+      - Client.where('shop_name like ?', "%#{@object.name}%").limit(20).each do |c|
+        tr
+          td= c.shid
+          td= c.shop_name
+          td= c.shop_tel
+          td= link_to '选择', set_client_salesman_path(client: c.id), remote: true
+
+
 = link_to 'Show', @object
 |  | 
 = link_to 'Back', salesmen_path

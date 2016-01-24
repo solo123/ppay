@@ -1,3 +1,10 @@
+p 
+  | 数据导入时间：#{ l ImpLog.first.created_at}，
+  = link_to '从Email导入数据', import_do_import_path, class: "btn btn-primary btn-xs", remote: true
+  | &nbsp;
+  = link_to "处理数据", import_parse_data_path, class: 'btn btn-primary btn-xs', remote: true
+  | &nbsp;
+  = link_to "统计数据", import_trades_totals_path, class: 'btn btn-primary btn-xs', remote: true
 .row
   .col-md-3
     .widget.widget-stats.bg-blue

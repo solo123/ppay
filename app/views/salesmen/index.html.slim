@@ -18,17 +18,23 @@
     = paginate @collection
     table class='table table-hover'
       thead
-        tr          
+        tr    
+          th ID      
           th 代理商
-          th 联系信息
+          th 业务员姓名
+          th 关联商户
           th 更新时间
+          th 详情
           
       tbody
         - @collection.each do |obj|
           tr
+            td= obj.id
             - if obj.agent
-              td== link_to "代理", agent_path(obj.agent)
+              td= link_to obj.agent.company.name, agent_path(obj.agent)
             -else
               td 无
-            th== obj.contact_id
-            td== obj.updated_at
+            td= obj.name
+            td= "#{obj.client.shop_name} #{obj.client.shop_tel}" if obj.client
+            td= obj.updated_at
+            td= link_to '详情', salesman_path(obj)
