@@ -1,10 +1,8 @@
 class SalesmenController < ResourceController
-  def initialize
-    super
-    @table_head = '业务员资料'
-    @fields = %w(name)
-    @field_titles = [ '姓名' ]
+  def set_client
+    load_object
+    @object.client_id = params[:client]
+    @object.save
   end
-
 
 end

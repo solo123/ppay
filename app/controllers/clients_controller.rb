@@ -1,4 +1,4 @@
-class ClientsController < ResourceController
+class ClientsController < ResourcesController
   # tag管理
   def tags
     load_object

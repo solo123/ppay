@@ -6,8 +6,8 @@ module Biz
       # return if $redis.get(:qf_imp_flag) == 'running'
       $redis.set(:qf_imp_flag, 'running')
       slog ":h1 开始导入数据......"
+      import_from_email_unsafe
       begin
-        import_from_email_unsafe
       rescue
         # handle the error
         slog '[导入出错]'
@@ -33,11 +33,12 @@ module Biz
         if check_email(uid, implog)
           att = get_attchement(uid)
           if att
-            implog.detail << '[附件下载ok]'
-            slog "    附件下载成功"
             file_name = "tmp/#{uid}.xls"
             File.new(file_name, 'wb+').write(att.unpack('m')[0] )
-            import_data(file_name, uid, implog)
+            implog.detail << '[附件下载ok]'
+            slog "    附件下载成功"
+
+            import_data(file_name, implog)
           else
             implog.detail << '[没有附件]'
             slog "    没有附件。"
@@ -54,7 +55,7 @@ module Biz
       @imap.select('inbox')
 
       since_time = "30-Nov-2014"
-      if l = ImpLog.where(status: 8).first
+      if l = ImpLog.first
         since_time = Net::IMAP.format_datetime(l.received_at.to_date) if l.received_at
       end
       slog "读取日期#{since_time}之后的新邮件"
@@ -75,7 +76,7 @@ module Biz
       attachment = @imap.fetch(id, "BODY[2]")[0].attr["BODY[2]"]
     end
 
-    def import_data(data_file, id, log)
+    def import_data(data_file, log)
       slog "start import at #{data_file}"
       cus_attr = ['shid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe', 'zt']
       trade_attr = ['shid', 'zzh', 'jyrq', 'jylx', 'jyjg', 'jye', 'zdcm', 'zt']
@@ -100,42 +101,81 @@ module Biz
         return
       end
 
-      log.detail  << " 统计:"
-      for sheetindex in 0..2 do
-        slog "正在导入第#{sheetindex}张表"
-        sheet = book.worksheet sheetindex
-        cnt = 0
-        sheet.each  do |row|
-          cnt += 1
-          imp_data = get_model_with sheetindex
-          i = 1
-          next if row[1].nil? || row[1].to_i < 1
-
-          for v in all_attrs[sheetindex] do
-            imp_data.send( v + '=', row[i]  || ' ')
-            i += 1
-          end
-          imp_data.imp_log_id = log.id
-          imp_data.save
-        end
-        log.detail << 'sheet' + sheetindex.to_s + ':' + cnt.to_s + '  '
-        slog log.detail
-      end
+      import_qf_clients(book, log)
+      import_qf_trades(book, log)
+      import_qf_clearing(book, log)
       log.status = '8'
     end
 
-    def get_model_with(index)
-      obj = nil
-      if index == 0
-        obj = ImpQfCustomer.new
+
+    def import_qf_clients(xsl_file, log)
+      slog "正在导入[商户资料]表"
+      attrs = []
+      if log.received_at < '2016-01-20'
+        attrs = ['shid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe']
+      else
+        attrs = ['shid', 'hylx', 'dm', 'lxr', 'sj', 'rwsj', 'sf', 'cs', 'dz', 'ywy', 'shzt', 'fl', 'zdcm', 'jjkdbxe', 'jjkdyxe', 'xykdbxe', 'xykdyxe']
       end
-      if index == 1
-        obj = ImpQfTrade.new
+      cnt = 0
+      sheet = xsl_file.worksheet 0
+      sheet.each do |row|
+        next if row[1].nil? || row[1].to_i < 1
+
+        imp = ImpQfCustomer.new
+        attrs.each_with_index do |att, idx|
+          imp[att] = row[idx + 1]
+        end
+        imp.imp_log_id = log.id
+        imp.save
+        cnt += 1
       end
-      if index == 2
-        obj = ImpQfClearing.new
+
+      log.detail << '商户资料:' + cnt.to_s + ', '
+      slog log.detail
+    end
+
+    def import_qf_trades(xsl_file, log)
+      slog "正在导入[交易]表"
+      attrs = ['shid', 'zzh', 'jyrq', 'jylx', 'jyjg', 'jye', 'zdcm', 'zt']
+
+      cnt = 0
+      sheet = xsl_file.worksheet 1
+      sheet.each do |row|
+        next if row[1].nil? || row[1].to_i < 1
+
+        imp = ImpQfTrade.new
+        attrs.each_with_index do |att, idx|
+          imp[att] = row[idx + 1]
+        end
+        imp.imp_log_id = log.id
+        imp.save
+        cnt += 1
       end
-      return obj
+
+      log.detail << "交易:#{cnt}, "
+      slog log.detail
+    end
+
+    def import_qf_clearing(xsl_file, log)
+      slog "正在导入[清算]表"
+      attrs = ['shid', 'qsrq', 'jybs', 'jybj', 'sxf', 'jsje', 'sjqsje', 'qszt', 'zt']
+
+      cnt = 0
+      sheet = xsl_file.worksheet 2
+      sheet.each do |row|
+        next if row[1].nil? || row[1].to_i < 1
+
+        imp = ImpQfClearing.new
+        attrs.each_with_index do |att, idx|
+          imp[att] = row[idx + 1]
+        end
+        imp.imp_log_id = log.id
+        imp.save
+        cnt += 1
+      end
+
+      log.detail << "清算:#{cnt}"
+      slog log.detail
     end
 
     def slog(msg)

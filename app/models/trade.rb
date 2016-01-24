@@ -3,4 +3,5 @@ class Trade < ActiveRecord::Base
   belongs_to :pos_machine
   belongs_to :trade_type, class_name: 'CodeTable'
   belongs_to :trade_result, class_name: 'CodeTable'
+  default_scope {order('trade_date desc')}
 end

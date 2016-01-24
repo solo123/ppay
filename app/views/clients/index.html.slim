@@ -48,7 +48,10 @@ div class='panel panel-success'
       tbody
         - @collection.each do |obj|
           tr.info
-            td colspan='6' style='padding:4px 15px;' ID: #{obj.shid} 商户名称: #{obj.shop_name}
+            td colspan='6' style='padding:4px 15px;' 
+              | ID: #{obj.shid} 
+              | 商户名称: #{obj.shop_name}
+              | 地址：#{obj.addr_info}
             td colspan='3' style='padding:4px 15px; text-align:right;' 
               = link_to '详情', client_path(obj)
 

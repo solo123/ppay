@@ -61,11 +61,19 @@ Rails.application.routes.draw do
     end
   end
   resources :client_notes
-  resources :trades
+  resources :trades do
+    collection do
+      get 'client_trades/:client_id', to: 'trades#client_trades'
+    end
+  end
   resources :clearings
   resources :contacts
   resources :addresses
-  resources :salesmen
+  resources :salesmen do
+    member do
+      get :set_client
+    end
+  end
   resources :pos_machines
 
   # raw data

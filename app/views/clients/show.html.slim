@@ -70,6 +70,15 @@ h2 商户生命周期
         p 费率: 
         p 信用卡月限额:
         p 借记卡月限额:
+
+.panel.panel-success
+  .panel-heading
+    .btn-group.pull-right
+      = link_to '详情', trades_path('q[client_id_eq]' => @object.id), class: 'btn btn-warning btn-xs'
+    h4.panel-title 交易信息
+
+  .panel-body#client_trades
+
 .panel.panel-success
   .panel-heading
     .btn-group.pull-right
@@ -146,36 +155,7 @@ h2 商户生命周期
       |暂时可以用get方式访问如下
       |url http://localhost:3000/clients/1/tags?tags=<tags list>
       |就可以更新当前标签
-.panel.panel-success
-  .panel-heading
-    h4.panel-title
-      p 交易信息
-  .panel-body
-    / = paginate @trades_for_pages
-    table class='table'
-      thead
-        tr
-          th 操作员
-          th 交易时间
-          th 交易类型
-          th 交易结果
-          th 交易额
-          th 交易机具编号
-      tbody
-      / - @trades_for_pages.each do |trade|
-        tr
-          td
-        /  td ==trade.trade_date
-          td
-          td
-        /  td ==trade.trade_amount
-          td
-
-
-    / h4 交易流水
-    
-    / h4 积分
-    / h4 授信
-    / h4 备注
-    / h4 风控
-    
+javascript:
+  $(function(){
+    $.getScript("/trades/client_trades/#{@object.id}");
+  });

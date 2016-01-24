@@ -6,7 +6,6 @@ module Biz
         t.zt = 0
         t.save
       end
-
     end
     def parse_all
       $redis.set(:parse_data_flag, 'running')
@@ -44,15 +43,14 @@ module Biz
           client.save
           slog("更新资料：id:#{client.shid} - #{client.shop_name}")
         end
-        dz = client.addresses
-        unless dz.count > 0
-          prov = CodeTable.find_prov(c.sf)
-          city = CodeTable.find_city(prov.id, c.cs)
-          dz = client.addresses.create(province_id: prov.id, city_id: city.id, street: c.dz )
-          dz.save
-          slog("新增地址：[#{dz.id}] #{c.sf}, #{c.cs}, #{c.dz}")
-        end
-        if c.lxr.nil? || c.lxr.empty?
+        client.address ||= client.build_address
+        client.address.province = CodeTable.find_prov(c.sf)
+        client.address.city = CodeTable.find_city(prov.id, c.cs)
+        client.address.street = c.dz
+        client.address.save
+        slog("更新地址：[#{dz.id}] #{c.sf}, #{c.cs}, #{c.dz}")
+
+        if c.lxr.nil? || c.lxr.strip.empty?
         else
           lxr = Contact.find_or_create_by(name: c.lxr, tel: c.sj)
           client.contacts << lxr
