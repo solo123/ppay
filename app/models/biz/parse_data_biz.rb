@@ -2,10 +2,9 @@ module Biz
   class ParseDataBiz
 
     def reset
-      ImpQfTrade.all.each do |t|
-        t.zt = 0
-        t.save
-      end
+      ImpQfCustomer.update_all(zt: 0)
+      ImpQfTrade.update_all(zt: 0)
+      ImpQfClearing.update_all(zt: 0)
     end
     def parse_all
       $redis.set(:parse_data_flag, 'running')
@@ -45,10 +44,10 @@ module Biz
         end
         client.address ||= client.build_address
         client.address.province = CodeTable.find_prov(c.sf)
-        client.address.city = CodeTable.find_city(prov.id, c.cs)
+        client.address.city = CodeTable.find_city(client.address.province.id, c.cs)
         client.address.street = c.dz
         client.address.save
-        slog("更新地址：[#{dz.id}] #{c.sf}, #{c.cs}, #{c.dz}")
+        slog("更新地址：[#{client.address.id}] #{c.sf}, #{c.cs}, #{c.dz}")
 
         if c.lxr.nil? || c.lxr.strip.empty?
         else
@@ -141,7 +140,7 @@ module Biz
     end
 
     def slog(msg)
-      puts msg
+      #puts msg
       $redis.lpush(:parse_log, msg)
     end
   end

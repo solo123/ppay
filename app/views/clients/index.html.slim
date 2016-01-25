@@ -61,7 +61,7 @@ div class='panel panel-success'
               = link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
               br
               = obj.join_date
-            td= obj.addr_info
+            td= obj.area_info
             td= link_to "#{obj.salesman.name}", salesman_path(obj.salesman)
             td= obj.category.name
 

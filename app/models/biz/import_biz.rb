@@ -6,8 +6,8 @@ module Biz
       # return if $redis.get(:qf_imp_flag) == 'running'
       $redis.set(:qf_imp_flag, 'running')
       slog ":h1 开始导入数据......"
-      import_from_email_unsafe
       begin
+        import_from_email_unsafe
       rescue
         # handle the error
         slog '[导入出错]'
@@ -179,7 +179,7 @@ module Biz
     end
 
     def slog(msg)
-      puts msg
+      #puts msg
       $redis.lpush(:import_log, msg)
     end
 
