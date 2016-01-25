@@ -23,7 +23,7 @@ module Biz
 
       get_new_emails.each do |uid|
         slog uid
-        if ImpLog.find_by uid: uid
+        if ImpLog.find_by(uid: uid, status: 8)
           slog ":h1 重复邮件[#{uid}]"
           # ImpLog.new(uid: uid.to_i, detail: '[重复] skip...', status: 0).save
           next
@@ -55,7 +55,7 @@ module Biz
       @imap.select('inbox')
 
       since_time = "30-Nov-2014"
-      if l = ImpLog.first
+      if l = ImpLog.where(status: 8).first
         since_time = Net::IMAP.format_datetime(l.received_at.to_date) if l.received_at
       end
       slog "读取日期#{since_time}之后的新邮件"
