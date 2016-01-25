@@ -28,6 +28,13 @@ class Client < ActiveRecord::Base
       ''
     end
   end
+  def area_info
+    if self.address
+      "#{self.address.province.name} #{self.address.city.name}"
+    else
+      ''
+    end
+  end
 
   def note_info
     # 获取所有的备注

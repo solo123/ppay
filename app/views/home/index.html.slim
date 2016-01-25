@@ -1,5 +1,5 @@
 p 
-  | 数据导入时间：#{ l ImpLog.first.created_at}，
+  | 数据导入时间：#{ l ImpLog.first.created_at if ImpLog.count > 0}，
   = link_to '从Email导入数据', import_do_import_path, class: "btn btn-primary btn-xs", remote: true
   | &nbsp;
   = link_to "处理数据", import_parse_data_path, class: 'btn btn-primary btn-xs', remote: true
