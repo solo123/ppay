@@ -1,24 +1,28 @@
-table.table
+table.table.sum-table total_columns='11' sum_float_columns='1,3,5,7,9' sum_int_columns='2,4,6,8,10'
   thead
     tr
       th 日期
-      th 总交易
-      th 总笔数
-      th 微金额
-      th 微笔数
-      th 支金额
-      th 支笔数
-      th T0金额
-      th T0笔数
+      th.text-right 总交易
+      th.text-right 总笔数
+      th.text-right 微金额
+      th.text-right 微笔数
+      th.text-right 支金额
+      th.text-right 支笔数
+      th.text-right T0金额
+      th.text-right T0笔数
+      th.text-right T1金额
+      th.text-right T1笔数
   tbody
     - @collection.each do |r|
       tr
         td= r.trade_date.day
-        td= r.total_amount
-        td= r.total_count
-        td= r.wechat_amount
-        td= r.wechat_count
-        td= r.alipay_amount
-        td= r.alipay_count
-        td= r.t0_amount
-        td= r.t0_count
+        td.text-right= number_with_precision r.total_amount, precision: 2, delimiter: ','
+        td.text-right= r.total_count
+        td.text-right= number_with_precision r.wechat_amount, precision: 2, delimiter: ','
+        td.text-right= r.wechat_count
+        td.text-right= number_with_precision r.alipay_amount, precision: 2, delimiter: ','
+        td.text-right= r.alipay_count
+        td.text-right= number_with_precision r.t0_amount, precision: 2, delimiter: ','
+        td.text-right= r.t0_count
+        td.text-right= number_with_precision r.t1_amount, precision: 2, delimiter: ','
+        td.text-right= r.t1_count
