@@ -16,12 +16,10 @@ Rails.application.routes.draw do
   get 'home/profile'
 
   # 数据操作
-  get 'import/do_import'
-  get 'import/do_import1'
-  get 'import/parse_data'
-  get 'import/get_import_msg'
-  get 'import/get_log_msg'
-  get 'import/trades_totals'
+  resource :import do
+    get :do_import, :parse_data, :parse_excel
+    get :get_import_msg, :get_log_msg, :trades_totals
+  end
   get 'download/import_xls/:name', to: 'download#import_xls', as: :download_import_xls
 
   devise_for :users
@@ -78,7 +76,11 @@ Rails.application.routes.draw do
 
   # raw data
   resources :imp_ops
-  resources :imp_logs
+  resources :imp_logs do
+    member do
+      get :import, :unimport, :total, :untotal
+    end
+  end
   resources :imp_qf_clearings
   resources :imp_qf_trades
   resources :imp_qf_customers

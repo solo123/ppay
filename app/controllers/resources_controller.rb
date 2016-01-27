@@ -71,7 +71,11 @@ class ResourcesController < ApplicationController
 	protected
 	def load_collection
 		params[:q] ||= {}
-		@q = object_name.classify.constantize.ransack(params[:q])
+		if object_name.classify.constantize.respond_to? :show_order
+			@q = object_name.classify.constantize.show_order.ransack(params[:q])
+		else
+			@q = object_name.classify.constantize.ransack(params[:q])
+		end
 		pages = $redis.get(:list_per_page) || 100
 		@collection = @q.result(distinct: true).page(params[:page]).per(pages)
 	end

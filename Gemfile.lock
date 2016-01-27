@@ -278,6 +278,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   lazy_high_charts
+  mail
   rails (= 4.2.5)
   rails4-autocomplete
   ransack
