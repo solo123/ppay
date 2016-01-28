@@ -19,20 +19,23 @@
         button.btn.btn-primary[type="button"]
           | 添加
 
-
-= search_form_for( @q, class: 'form-inline') do |f|
-  div class='form-group m-r-10'
-    = f.search_field ('shid_cont') , class: 'form-control', placeholder: '商户ID', value: params[:q][:shid_cont]
-    = f.search_field ('shop_name_cont') , class: 'form-control', placeholder: '商户名称', value: params[:q][:shop_name_cont]
-    = f.search_field ('shop_tel_cont') , class: 'form-control', placeholder: '商户电话', value: params[:q][:shop_tel_cont]
-    = f.search_field ('contacts_name_cont') , class: 'form-control', placeholder: '联系人', value: params[:q][:contacts_name_cont]
-    = f.search_field ('salesman_name_cont') , class: 'form-control', placeholder: '业务员', value: params[:q][:salesman_name_cont]
-  = f.submit '查找',  class: 'btn btn-warning form-control'
+div class='panel panel-info'
+  div class='panel-heading'
+    h4 class='panel-title' 商户查询
+  div class='panel-body'
+    = search_form_for( @q, class: 'form-inline') do |f|
+      div class='form-group m-r-10'
+        = f.search_field ('shid_cont') , class: 'form-control', placeholder: '商户ID', value: params[:q][:shid_cont]
+        = f.search_field ('shop_name_cont') , class: 'form-control', placeholder: '商户名称', value: params[:q][:shop_name_cont]
+        = f.search_field ('shop_tel_cont') , class: 'form-control', placeholder: '商户电话', value: params[:q][:shop_tel_cont]
+        = f.search_field ('contacts_name_cont') , class: 'form-control', placeholder: '联系人', value: params[:q][:contacts_name_cont]
+        = f.search_field ('salesman_name_cont') , class: 'form-control', placeholder: '业务员', value: params[:q][:salesman_name_cont]
+      = f.submit '查找',  class: 'btn btn-warning form-control'
 
 br
 div class='panel panel-success'
   div class='panel-heading'
-    h4 class='panel-title' == @table_head
+    h4 class='panel-title' 商户资料
   div class='panel-body'
     = paginate @collection
     table class='table'

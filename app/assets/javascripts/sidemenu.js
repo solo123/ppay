@@ -49,6 +49,10 @@ var sidemenu =function () {
 		$('#sidemenu').children().eq(3).addClass('active');
 		$('#sidemenu').children().eq(3).find('ul li').eq(3).addClass('active');
 	};
+	if (window.location.pathname=='/code_tables') {
+		$('#sidemenu').children().eq(4).addClass('active');
+		$('#sidemenu').children().eq(4).find('ul li').eq(3).addClass('active');
+	}
 	if (window.location.pathname=='/users') {
 		$('#sidemenu').children().eq(4).addClass('active');
 		$('#sidemenu').children().eq(4).find('ul li').eq(0).addClass('active');
@@ -69,7 +73,7 @@ var sidemenu =function () {
 		$('#sidemenu').children().eq(5).addClass('active');
 		$('#sidemenu').children().eq(5).find('ul li').eq(2).addClass('active');
 	};
-	if (window.location.pathname=='/profile/info') {
+	if (window.location.pathname=='/home/profile') {
 		$('#sidemenu').children().eq(6).addClass('active');
 		$('#sidemenu').children().eq(6).find('ul li').eq(0).addClass('active');
 	};
