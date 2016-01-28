@@ -7,36 +7,31 @@ module Biz
     def total_all
       $redis.set(:trades_totals_flag, 'running')
       total_clients
-      total_salesmen
-      #total_agents
       slog('import_end')
       $redis.set(:trades_totals_flag, '')
     end
 
     def total_clients
+      success_trade_code = CodeTable.find_code('trade_result', '交易成功')
       Trade.where(status: 0).each do |t|
-        c = ClientDayTradetotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date.to_date )
-        c.total_amount += t.trade_amount
-        c.total_count += 1
-        type_code = trade_type(t)
-        c["#{type_code}_amount"] += t.trade_amount
-        c["#{type_code}_count"] += 1
+        if t.trade_result_id == success_trade_code
+          c = ClientDayTradetotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date.to_date )
+          c.total_amount += t.trade_amount
+          c.total_count += 1
+          type_code = trade_type(t)
+          c["#{type_code}_amount"] += t.trade_amount
+          c["#{type_code}_count"] += 1
+          c.save
 
-        t.status = 1
-        t.save
-        c.save
-      end
-    end
-
-    def total_salesmen
-      ClientDayTradetotal.where(status: 0).each do |t|
-        c = SalesmanDayTradetotal.find_or_create_by(salesman_id: t.client.salesman_id, trade_date: t.trade_date )
-        @@sum_fields.each do |field|
-          c[field] += t[field]
+          s = SalesmanDayTradetotal.find_or_create_by(salesman_id: t.client.salesman_id, trade_date: t.trade_date )
+          s.total_amount += t.trade_amount
+          s.total_count += 1
+          s["#{type_code}_amount"] += t.trade_amount
+          s["#{type_code}_count"] += 1
+          s.save
         end
         t.status = 1
         t.save
-        c.save
       end
     end
 

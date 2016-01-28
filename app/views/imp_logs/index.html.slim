@@ -3,37 +3,44 @@ div class='row'
     div class='panel panel-success'
       div class='panel-heading'
         div class='panel-heading-btn'
-          == link_to '导入Email', import_do_import_path, class: "btn btn-xs btn-primary", remote: true
-          == link_to "数据处理", import_parse_data_path, class: 'btn btn-xs btn-primary', remote: true
+          = link_to '读取Email', do_import_import_path, class: "btn btn-xs btn-primary", remote: true
+          = link_to '导入Excel', parse_excel_import_path, class: "btn btn-xs btn-primary", remote: true
+          = link_to "数据处理", parse_data_import_path, class: 'btn btn-xs btn-primary', remote: true
           a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-expand"
             i class="fa fa-expand"
-        h4 class='panel-title' == @table_head
+        h4 class='panel-title' 数据导入日志
       div class='panel-body'
         = paginate @collection
         table class='table'
-          thead
-            tr
-              th 邮件id
-              th 邮件标题
-              th 接收日期
-              th 发件人
-              th 导入信息
-              th 详细数据
-              
           tbody
             - @collection.each do |obj|
+              tr id="imp_log_#{obj.id}"
+                td rowspan='2'
+                  = obj.uid
+                td= obj.title
+                td
+                  | 发件人:&nbsp;
+                  = obj.mail_from
+                td rowspan='2' nowrap="nowrap"
+                  - if obj.status > 0
+                    i.fa.fa-file-excel-o &nbsp;
+                    = link_to 'xls文件', download_import_xls_path(name: "#{obj.uid}.xls")
+                    br
+                    = link_to "商户：#{obj.imp_qf_customers.count}条/#{obj.imp_qf_customers.where(zt: 1).count}, ", imp_qf_customers_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
+                    br
+                    = link_to "交易：#{obj.imp_qf_trades.count}条/#{obj.imp_qf_trades.where(zt: 1).count}, ", imp_qf_trades_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
+                    br
+                    = link_to "清算：#{obj.imp_qf_clearings.count}条/#{obj.imp_qf_clearings.where(zt: 1).count}", imp_qf_clearings_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
+                td rowspan='2' nowrap='nowrap'
+                  - if obj.status > 0
+                    = link_to '导入excel', parse_excel_import_path(log: obj.id), remote: true
+                    br
+                    = link_to '删除数据', '#'
+                    br
+                    = link_to '数据统计', '#'
+                    br
+                    = link_to '删除统计', '#'
+                td= obj.status
               tr
-                td== obj.uid
-                td== obj.title
-                td== obj.received_at
-                td== obj.mail_from
-                td== obj.detail
-                td nowrap = "nowrap"
-                  - if obj.status == 8
-                    == link_to 'xls文件| ', download_import_xls_path(name: "#{obj.uid}.xls")
-                    br
-                    == link_to "商户：#{obj.imp_qf_customers.count}条/#{obj.imp_qf_customers.where(zt: 1).count}/#{obj.imp_qf_customers.where('zt <> 1').count}, ", imp_qf_customers_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
-                    br
-                    == link_to "交易：#{obj.imp_qf_trades.count}条/#{obj.imp_qf_trades.where(zt: 1).count}/#{obj.imp_qf_trades.where('zt <> 1').count}, ", imp_qf_trades_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
-                    br
-                    == link_to "清算：#{obj.imp_qf_clearings.count}条/#{obj.imp_qf_clearings.where(zt: 1).count}/#{obj.imp_qf_clearings.where('zt <> 1').count}", imp_qf_clearings_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
+                td= obj.detail
+                td= obj.received_at

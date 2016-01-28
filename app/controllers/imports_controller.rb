@@ -1,4 +1,4 @@
-class ImportController < ApplicationController
+class ImportsController < ApplicationController
   def do_import
     if $redis.get(:qf_imp_flag) == 'running'
       @import_status = 0
@@ -8,6 +8,24 @@ class ImportController < ApplicationController
       @import_status = 1
       $redis.lpush :import_log, "0. 准备导入数据..."
       ImportDataJob.perform_later nil
+    end
+  end
+
+  def parse_excel
+    if params[:log]
+      @log = ImpLog.find(params[:log])
+      biz = Biz::ImportBiz.new
+      biz.import_data(@log)
+      unless biz.errors.empty?
+        flash[:errors] = biz.errors
+      end
+    else
+      biz = Biz::ImportBiz.new
+      ImpLog.where(status: 1).each do |log|
+        biz.import_data(log)
+      end
+      flash[:errors] = biz.errors
+      @log = nil
     end
   end
 

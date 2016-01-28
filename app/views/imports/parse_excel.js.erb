@@ -1,0 +1,8 @@
+<% if flash[:errors] && flash[:errors].length > 0 %>
+  <% flash[:errors].each do |err| %>
+  alert('<%= err %>');
+  <% end %>
+  <% flash.clear %>
+<% else %>
+  location.reload();
+<% end %>

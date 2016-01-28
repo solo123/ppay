@@ -1,10 +1,12 @@
 p 
   | 数据导入时间：#{ l ImpLog.first.created_at if ImpLog.count > 0}，
-  = link_to '从Email导入数据', import_do_import_path, class: "btn btn-primary btn-xs", remote: true
+  = link_to '读取Email', do_import_import_path, class: "btn btn-primary btn-xs", remote: true
   | &nbsp;
-  = link_to "处理数据", import_parse_data_path, class: 'btn btn-primary btn-xs', remote: true
+  = link_to "导入excel", parse_excel_import_path, class: 'btn btn-primary btn-xs', remote: true
   | &nbsp;
-  = link_to "统计数据", import_trades_totals_path, class: 'btn btn-primary btn-xs', remote: true
+  = link_to "处理数据", parse_data_import_path, class: 'btn btn-primary btn-xs', remote: true
+  | &nbsp;
+  = link_to "统计数据", trades_totals_import_path, class: 'btn btn-primary btn-xs', remote: true
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
@@ -58,7 +60,7 @@ p
   
 br
 .row
-  .col-md-9
+  .col-md-12
     .panel.panel-primary
       .panel-heading
         .btn-group.pull-right data-toggle='buttons'
@@ -70,17 +72,6 @@ br
         h4.panel-title 交易汇总表
       .panel-body#mon_trades_total style='overflow:auto;'
 
-  .col-md-3
-    .panel.panel-info
-      .panel-heading
-        .btn-group.pull-right data-toggle='buttons'
-          label.btn.btn-success.btn-xs
-            input type='radio' name='options' 上一月
-          label.btn.btn-xs 2015年12月
-          label.btn.btn-success.btn-xs
-            input type='radio' name='options' 下一月
-        h4.panel-title 交易变化曲线
-      .panel-body
         
 .row
   .col-md-12
