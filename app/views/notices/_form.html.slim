@@ -8,10 +8,15 @@
         - @object.errors.full_messages.each do |message|
           li
             = message
+  /
   .field
-    = f.label :deadtime
+    = f.label :publish_date
     br
-    = f.datetime_select :deadtime
+    = f.datetime_select :publish_date
+  .field
+    = f.label :close_date
+    br
+    = f.datetime_select :close_date
   .field
     = f.label :title
     br

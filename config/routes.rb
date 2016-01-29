@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   resources :users
 
   # 通知
-  resources :bulletin_board_systems
+  resources :notices
 
   # 业务数据
   resources :joinlast_clients

@@ -23,7 +23,7 @@ div class="right-content"
       div class="form-inputs"
         = f.input :mobile, label: false, placeholder: '手机', required: false, autofocus: true
         = f.input :password, label: false, placeholder: '密码',  required: false 
-        = f.input :remember_me, as: :boolean if devise_mapping.rememberable? 
+        = f.input :remember_me, as: :boolean, lable: false 
 
       div class="form-actions"
         = f.button :submit, "登录", class: 'btn btn-success btn-block btn-lg' 

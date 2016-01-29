@@ -6,7 +6,9 @@ table.table
   thead
     tr
       th
-        | Deadtime
+        | publish_date
+      th
+        | close_date
       th
         | Title
       th
@@ -18,7 +20,9 @@ table.table
     - @collection.each do |r|
       tr
         td
-          = r.deadtime
+          = r.publish_date
+        td
+          = r.close_date
         td
           = r.title
         td
@@ -28,8 +32,8 @@ table.table
         td
           = link_to 'Show', r
         td
-          = link_to 'Edit', edit_bulletin_board_system_path(r)
+          = link_to 'Edit', edit_notice_path(r)
         td
           = link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' }
 br
-= link_to 'New Bulletin board system', new_bulletin_board_system_path
+= link_to 'New Bulletin board system', new_notice_path
