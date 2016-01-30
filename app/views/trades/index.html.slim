@@ -1,19 +1,21 @@
-
-= search_form_for( @q, class: 'form-inline') do |f|
-  div.form-group.m-r-10
-  = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
-  = f.search_field :client_shop_name_cont, class: 'form-control', placeholder: '商户名称', value: params[:q][:client_shop_name_cont]
-  = f.search_field ('trade_date_start') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
-  = f.search_field ('trade_result_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
-  = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
-  = text_field_tag "d[trade_date]", params["d[trade_date]"], value: ( params[:d] ? params[:d][:trade_date] : '')
-  = f.submit '查找',  class: 'btn btn-warning form-control'
+div.panel.panel-info
+  div.panel-heading 
+    h4.panel-title 交易查询
+  div.panel-body
+    = search_form_for( @q, class: 'form-inline') do |f|
+      div.form-group.m-r-10
+      = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
+      = f.search_field :client_shop_name_cont, class: 'form-control', placeholder: '商户名称', value: params[:q][:client_shop_name_cont]
+      = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
+      = f.search_field ('trade_result_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
+      = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
+      = f.submit '查找',  class: 'btn btn-warning form-control'
 br
 
 
 div.panel.panel-success
   div.panel-heading 
-    h4.panel-title == @table_head
+    h4.panel-title 交易明细
   div.panel-body
     = paginate @collection
     table.table
