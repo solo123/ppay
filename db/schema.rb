@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160124134341) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
     t.string   "addr_obj_type"
@@ -28,30 +25,8 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "agent_day_tradetotals", force: :cascade do |t|
-    t.integer  "agent_id"
-    t.date     "trade_date"
-    t.decimal  "total_amount",      precision: 12, scale: 2, default: 0.0
-    t.integer  "total_count",                                default: 0
-    t.decimal  "wechat_amount",     precision: 12, scale: 2, default: 0.0
-    t.integer  "wechat_count",                               default: 0
-    t.decimal  "alipay_amount",     precision: 12, scale: 2, default: 0.0
-    t.integer  "alipay_count",                               default: 0
-    t.decimal  "t0_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t0_count",                                   default: 0
-    t.decimal  "t1_amount",         precision: 12, scale: 2, default: 0.0
-    t.integer  "t1_count",                                   default: 0
-    t.decimal  "expected_amount",   precision: 12, scale: 2, default: 0.0
-    t.decimal  "actual_amount",     precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_amount",       precision: 12, scale: 2, default: 0.0
-    t.decimal  "diff_total_amount", precision: 12, scale: 2, default: 0.0
-    t.integer  "status",                                     default: 0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-  end
-
   create_table "agents", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "parent_id"
     t.integer  "company_id"
     t.integer  "cooperation_type_id"
     t.datetime "cooperation_date"
@@ -70,8 +45,8 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.integer "contact_id"
   end
 
-  add_index "agents_contacts", ["agent_id"], name: "index_agents_contacts_on_agent_id", using: :btree
-  add_index "agents_contacts", ["contact_id"], name: "index_agents_contacts_on_contact_id", using: :btree
+  add_index "agents_contacts", ["agent_id"], name: "index_agents_contacts_on_agent_id"
+  add_index "agents_contacts", ["contact_id"], name: "index_agents_contacts_on_contact_id"
 
   create_table "bank_cards", force: :cascade do |t|
     t.integer  "bankcard_obj_id"
@@ -83,15 +58,6 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.integer  "status",            default: 0
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-  end
-
-  create_table "bulletin_board_systems", force: :cascade do |t|
-    t.datetime "deadtime"
-    t.string   "title"
-    t.text     "content"
-    t.integer  "publisher_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "clearings", force: :cascade do |t|
@@ -130,15 +96,6 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.datetime "updated_at",                                               null: false
   end
 
-  create_table "client_notes", force: :cascade do |t|
-    t.integer  "client_id"
-    t.integer  "user_id"
-    t.text     "note"
-    t.string   "tip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "clients", force: :cascade do |t|
     t.integer  "salesman_id"
     t.integer  "shid"
@@ -161,8 +118,8 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.integer "contact_id"
   end
 
-  add_index "clients_contacts", ["client_id"], name: "index_clients_contacts_on_client_id", using: :btree
-  add_index "clients_contacts", ["contact_id"], name: "index_clients_contacts_on_contact_id", using: :btree
+  add_index "clients_contacts", ["client_id"], name: "index_clients_contacts_on_client_id"
+  add_index "clients_contacts", ["contact_id"], name: "index_clients_contacts_on_contact_id"
 
   create_table "code_tables", force: :cascade do |t|
     t.string   "name"
@@ -174,16 +131,16 @@ ActiveRecord::Schema.define(version: 20160124134341) do
   end
 
   create_table "comfy_cms_blocks", force: :cascade do |t|
-    t.string   "identifier",     null: false
-    t.text     "content"
+    t.string   "identifier",                      null: false
+    t.text     "content",        limit: 16777215
     t.integer  "blockable_id"
     t.string   "blockable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comfy_cms_blocks", ["blockable_id", "blockable_type"], name: "index_comfy_cms_blocks_on_blockable_id_and_blockable_type", using: :btree
-  add_index "comfy_cms_blocks", ["identifier"], name: "index_comfy_cms_blocks_on_identifier", using: :btree
+  add_index "comfy_cms_blocks", ["blockable_id", "blockable_type"], name: "index_comfy_cms_blocks_on_blockable_id_and_blockable_type"
+  add_index "comfy_cms_blocks", ["identifier"], name: "index_comfy_cms_blocks_on_identifier"
 
   create_table "comfy_cms_categories", force: :cascade do |t|
     t.integer "site_id",          null: false
@@ -191,7 +148,7 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.string  "categorized_type", null: false
   end
 
-  add_index "comfy_cms_categories", ["site_id", "categorized_type", "label"], name: "index_cms_categories_on_site_id_and_cat_type_and_label", unique: true, using: :btree
+  add_index "comfy_cms_categories", ["site_id", "categorized_type", "label"], name: "index_cms_categories_on_site_id_and_cat_type_and_label", unique: true
 
   create_table "comfy_cms_categorizations", force: :cascade do |t|
     t.integer "category_id",      null: false
@@ -199,7 +156,7 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.integer "categorized_id",   null: false
   end
 
-  add_index "comfy_cms_categorizations", ["category_id", "categorized_type", "categorized_id"], name: "index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id", unique: true, using: :btree
+  add_index "comfy_cms_categorizations", ["category_id", "categorized_type", "categorized_id"], name: "index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id", unique: true
 
   create_table "comfy_cms_files", force: :cascade do |t|
     t.integer  "site_id",                                    null: false
@@ -214,57 +171,57 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.datetime "updated_at"
   end
 
-  add_index "comfy_cms_files", ["site_id", "block_id"], name: "index_comfy_cms_files_on_site_id_and_block_id", using: :btree
-  add_index "comfy_cms_files", ["site_id", "file_file_name"], name: "index_comfy_cms_files_on_site_id_and_file_file_name", using: :btree
-  add_index "comfy_cms_files", ["site_id", "label"], name: "index_comfy_cms_files_on_site_id_and_label", using: :btree
-  add_index "comfy_cms_files", ["site_id", "position"], name: "index_comfy_cms_files_on_site_id_and_position", using: :btree
+  add_index "comfy_cms_files", ["site_id", "block_id"], name: "index_comfy_cms_files_on_site_id_and_block_id"
+  add_index "comfy_cms_files", ["site_id", "file_file_name"], name: "index_comfy_cms_files_on_site_id_and_file_file_name"
+  add_index "comfy_cms_files", ["site_id", "label"], name: "index_comfy_cms_files_on_site_id_and_label"
+  add_index "comfy_cms_files", ["site_id", "position"], name: "index_comfy_cms_files_on_site_id_and_position"
 
   create_table "comfy_cms_layouts", force: :cascade do |t|
-    t.integer  "site_id",                    null: false
+    t.integer  "site_id",                                     null: false
     t.integer  "parent_id"
     t.string   "app_layout"
-    t.string   "label",                      null: false
-    t.string   "identifier",                 null: false
-    t.text     "content"
-    t.text     "css"
-    t.text     "js"
-    t.integer  "position",   default: 0,     null: false
-    t.boolean  "is_shared",  default: false, null: false
+    t.string   "label",                                       null: false
+    t.string   "identifier",                                  null: false
+    t.text     "content",    limit: 16777215
+    t.text     "css",        limit: 16777215
+    t.text     "js",         limit: 16777215
+    t.integer  "position",                    default: 0,     null: false
+    t.boolean  "is_shared",                   default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comfy_cms_layouts", ["parent_id", "position"], name: "index_comfy_cms_layouts_on_parent_id_and_position", using: :btree
-  add_index "comfy_cms_layouts", ["site_id", "identifier"], name: "index_comfy_cms_layouts_on_site_id_and_identifier", unique: true, using: :btree
+  add_index "comfy_cms_layouts", ["parent_id", "position"], name: "index_comfy_cms_layouts_on_parent_id_and_position"
+  add_index "comfy_cms_layouts", ["site_id", "identifier"], name: "index_comfy_cms_layouts_on_site_id_and_identifier", unique: true
 
   create_table "comfy_cms_pages", force: :cascade do |t|
-    t.integer  "site_id",                        null: false
+    t.integer  "site_id",                                         null: false
     t.integer  "layout_id"
     t.integer  "parent_id"
     t.integer  "target_page_id"
-    t.string   "label",                          null: false
+    t.string   "label",                                           null: false
     t.string   "slug"
-    t.string   "full_path",                      null: false
-    t.text     "content_cache"
-    t.integer  "position",       default: 0,     null: false
-    t.integer  "children_count", default: 0,     null: false
-    t.boolean  "is_published",   default: true,  null: false
-    t.boolean  "is_shared",      default: false, null: false
+    t.string   "full_path",                                       null: false
+    t.text     "content_cache",  limit: 16777215
+    t.integer  "position",                        default: 0,     null: false
+    t.integer  "children_count",                  default: 0,     null: false
+    t.boolean  "is_published",                    default: true,  null: false
+    t.boolean  "is_shared",                       default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comfy_cms_pages", ["parent_id", "position"], name: "index_comfy_cms_pages_on_parent_id_and_position", using: :btree
-  add_index "comfy_cms_pages", ["site_id", "full_path"], name: "index_comfy_cms_pages_on_site_id_and_full_path", using: :btree
+  add_index "comfy_cms_pages", ["parent_id", "position"], name: "index_comfy_cms_pages_on_parent_id_and_position"
+  add_index "comfy_cms_pages", ["site_id", "full_path"], name: "index_comfy_cms_pages_on_site_id_and_full_path"
 
   create_table "comfy_cms_revisions", force: :cascade do |t|
-    t.string   "record_type", null: false
-    t.integer  "record_id",   null: false
-    t.text     "data"
+    t.string   "record_type",                  null: false
+    t.integer  "record_id",                    null: false
+    t.text     "data",        limit: 16777215
     t.datetime "created_at"
   end
 
-  add_index "comfy_cms_revisions", ["record_type", "record_id", "created_at"], name: "index_cms_revisions_on_rtype_and_rid_and_created_at", using: :btree
+  add_index "comfy_cms_revisions", ["record_type", "record_id", "created_at"], name: "index_cms_revisions_on_rtype_and_rid_and_created_at"
 
   create_table "comfy_cms_sites", force: :cascade do |t|
     t.string  "label",                       null: false
@@ -275,22 +232,22 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.boolean "is_mirrored", default: false, null: false
   end
 
-  add_index "comfy_cms_sites", ["hostname"], name: "index_comfy_cms_sites_on_hostname", using: :btree
-  add_index "comfy_cms_sites", ["is_mirrored"], name: "index_comfy_cms_sites_on_is_mirrored", using: :btree
+  add_index "comfy_cms_sites", ["hostname"], name: "index_comfy_cms_sites_on_hostname"
+  add_index "comfy_cms_sites", ["is_mirrored"], name: "index_comfy_cms_sites_on_is_mirrored"
 
   create_table "comfy_cms_snippets", force: :cascade do |t|
-    t.integer  "site_id",                    null: false
-    t.string   "label",                      null: false
-    t.string   "identifier",                 null: false
-    t.text     "content"
-    t.integer  "position",   default: 0,     null: false
-    t.boolean  "is_shared",  default: false, null: false
+    t.integer  "site_id",                                     null: false
+    t.string   "label",                                       null: false
+    t.string   "identifier",                                  null: false
+    t.text     "content",    limit: 16777215
+    t.integer  "position",                    default: 0,     null: false
+    t.boolean  "is_shared",                   default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comfy_cms_snippets", ["site_id", "identifier"], name: "index_comfy_cms_snippets_on_site_id_and_identifier", unique: true, using: :btree
-  add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position", using: :btree
+  add_index "comfy_cms_snippets", ["site_id", "identifier"], name: "index_comfy_cms_snippets_on_site_id_and_identifier", unique: true
+  add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position"
 
   create_table "companies", force: :cascade do |t|
     t.integer  "address_id"
@@ -316,8 +273,8 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.datetime "updated_at",                     null: false
   end
 
-  add_index "contacts", ["name"], name: "index_contacts_on_name", using: :btree
-  add_index "contacts", ["tel"], name: "index_contacts_on_tel", using: :btree
+  add_index "contacts", ["name"], name: "index_contacts_on_name"
+  add_index "contacts", ["tel"], name: "index_contacts_on_tel"
 
   create_table "imp_logs", force: :cascade do |t|
     t.integer  "uid"
@@ -383,6 +340,16 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "notices", force: :cascade do |t|
+    t.datetime "publish_date"
+    t.datetime "close_date"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "publisher_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "pos_machines", force: :cascade do |t|
     t.string   "serial_number"
     t.integer  "client_id"
@@ -392,18 +359,6 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.integer  "status",        default: 0
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-  end
-
-  create_table "sales_commissions", force: :cascade do |t|
-    t.integer  "sales_commission_obj_id"
-    t.string   "sales_commission_obj_type"
-    t.string   "sales_type"
-    t.integer  "start_count",                                        default: 0
-    t.integer  "end_count",                                          default: 0
-    t.decimal  "percent",                   precision: 12, scale: 2, default: 0.0
-    t.integer  "status",                                             default: 0
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
   end
 
   create_table "salesman_day_tradetotals", force: :cascade do |t|
@@ -443,8 +398,8 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.integer "contact_id"
   end
 
-  add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id", using: :btree
-  add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id", using: :btree
+  add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id"
+  add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -456,15 +411,15 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
   create_table "trades", force: :cascade do |t|
     t.integer  "client_id"
@@ -497,7 +452,7 @@ ActiveRecord::Schema.define(version: 20160124134341) do
     t.integer  "agent_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

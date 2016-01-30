@@ -5,6 +5,9 @@ module Biz
       ImpQfCustomer.update_all(zt: 0)
       ImpQfTrade.update_all(zt: 0)
       ImpQfClearing.update_all(zt: 0)
+      Client.delete_all
+      Trade.delete_all
+      Clearing.delete_all
     end
     def parse_all
       $redis.set(:parse_data_flag, 'running')
@@ -85,7 +88,7 @@ module Biz
         trade.pos_machine = PosMachine.find_machine(t.zdcm)
         if trade.client
           trade.sub_account = t.zzh
-          trade.trade_date = t.jyrq
+          trade.trade_date = Time.zone.parse(t.jyrq)
           trade.trade_type = CodeTable.find_code('trade_type', t.jylx)
           trade.trade_result = CodeTable.find_code('trade_result', t.jyjg)
           trade.trade_amount = t.jye

@@ -1,0 +1,48 @@
+.row
+  .col-md-12
+    = search_form_for( @q, class: 'form-inline') do |f|
+      .form-group.m-r-12
+        input.form-control name='all_query' value='' placeholder='输入任何字段进行查询'
+      br
+      .form-group.m-r-10
+        = f.search_field ('abc_cont') , class: 'form-control', placeholder: '请查询', value: ''
+      = f.submit '查找',  class: 'btn btn-warning form-control'
+
+.row
+  .col-md-12
+    - if @collection.count==0
+      h2 没有数据可供查看
+
+    div.panel.panel-success
+      div.panel-heading 
+        h4.panel-title == @table_head
+      div.panel-body
+        = paginate @collection
+        table.table
+          thead
+            tr
+              th ID
+              th 交易日期
+              th 商户
+              th 子账号
+              th POS机串码
+              th 交易金额
+              th 交易类型
+              th 交易结果
+              th 状态
+              th 创建时间
+              th 更新时间
+          tbody
+            - @collection.each do |r|
+              tr
+                td= r.id
+                td= r.trade_date
+                td= r.client_id
+                td= r.sub_account
+                td= r.pos_machine_id
+                td= r.trade_amount
+                td= r.trade_type
+                td= r.trade_result
+                td= r.status
+                td= r.created_at
+                td= r.updated_at

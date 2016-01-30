@@ -28,7 +28,7 @@ module Biz
           slog ":h1 重复邮件[#{uid}]"
           next
         end
-        implog = ImpLog.new(uid: uid.to_i)
+        implog = ImpLog.find_or_create_by(uid: uid.to_i, status: 0)
         implog.save
         if check_email(uid, implog)
           att = get_attchement(uid)
@@ -156,10 +156,12 @@ module Biz
       sheet = xsl_file.worksheet 1
       sheet.each do |row|
         next if row[1].nil? || row[1].to_i < 1
-
         imp = log.imp_qf_trades.build
         attrs.each_with_index do |att, idx|
           imp[att] = row[idx + 1]
+        end
+        if row[3].is_a? DateTime
+          imp.jyrq = row[3].change(offset: "+0800")
         end
         imp.save
         cnt += 1

@@ -7,7 +7,9 @@ class ReportsController < ApplicationController
 
     @month_wechart_amount = ClientDayTradetotal.where("trade_date"=> d).sum("wechat_amount")
     @month_wechart_count = ClientDayTradetotal.where("trade_date"=> d).sum("wechat_count")
-    @month_wechart_count10 = Trade.where("trade_date"=>d).where("trade_amount >= ?", 10.0).count
+    tt = CodeTable.find_by(name: 'trade_type').id
+    ts = CodeTable.where('name like ?', '%微信%').where(parent_id: tt)
+    @month_wechart_count10 = Trade.where("trade_date"=>d).where(trade_type_id: ts.ids).where("trade_amount >= ?", 10.0).count
 
     @month_t0_amount = ClientDayTradetotal.where("trade_date"=> d).sum("t0_amount")
     @month_t0_count = ClientDayTradetotal.where("trade_date"=> d).sum("t0_count")

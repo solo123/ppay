@@ -3,9 +3,10 @@
   div.form-group.m-r-10
   = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
   = f.search_field :client_shop_name_cont, class: 'form-control', placeholder: '商户名称', value: params[:q][:client_shop_name_cont]
-  = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
+  = f.search_field ('trade_date_start') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
   = f.search_field ('trade_result_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
   = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
+  = text_field_tag "d[trade_date]", params["d[trade_date]"], value: ( params[:d] ? params[:d][:trade_date] : '')
   = f.submit '查找',  class: 'btn btn-warning form-control'
 br
 
@@ -27,14 +28,17 @@ div.panel.panel-success
           th 交易结果
 
       tbody
+        tr.bg-info
+          td colspan='3' 汇总 共 #{@all_data.count} 条
+          td.text-right=n2 @all_data.sum(:trade_amount)
+          td colspan='3'
         - @collection.each do |obj|
-          tr
+          tr id="#{obj.id}"
             td= obj.client.shid
             th= link_to "#{obj.client.shop_name}", client_path(obj.client_id)
             td= obj.sub_account
             td.text-right
-              strong
-                = number_with_precision obj.trade_amount, precision: 2, delimiter: ','
+              strong=n2 obj.trade_amount
             td= obj.trade_date
             td= obj.trade_type.name if obj.trade_type
             td= obj.trade_result.name if obj.trade_result

@@ -12,9 +12,12 @@ module Biz
     end
 
     def total_clients
-      success_trade_code = CodeTable.find_code('trade_result', '交易成功')
+      success_trade_code = CodeTable.find_code('trade_result', '交易成功').id
       Trade.where(status: 0).each do |t|
         if t.trade_result_id == success_trade_code
+          unless t.trade_date
+            byebug
+          end
           c = ClientDayTradetotal.find_or_create_by(client_id: t.client_id, trade_date: t.trade_date.to_date )
           c.total_amount += t.trade_amount
           c.total_count += 1
@@ -23,7 +26,7 @@ module Biz
           c["#{type_code}_count"] += 1
           c.save
 
-          s = SalesmanDayTradetotal.find_or_create_by(salesman_id: t.client.salesman_id, trade_date: t.trade_date )
+          s = SalesmanDayTradetotal.find_or_create_by(salesman_id: t.client.salesman_id, trade_date: t.trade_date.to_date )
           s.total_amount += t.trade_amount
           s.total_count += 1
           s["#{type_code}_amount"] += t.trade_amount

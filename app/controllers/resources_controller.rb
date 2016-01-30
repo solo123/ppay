@@ -77,7 +77,15 @@ class ResourcesController < ApplicationController
 			@q = object_name.classify.constantize.ransack(params[:q])
 		end
 		pages = $redis.get(:list_per_page) || 100
-		@collection = @q.result(distinct: true).page(params[:page]).per(pages)
+		result = @q.result
+		if params[:d]
+			params[:d].each do |d|
+				dy = Time.zone.parse(d[1])
+				result = result.where(d[0] => [dy.beginning_of_day..dy.end_of_day])
+		  end
+		end
+		@all_data = result
+		@collection = @all_data.page(params[:page]).per(pages)
 	end
 	def load_object
 		@object = object_name.classify.constantize.find_by_id(params[:id])

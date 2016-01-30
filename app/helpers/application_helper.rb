@@ -22,5 +22,11 @@ module ApplicationHelper
     return dt
   end
 
+  def n0(num)
+    number_with_precision num, precision: 0, delimiter: ','
+  end
+  def n2(num)
+    number_with_precision num, precision: 2, delimiter: ','
+  end
 
 end

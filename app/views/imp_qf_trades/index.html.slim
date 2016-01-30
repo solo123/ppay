@@ -1,0 +1,47 @@
+.row
+  .col-md-12
+    = search_form_for( @q, class: 'form-inline') do |f|
+      .form-group.m-r-10
+        = f.search_field ('abc_cont') , class: 'form-control', placeholder: '请查询', value: ''
+      .form-group.m-r-10.input-daterange
+        input.form-control name='q[jyrq_start]' type='datetime' value="#{params[:q][:jyrq_start]}" placeholder='请选择交易日期'
+      = f.submit '查找',  class: 'btn btn-warning form-control'
+br 
+.row
+  .col-md-12
+    - if @collection.count==0
+      h2 没有数据可供查看
+
+    div.panel.panel-success
+      div.panel-heading 
+        h4.panel-title == @table_head
+      div.panel-body
+        = paginate @collection
+        table.table
+          thead
+            tr
+              th 交易日期
+              th 商户ID
+              th 子账号
+              th POS机串码
+              th.text-right 交易金额
+              th 交易类型
+              th 交易结果
+              th 状态
+              th 创建时间
+          tbody
+            tr.bg-info
+              td colspan='4' 合计: 共#{@all_data.count}条
+              td.text-right=n2 @all_data.sum(:jye)
+              td colspan='4'
+            - @collection.each do |r|
+              tr
+                td= r.jyrq
+                td= r.shid
+                td= r.zzh
+                td= r.zdcm
+                td.text-right=n2 r.jye
+                td= r.jylx
+                td= r.jyjg
+                td= r.zt
+                td= r.created_at
