@@ -1,36 +1,11 @@
-#noteModal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="myModalLabel"]
-  .modal-dialog[role="document"]
-    .modal-content
-      .modal-header
-        button.close[type="button" data-dismiss="modal" aria-label="Close"]
-          span[aria-hidden="true"]
-            | ×
-        h4#myModalLabel.modal-title
-          | Modal title
-      .modal-body
-        == form_tag("/search", method: "get") do
-          == label_tag(:q, "Search for:")
-          == text_field_tag(:q)
-          == submit_tag("Search")
-
-      .modal-footer
-        button.btn.btn-default[type="button" data-dismiss="modal"]
-          | 关闭
-        button.btn.btn-primary[type="button"]
-          | 添加
-
 div class='panel panel-info'
   div class='panel-heading'
     h4 class='panel-title' 商户查询
   div class='panel-body'
-    = search_form_for( @q, class: 'form-inline') do |f|
-      div class='form-group m-r-10'
-        = f.search_field ('shid_cont') , class: 'form-control', placeholder: '商户ID', value: params[:q][:shid_cont]
-        = f.search_field ('shop_name_cont') , class: 'form-control', placeholder: '商户名称', value: params[:q][:shop_name_cont]
-        = f.search_field ('shop_tel_cont') , class: 'form-control', placeholder: '商户电话', value: params[:q][:shop_tel_cont]
-        = f.search_field ('contacts_name_cont') , class: 'form-control', placeholder: '联系人', value: params[:q][:contacts_name_cont]
-        = f.search_field ('salesman_name_cont') , class: 'form-control', placeholder: '业务员', value: params[:q][:salesman_name_cont]
-      = f.submit '查找',  class: 'btn btn-warning form-control'
+    = form_tag(clients_path, method: :get, class: 'form-inline') do 
+      .form-group.m-r-10
+        = text_field_tag "s", params[:s], class: 'form-control', placeholder: '商户ID'
+        = submit_tag '查找',  class: 'btn btn-warning form-control'
 
 br
 div class='panel panel-success'
@@ -52,21 +27,23 @@ div class='panel panel-success'
         - @collection.each do |obj|
           tr.info
             td colspan='6' style='padding:4px 15px;' 
-              | ID: #{obj.shid} 
-              | 商户名称: #{obj.shop_name}
-              | 地址：#{obj.addr_info}
+              | ID: #{obj.shid} |
+              | 商户名称: #{obj.shop_name} |
+              | 地址：#{obj.street} 
             td colspan='3' style='padding:4px 15px; text-align:right;' 
-              = link_to '详情', client_path(obj)
+              = link_to '详情', client_path(obj.client_id)
 
           tr
-            td= obj.contact_info
+            td= obj.contact_name
             td
               = link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
               br
               = obj.join_date
-            td= obj.area_info
-            td= link_to "#{obj.salesman.name}", salesman_path(obj.salesman)
-            td= obj.category.name
+            td
+              = obj.province_name
+              = obj.city_name
+            td= link_to "#{obj.salesman_name}", salesman_path(obj.salesman)
+            td= obj.category_name
 
             td
               p 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万

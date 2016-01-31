@@ -1,18 +1,28 @@
 class Client < ActiveRecord::Base
   belongs_to :salesman
+  belongs_to :main_contact, class_name: 'Contact'
   has_and_belongs_to_many :contacts
   has_many :pos_machines
   belongs_to :category, class_name: 'CodeTable'
   belongs_to :address
   has_many :client_notes
   has_many :client_day_tradetotals
+  has_many :trades
 
   # tag
   acts_as_taggable
   acts_as_taggable_on :skills, :interests
 
-  default_scope {order('join_date desc')}
+  scope :show_order, -> {order('join_date desc')}
 
+  def self.update_main_contacts
+    Client.where(main_contact: nil).each do |c|
+      unless c.contacts.empty?
+        c.main_contact = c.contacts.first
+        c.save
+      end
+    end
+  end
   def contact_info
     if self.contacts.count > 0
       c = self.contacts.first
@@ -44,13 +54,4 @@ class Client < ActiveRecord::Base
   def join_days
     (DateTime.current - self.join_date.to_datetime).to_i.to_s + '天'
   end
-
-  def salesman_info
-    Salesman.find(self.salesman_id.to_i)
-
-  end
-  def shop_category
-    CodeTable.find(self.category_id)
-  end
-
 end

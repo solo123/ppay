@@ -49,13 +49,19 @@ module Biz
         client.address.province = CodeTable.find_prov(c.sf)
         client.address.city = CodeTable.find_city(client.address.province.id, c.cs)
         client.address.street = c.dz
+        client.address.addr_obj = client
+        if client.address.new_record?
+          slog "新增地址：#{{client.address}}"
+        else
+          slog "更新地址：[#{client.address.id}] #{client.address.changes}"
+        end
         client.address.save
-        slog("更新地址：[#{client.address.id}] #{c.sf}, #{c.cs}, #{c.dz}")
 
         if c.lxr.nil? || c.lxr.strip.empty?
         else
           lxr = Contact.find_or_create_by(name: c.lxr, tel: c.sj)
           client.contacts << lxr
+          client.main_contact = lxr
         end
         if c.ywy.nil? || c.ywy.empty?
           client.salesman = Salesman.find_or_create_by(name: 'pooul')
