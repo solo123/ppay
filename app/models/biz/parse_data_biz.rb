@@ -51,9 +51,11 @@ module Biz
         client.address.street = c.dz
         client.address.addr_obj = client
         if client.address.new_record?
-          slog "新增地址：#{{client.address}}"
+          slog "新增地址：#{client.address}"
         else
-          slog "更新地址：[#{client.address.id}] #{client.address.changes}"
+          if client.address.changed?
+            slog "更新地址：[#{client.address.id}] #{client.address.changes}"
+          end
         end
         client.address.save
 
