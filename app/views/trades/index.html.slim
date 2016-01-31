@@ -1,22 +1,12 @@
-div.panel.panel-info
-  div.panel-heading 
+.panel.panel-info
+  .panel-heading 
     h4.panel-title 交易查询
-  div.panel-body
-    = search_form_for( @q, class: 'form-inline') do |f|
-      div.form-group.m-r-10
-      = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
-      = f.search_field :client_shop_name_cont, class: 'form-control', placeholder: '商户名称', value: params[:q][:client_shop_name_cont]
-      = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
-      = f.search_field ('trade_result_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
-      = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
-      = f.submit '查找',  class: 'btn btn-warning form-control'
-br
+  .panel-body
 
-
-div.panel.panel-success
-  div.panel-heading 
+.panel.panel-success
+  .panel-heading 
     h4.panel-title 交易明细
-  div.panel-body
+  .panel-body
     = paginate @collection
     table.table
       thead
@@ -24,8 +14,8 @@ div.panel.panel-success
           th 商户ID
           th 商户名称
           th 子账户
-          th.text-right= sort_link @q, :trade_amount, '交易金额'
-          th= sort_link @q, :trade_date, '交易日期'
+          th 交易金额
+          th 交易日期
           th 交易类型
           th 交易结果
 
