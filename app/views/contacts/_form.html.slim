@@ -1,10 +1,20 @@
-= simple_form_for [@parent, @object], remote: true do |f|
-  = f.input :name, :label=>'姓名'
-  = f.input :tel, :label=>'手机'
-  = f.input :roles, :label=>'角色'
-  = f.input :qq, :label=>'qq'
-  = f.input :roles, :label=>'角色'
-  = f.input :wechart, :label=>'微信'
-  = f.input :status, :label=>'状态'
-  
-  = f.submit :value=>'更新联系人', :class=>'btn btn-success'
+.row
+  .col-md-3
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 更改联系人信息
+      .panel-body
+        = simple_form_for [@parent, @object], remote: true do |f|
+          = f.input :name, :label=>'姓名'
+          = f.input :tel, :label=>'手机'
+          = f.input :roles, :label=>'角色'
+          = f.input :qq, :label=>'qq'
+          = f.input :roles, :label=>'角色'
+          = f.input :wechart, :label=>'微信'
+          = f.input :status, :label=>'状态'
+          .row
+            .col-md-4
+            .col-md-4
+              = f.submit :value=>'更新联系人', :class=>'btn btn-success m-r-5'
+              = f.submit :value=>'取消', :class=>'btn btn-default'
