@@ -8,7 +8,7 @@ class AgentsController < ResourcesController
       user = User.find_or_create_by(mobile: contact.tel)
       user.agent = @object
       user.name = contact.name
-      #user.email = contact.email
+      user.email = contact.tel + "@pooul.cn"
       if user.new_record?
         user.password = user.mobile
       end

@@ -72,8 +72,8 @@ h1
       h4 机构信息
       table class='table table-hover'
         tr
-        td 全称: 
-        td 简称: 
+        td 全称: #{@object.company.name if @object.company}
+        td 简称: #{@object.company.short_name if @object.company}
         td 地区:
         td 经营地址:
     .row
