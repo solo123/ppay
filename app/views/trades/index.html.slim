@@ -31,7 +31,11 @@
             = label_tag(:trade_type_zs, "微信正扫") 
           label.radio-inline
             = check_box_tag('trade_type[]','微信反扫')
-            = label_tag(:trade_type_zs, "微信反扫") 
+            = label_tag(:trade_type_zs, "微信反扫")
+          label.radio-inline
+            = check_box_tag('trade_type[]','微信二扫码')
+            = label_tag(:trade_type_zs, "微信二扫码") 
+              
           label.radio-inline
             = check_box_tag('trade_type[]','支付宝') 
             = label_tag(:trade_type_zf, "支付宝")
