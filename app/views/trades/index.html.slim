@@ -1,11 +1,55 @@
 .panel.panel-info
-  .panel-heading 
-    h4.panel-title 交易查询
-  .panel-body
+  .panel-heading
+    h4.panel-title 交易查找
+  .panel-body.panel-form
+    = form_tag(trades_path, method: "get", class: 'form-horizontal form-bordered') do
+      .form-group
+        label.col-md-4.control-label 商户信息
+        .col-md-8
+          input.form-control name='search_t' value="#{params[:search_t]}" placeholder='商户ID、商户名称'
+      .form-group
+        label.col-md-4.control-label 交易时间
+        .col-md-8
+          .input-group.input-daterange
+            input.form-control name='date_gt' type='datetime' value="#{params[:date_gt]}"
+            span.input-group-addon to
+            input.form-control name='date_lt' type='datetime' value="#{params[:date_lt]}"
+      / .form-group
+      /   label.col-md-4.control-label 清算类型
+      /   .col-md-8
+      /     label.radio-inline
+      /       = check_box_tag('clearing_type[]', "t1")
+      /       = label_tag(:clearing_type_T1, "T1") 
+      /     label.radio-inline
+      /       = check_box_tag('clearing_type[]', "t0") 
+      /       = label_tag(:clearing_type_T0, "T0")
+      .form-group
+        label.col-md-4.control-label 交易类型
+        .col-md-8
+          label.radio-inline
+            = check_box_tag('trade_type[]','微信正扫')
+            = label_tag(:trade_type_zs, "微信正扫") 
+          label.radio-inline
+            = check_box_tag('trade_type[]','微信反扫')
+            = label_tag(:trade_type_zs, "微信反扫") 
+          label.radio-inline
+            = check_box_tag('trade_type[]','支付宝') 
+            = label_tag(:trade_type_zf, "支付宝")
+          label.radio-inline
+            = check_box_tag('trade_type[]','刷卡') 
+            = label_tag(:trade_type_qp, "刷卡")
+      / .form_group
+      /   label.col-md-4.control-label 交易结果
+      /     = check_box_tag('trade')
+      .form-group
+        .col-md-4.col-xs-2
+        .col-md-2.col-xs-8
+          button.btn.btn-sm.btn-warning#trade_search_btn style='width:200px;' 查找
+
 
 .panel.panel-success
   .panel-heading 
-    h4.panel-title 交易明细
+    h4.panel-title 交易明细 帅选结果: 交易笔数: #{@all_data.count},总金额: #{@all_data.sum("trade_amount")}
   .panel-body
     = paginate @collection
     table.table
@@ -24,13 +68,13 @@
           td colspan='3' 汇总 共 #{@all_data.count} 条
           td.text-right=n2 @all_data.sum(:trade_amount)
           td colspan='3'
-        - @collection.each do |obj|
-          tr id="trade_#{obj.id}"
-            td= obj.client.shid
-            th= link_to "#{obj.client.shop_name}", client_path(obj.client_id)
-            td= obj.sub_account
+        - @collection.each do |r|
+          tr id="trade_#{r.id}"
+            td= r.client.shid
+            th= link_to "#{r.client.shop_name}", client_path(r.client_id)
+            td= r.sub_account if r.sub_account
             td.text-right
-              strong=n2 obj.trade_amount
-            td= obj.trade_date
-            td= obj.trade_type.name if obj.trade_type
-            td= obj.trade_result.name if obj.trade_result
+              strong=n2 r.trade_amount
+            td= r.trade_date
+            td= r.trade_type.name if r.trade_type
+            td= r.trade_result.name if r.trade_result
