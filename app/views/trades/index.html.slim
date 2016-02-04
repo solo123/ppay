@@ -2,6 +2,11 @@
   .panel-heading 
     h4.panel-title 交易查询
   .panel-body
+    = form_tag(trades_path, method: :get, class: 'form-inline') do 
+      .form-group.m-r-10
+        = text_field_tag "s[s]", params[:s][:s], class: 'form-control', placeholder: '商户ID'
+        = text_field_tag "s[d]", params[:s][:d], class: 'form-control', placeholder: '交易日期'
+        = submit_tag '查找',  class: 'btn btn-warning form-control'
 
 .panel.panel-success
   .panel-heading 
@@ -26,11 +31,11 @@
           td colspan='3'
         - @collection.each do |obj|
           tr id="trade_#{obj.id}"
-            td= obj.client.shid
-            th= link_to "#{obj.client.shop_name}", client_path(obj.client_id)
+            td= obj.shid
+            th= link_to "#{obj.shop_name}", client_path(obj.client_id)
             td= obj.sub_account
             td.text-right
               strong=n2 obj.trade_amount
             td= obj.trade_date
-            td= obj.trade_type.name if obj.trade_type
-            td= obj.trade_result.name if obj.trade_result
+            td= obj.trade_type_name
+            td= obj.trade_result_name
