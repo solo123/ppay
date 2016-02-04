@@ -1,5 +1,5 @@
 class TradesController < ResourcesController
-  def load_collection
+  def load_collection1
     params[:s] ||= {}
     @q = Trade
       .show_order
@@ -10,7 +10,7 @@ class TradesController < ResourcesController
       end
       if params[:s][:d]
 				dy = Time.zone.parse(params[:s][:d])
-			@q = @q.where(trade_date: [dy.beginning_of_day..dy.end_of_day])
+			@q = @q.where(trade_date: "#{dy.beginning_of_day}..#{dy.end_of_day}")
   		end
     end
     pages = $redis.get(:list_per_page) || 100
@@ -19,13 +19,30 @@ class TradesController < ResourcesController
       .select("*, clients.shid as shid, clients.shop_name as shop_name, code_tables.name as trade_type_name, trade_results_trades.name as trade_result_name")
       .page(params[:page]).per(pages)
   end
+  def load_collection
+		params[:q] ||= {}
+    if params[:date_eq] && !params[:date_eq].empty?
+      dy = Time.zone.parse(params[:date_eq])
+      params[:q][:trade_date_gteq] = dy.beginning_of_day
+      params[:q][:trade_date_lteq] = dy.end_of_day
+    end
+    @q = Trade.show_order.ransack(params[:q])
+
+		pages = $redis.get(:list_per_page) || 100
+		@all_data = @q.result
+		@collection = @q.result
+      .page(params[:page])
+      .per(pages)
+      .includes(:client)
+	end
 
   def client_trades
     @collection = Trade.where(client_id: params[:client_id]).limit(10)
   end
 
-  def index
-
+  def index1
+    params[:q] ||= {}
+    @q = Trade.ransack(params[:q])
     @all_data = search_trade( search_keyword() )
     @collection = @all_data.page( params[:page]).per(100)
   end
@@ -42,7 +59,7 @@ class TradesController < ResourcesController
       'client_shop_name_cont'=> params[:search_t],
       'm'=> 'or'
     }
-    Trade.ransack( h ).result.includes(:client).order("trade_date DESC")
+    Trade.ransack( h ).result.includes(:client).show_order
   end
 
 

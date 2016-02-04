@@ -6,11 +6,10 @@ div class='panel panel-info'
       .col-md-6
         = form_tag(clients_path, method: 'get') do
           .input-group
-            input type="text" class="form-control" id="exampleInputEmail1" name='search_t' value="#{params[:search_t]}" placeholder='商户名称、商户ID、电话、姓名'
+            = text_field_tag :s, params[:s], placeholder: '商户名称、商户ID、电话、姓名', class: 'form-control'
             .input-group-btn
-              button type="submit" class="btn btn-warning" style='border-radius:10px;margin-left:10px;width:100px;' 查找
+              = button_tag '查找', class: 'btn btn-warning'
 
-br
 .panel.panel-success
   .panel-heading
     h4.panel-title 商户资料

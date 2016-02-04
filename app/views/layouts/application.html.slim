@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    == favicon_link_tag '/favicon.png'
+    = favicon_link_tag '/favicon.png'
     meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
 
     title Ppay
@@ -21,8 +21,8 @@ html
     link href="/color_admin/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" 
     
     script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
-    == stylesheet_link_tag    "application", media: "all"
-    == javascript_include_tag "application"
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
     
      
   body style='font-size:14px;'
@@ -45,16 +45,16 @@ html
               big 普尔支付 
               span 渠道系统
         ul class='nav' id='sidemenu'
-          == render 'shared/left_menu'
+          = render 'shared/left_menu'
           li
-            == link_to '退出登录', destroy_user_session_path, :method => :delete
+            = link_to '退出登录', destroy_user_session_path, :method => :delete
           li
             a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
               i class="fa fa-angle-double-left"
                               
 
       div class='content'  id='content'
-        == yield
+        = yield
 
       .footer#footer 
         .row
@@ -95,14 +95,14 @@ html
     script src="/color_admin/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"
     script src="/color_admin/assets/plugins/bootstrap-daterangepicker/moment.js"
     / script src="/color_admin/assets/js/dashboard.js"
-    script src="/color_admin/assets/js/form-plugins.demo.min.js"
+    / script src="/color_admin/assets/js/form-plugins.demo.min.js"
 
     
     javascript:
       sidemenu();
       client_show();
       App.init();
-      FormPlugins.init();
+      //FormPlugins.init();
       //Dashboard.init();
       
     / 显示flash消息
