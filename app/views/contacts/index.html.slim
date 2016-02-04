@@ -1,3 +1,13 @@
+.panel.panel-info
+  .panel-heading
+    h4.panel-title 联系人查询
+  .panel-body
+    = form_tag(contacts_path, method: :get, class: 'form-inline') do 
+      .form-group.m-r-10
+        = text_field_tag :s, params[:s], class: 'form-control', placeholder: '姓名、电话、QQ、角色'
+        = submit_tag '查找',  class: 'btn btn-warning form-control'
+
+br
 .panel.panel-success
   .panel-heading
     h4.panel-title == @table_head
@@ -11,6 +21,7 @@
           th QQ
           th 身份证
           th 角色
+          th 微信
           th 状态
           th 操作
       tbody
@@ -21,5 +32,6 @@
             td= r.qq
             td= r.cid
             td= r.roles
+            td= r.wechart
             td= r.status
             td= link_to '更改', edit_contact_url(r)

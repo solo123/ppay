@@ -47,6 +47,8 @@ html
         ul class='nav' id='sidemenu'
           == render 'shared/left_menu'
           li
+            == link_to '退出登录', destroy_user_session_path, :method => :delete
+          li
             a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
               i class="fa fa-angle-double-left"
                               
@@ -93,6 +95,8 @@ html
     script src="/color_admin/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"
     script src="/color_admin/assets/plugins/bootstrap-daterangepicker/moment.js"
     / script src="/color_admin/assets/js/dashboard.js"
+    script src="/color_admin/assets/js/form-plugins.demo.min.js"
+
     
     javascript:
       sidemenu();

@@ -1,11 +1,11 @@
-div.panel.panel-info
-  div.panel-heading 
-    h4.panel-title 清算数据
-  div.panel-body
-    = search_form_for( @q, class: 'form-inline') do |f|
-      div.form-group.m-r-10
-      = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
-      = f.submit '查找',  class: 'btn btn-warning form-control'
+/ div.panel.panel-info
+/   div.panel-heading 
+/     h4.panel-title 清算数据
+/   div.panel-body
+/     = search_form_for( @q, class: 'form-inline') do |f|
+/       div.form-group.m-r-10
+/       = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
+/       = f.submit '查找',  class: 'btn btn-warning form-control'
 
 div.panel.panel-success
   div.panel-heading 
@@ -28,12 +28,12 @@ div.panel.panel-success
 
       tbody
         tr.bg-info
-          td colspan='2' 汇总 共 #{@all_data.count} 条
-          td.text-right=n0 @all_data.sum(:trade_count)
-          td.text-right=n2 @all_data.sum(:trade_amount)
-          td.text-right=n2 @all_data.sum(:trade_fee)
-          td.text-right=n2 @all_data.sum(:clearing_amount)
-          td.text-right=n2 @all_data.sum(:actual_amount)
+          td colspan='2' 汇总 共 #{@q.result().count} 条
+          td.text-right=n0 @q.result().sum(:trade_count)
+          td.text-right=n2 @q.result().sum(:trade_amount)
+          td.text-right=n2 @q.result().sum(:trade_fee)
+          td.text-right=n2 @q.result().sum(:clearing_amount)
+          td.text-right=n2 @q.result().sum(:actual_amount)
           td colspan='3'
         - @collection.each do |obj|
           tr id="clearing_#{obj.id}"

@@ -1,0 +1,25 @@
+p#notice
+  = notice
+p
+  strong
+    | Trade date:
+  = @clearing.trade_date
+p
+  strong
+    | Trade amount:
+  = @clearing.trade_amount
+p
+  strong
+    | Trade fee:
+  = @clearing.trade_fee
+p
+  strong
+    | Clearing amount:
+  = @clearing.clearing_amount
+p
+  strong
+    | Clearing status:
+  = @clearing.clearing_status
+= link_to 'Edit', edit_clearing_path(@clearing)
+|  | 
+= link_to 'Back', clearings_path

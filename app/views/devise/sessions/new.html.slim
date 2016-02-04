@@ -12,9 +12,9 @@ div class="right-content"
       span 普尔支付
     
   div class='login-content'
-    = flash.each do |type, message|
-      div class="flash"
-        == message
+    / = flash.each do |type, message|
+    /   div class="flash"
+    /     == message
 
     = simple_form_for(resource, as: resource_name, 
                       url: session_path(resource_name),
@@ -28,4 +28,4 @@ div class="right-content"
       div class="form-actions"
         = f.button :submit, "登录", class: 'btn btn-success btn-block btn-lg' 
 
-      = render "devise/shared/links" 
+      / = render "devise/shared/links" 

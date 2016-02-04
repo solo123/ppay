@@ -1,11 +1,14 @@
-.panel.panel-info
-  .panel-heading
-    h4.panel-title 商户查询
-  .panel-body
-    = form_tag(clients_path, method: :get, class: 'form-inline') do 
-      .form-group.m-r-10
-        = text_field_tag "s", params[:s], class: 'form-control', placeholder: '商户ID'
-        = submit_tag '查找',  class: 'btn btn-warning form-control'
+div class='panel panel-info'
+  div class='panel-heading'
+    h4 class='panel-title' 商户查询
+  div class='panel-body'
+    .row
+      .col-md-6
+        = form_tag(clients_path, method: 'get') do
+          .input-group
+            input type="text" class="form-control" id="exampleInputEmail1" name='search_t' value="#{params[:search_t]}" placeholder='商户名称、商户ID、电话、姓名'
+            .input-group-btn
+              button type="submit" class="btn btn-warning" style='border-radius:10px;margin-left:10px;width:100px;' 查找
 
 br
 .panel.panel-success
