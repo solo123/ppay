@@ -40,6 +40,8 @@ module Biz
         client.bank_card_limit_month = c.jjkdyxe
         client.credit_card_limit_each = c.xykdbxe
         client.credit_card_limit_month = c.xykdyxe
+        client.contact_name = c.lxr
+
         client.category = CodeTable.find_code(:biz_catalog, c.hylx)
         if client.changed?
           client.save
@@ -59,12 +61,6 @@ module Biz
         end
         client.address.save
 
-        if c.lxr.nil? || c.lxr.strip.empty?
-        else
-          lxr = Contact.find_or_create_by(name: c.lxr, tel: c.sj)
-          client.contacts << lxr
-          client.main_contact = lxr
-        end
         if c.ywy.nil? || c.ywy.empty?
           client.salesman = Salesman.find_or_create_by(name: 'pooul')
         else

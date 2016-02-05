@@ -3,14 +3,14 @@ class ClientsController < ResourcesController
   def load_collection
     @q = Client
       .show_order
-      .joins(:category, :salesman, :main_contact, address: [:province, :city])
+      .joins(:category, :salesman, address: [:province, :city])
     if params[:s]
       @q = @q.where(%Q(
         salesmen.name like :s or
         shid like :s or
         shop_name like :s or
         shop_tel like :s or
-        contacts.name like :s or
+        contact_name like :s or
         code_tables.name like :s or
         provinces_addresses.name like :s or
         cities_addresses.name like :s),
@@ -19,7 +19,7 @@ class ClientsController < ResourcesController
     pages = $redis.get(:list_per_page) || 100
 		@all_data = @q
 		@collection = @q
-      .select("*, clients.id as client_id, code_tables.name as category_name, contacts.name as contact_name, addresses.street as street, salesmen.name as salesman_name, provinces_addresses.name as province_name, cities_addresses.name as city_name")
+      .select("*, clients.id as client_id, code_tables.name as category_name, addresses.street as street, salesmen.name as salesman_name, provinces_addresses.name as province_name, cities_addresses.name as city_name")
       .page(params[:page]).per(pages)
   end
 
