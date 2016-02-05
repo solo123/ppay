@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131133448) do
+ActiveRecord::Schema.define(version: 20160205105224) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20160131133448) do
     t.datetime "updated_at",                                       null: false
     t.integer  "address_id"
     t.integer  "main_contact_id"
+    t.string   "contact_name"
   end
 
   create_table "clients_contacts", id: false, force: :cascade do |t|

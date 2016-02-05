@@ -16,4 +16,5 @@ class Agent < ActiveRecord::Base
   accepts_nested_attributes_for :sales_commissions
   accepts_nested_attributes_for :contacts
 
+  has_many :clients, through: :salesmen, source: :clients
 end
