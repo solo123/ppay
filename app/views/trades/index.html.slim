@@ -8,14 +8,27 @@
           = f.search_field :client_shop_name_or_sub_account_cont, 
             placeholder: '商户ID、商户名称、子账号',
             class: 'form-control'
-          = text_field_tag :date_eq, params[:date_eq], class: 'form-control', type: 'datetime'
+          .form-group
+            label.control-label 交易时间
+            .input-group.input-datarange
+              = f.search_field :trade_date_gteq,
+                class: 'form-control',
+                type: 'datetime'
+              span.input-group-addon to
+              = f.search_field :trade_date_lt,
+                class: 'form-control',
+                type: 'datetime'
+          br
           - CodeTable.find_by(name: 'trade_type').childs.each do |t|
             label.radio-inline
               = check_box_tag('q[trade_type_id_eq_any][]', t.id)
               = label_tag('q[trade_type_id_eq_any]', t.name) 
           .form-group
             = f.label ' | '
-            = f.select :trade_result_id_eq, CodeTable.find_by(name: 'trade_result').childs.map{|c| [c.name, c.id]}.insert(0, ['请选择交易状态', '']), {}, {class: 'form-control'}
+            = f.select :trade_result_id_eq, 
+              CodeTable.find_by(name: 'trade_result').childs.map{|c| [c.name, c.id]}.insert(0, ['请选择交易状态', '']), 
+              {}, 
+              {class: 'form-control'}
           = f.submit '查询'
     / = form_tag(trades_path, method: "get", class: 'form-horizontal form-bordered') do
     /   .form-group

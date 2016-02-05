@@ -5,7 +5,16 @@ class ClientsController < ResourcesController
       .show_order
       .joins(:category, :salesman, :main_contact, address: [:province, :city])
     if params[:s]
-      @q = @q.where("salesmen.name like :s or shid like :s or shop_name like :s or shop_tel like :s or contacts.name like :s or code_tables.name like :s", {s: "%#{params[:s]}%"})
+      @q = @q.where(%Q(
+        salesmen.name like :s or
+        shid like :s or
+        shop_name like :s or
+        shop_tel like :s or
+        contacts.name like :s or
+        code_tables.name like :s or
+        provinces_addresses.name like :s or
+        cities_addresses.name like :s),
+        {s: "%#{params[:s]}%"})
     end
     pages = $redis.get(:list_per_page) || 100
 		@all_data = @q

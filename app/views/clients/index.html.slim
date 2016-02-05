@@ -6,7 +6,9 @@ div class='panel panel-info'
       .col-md-6
         = form_tag(clients_path, method: 'get') do
           .input-group
-            = text_field_tag :s, params[:s], placeholder: '商户名称、商户ID、电话、姓名', class: 'form-control'
+            = text_field_tag :s, params[:s], 
+              placeholder: '商户名称、商户ID、电话、姓名、地区', 
+              class: 'form-control'
             .input-group-btn
               = button_tag '查找', class: 'btn btn-warning'
 
