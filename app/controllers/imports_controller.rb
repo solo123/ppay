@@ -20,12 +20,7 @@ class ImportsController < ApplicationController
         flash[:errors] = biz.errors
       end
     else
-      biz = Biz::ImportBiz.new
-      ImpLog.where(status: 1).each do |log|
-        biz.import_data(log)
-      end
-      flash[:errors] = biz.errors
-      @log = nil
+      ImportExcelJob.perform_later nil
     end
   end
 
