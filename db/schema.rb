@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205105224) do
+ActiveRecord::Schema.define(version: 20160206032711) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -340,6 +340,24 @@ ActiveRecord::Schema.define(version: 20160205105224) do
     t.integer  "zt",         default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "ref_data_type"
+    t.integer  "ref_data_id"
+    t.string   "page_url"
+    t.string   "host"
+    t.string   "remote_host"
+    t.string   "remote_addr"
+    t.string   "controller"
+    t.string   "action"
+    t.string   "log_title"
+    t.text     "log_detail"
+    t.integer  "parent_id"
+    t.integer  "level",         default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notices", force: :cascade do |t|

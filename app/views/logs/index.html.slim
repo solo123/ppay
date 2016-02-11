@@ -1,0 +1,18 @@
+.panel-body
+  = paginate @collection
+  table.table
+    - @collection.each do |l|
+      tr
+        td= l.user.name if l.user
+        td= l.log_title
+        td title="#{l.log_detail}"
+          = l.log_detail[0..30] if l.log_detail
+        td= link_to 'ref data', object_url(l.ref_data) if l.ref_data
+        td= link_to l.page_url, l.page_url
+        td= l.host
+        td= l.remote_addr
+        td= l.controller
+        td= l.action
+        td= l.parent_id
+        td= l.level
+        td= l.created_at

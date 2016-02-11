@@ -1,0 +1,19 @@
+<%
+  if flash[:errors] && flash[:errors].length > 0
+    flash[:errors].each do |err| %>
+alert('<%= err %>');
+<%  end
+    flash.clear
+  end %>
+
+if ($('#import_dialog').length == 0){
+  $('body').append("<%=j render 'dialog' %>");
+}
+
+$('#import_dialog').modal();
+$('#import_dialog').on('hide.bs.modal', function (e) {
+  clearInterval(my_process);
+})
+
+current_log_name = '<%= params[:job] %>';
+var my_process = setInterval(load_status, 1000);

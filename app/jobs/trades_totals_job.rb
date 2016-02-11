@@ -2,8 +2,7 @@ class TradesTotalsJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
-    # Do something later
     imp = Biz::TradesTotalsBiz.new
-    imp.total_all
+    imp.main_job
   end
 end

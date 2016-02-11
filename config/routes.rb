@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users
+  # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
+  resources :users
+
+  get 'home/index'
+  get 'home/profile'
+  get 'download/import_xls/:name', to: 'download#import_xls', as: :download_import_xls
 
   resources :salesman_day_tradetotals
-
   resource :report do
     collection do
       get :clients_days
@@ -11,25 +17,12 @@ Rails.application.routes.draw do
       get :home_summary
     end
   end
-
-  get 'home/index'
-  get 'home/profile'
-
-  # 数据操作
-  resource :import do
-    get :do_import, :parse_data, :parse_excel
-    get :get_import_msg, :get_log_msg, :trades_totals
+  resources :jobs do
+    collection do
+      get 'run_job/:job', action: :run_job, as: :run_job
+    end
   end
-  get 'download/import_xls/:name', to: 'download#import_xls', as: :download_import_xls
-
-  devise_for :users
-  # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
-  resources :users
-
-  # 通知
   resources :notices
-
-  # 业务数据
   resources :joinlast_clients
   resources :sales_commissions do
     collection do
@@ -84,11 +77,15 @@ Rails.application.routes.draw do
   resources :imp_qf_clearings
   resources :imp_qf_trades
   resources :imp_qf_customers
-  resources :data_manage
   resources :code_tables
   resource :summary do
     member do
       get :home_sum
+    end
+  end
+  resources :logs do
+    collection do
+      get :get_log_msg
     end
   end
 
@@ -96,5 +93,4 @@ Rails.application.routes.draw do
 
   # comfy_route :cms_admin, :path => '/cms-admin'
   # comfy_route :cms, :path => '/', :sitemap => false
-
 end

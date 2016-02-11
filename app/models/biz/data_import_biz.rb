@@ -1,6 +1,5 @@
 module Biz
-  class ParseDataBiz
-
+  class DataImportBiz < AdminBiz
     def reset
       ImpQfCustomer.update_all(zt: 0)
       ImpQfTrade.update_all(zt: 0)
@@ -9,22 +8,24 @@ module Biz
       Trade.delete_all
       Clearing.delete_all
     end
-    def parse_all
-      $redis.set(:parse_data_flag, 'running')
-      parse_customers
-      parse_trades
-      parse_clearings
-      slog('import_end')
-      $redis.set(:parse_data_flag, '')
+
+    def main_job
+      return if $redis.get(@@flag_name) == 'running'
+      $redis.set(@@flag_name, 'running')
+      @parent_log = log "数据导入业务表"
+      import_customers
+      import_trades
+      import_clearings
+      $redis.set(@@flag_name, '')
     end
-    def parse_customers
-      slog(':h1 开始解析客户数据...')
+
+    def import_customers
+      log '导入客户数据...'
       ImpQfCustomer.new_data.each do |c|
-        parse_customer(c)
+        import_customer(c)
       end
-      slog('客户数据解析完成')
     end
-    def parse_customer(c)
+    def import_customer(c)
       return if c.zt && c.zt > 0
       shid = c.shid.to_i
       if shid == 0
@@ -44,8 +45,8 @@ module Biz
 
         client.category = CodeTable.find_code(:biz_catalog, c.hylx)
         if client.changed?
+          log "更新资料：id:#{client.shid} - #{client.shop_name}: [#{client.changes}]"
           client.save
-          slog("更新资料：id:#{client.shid} - #{client.shop_name}")
         end
         client.address ||= client.build_address
         client.address.province = CodeTable.find_prov(c.sf)
@@ -53,10 +54,10 @@ module Biz
         client.address.street = c.dz
         client.address.addr_obj = client
         if client.address.new_record?
-          slog "新增地址：#{client.address}"
+          log "新增地址：#{client.address}"
         else
           if client.address.changed?
-            slog "更新地址：[#{client.address.id}] #{client.address.changes}"
+            log "更新地址：[#{client.address.id}] #{client.address.changes}"
           end
         end
         client.address.save
@@ -76,14 +77,13 @@ module Biz
       end
     end
 
-    def parse_trades
-      slog(':h1 开始解析交易数据...')
+    def import_trades
+      log '开始导入交易数据...'
       ImpQfTrade.new_data.each do |t|
-        parse_trade(t)
+        import_trade(t)
       end
-      slog('交易数据解析完成')
     end
-    def parse_trade(t)
+    def import_trade(t)
       return if t.zt && t.zt > 0
       shid = t.shid.to_i
       if shid > 0
@@ -99,25 +99,24 @@ module Biz
           trade.status = 0
           trade.save
           t.zt = 1
-          slog("#{t.shid} - #{t.jye} - #{t.jyrq}")
+          log("#{t.shid} - #{t.jye} - #{t.jyrq}")
         else
-          slog("没有找到此商户：[#{t.shid}]")
+          log("没有找到此商户：[#{t.shid}]")
           t.zt = 7
         end
       else
-        slog("没有商户ID [#{t.shid}]")
+        log("没有商户ID [#{t.shid}]")
         t.zt = 7
       end
       t.save
     end
-    def parse_clearings
-      slog(':h1 开始解析清算数据...')
+    def import_clearings
+      log('开始导入清算数据...')
       ImpQfClearing.new_data.each do |c|
-        parse_clearing(c)
+        import_clearing(c)
       end
-      slog('清算数据解析完成')
     end
-    def parse_clearing(c)
+    def import_clearing(c)
       return if c.zt && c.zt > 0
       shid = c.shid.to_i
       if shid > 0
@@ -133,22 +132,17 @@ module Biz
           clr.clearing_status = CodeTable.find_code('clearing_status', c.qszt)
           clr.status = 0
           clr.save
-          slog("清算：#{c.shid} - #{c.sjqsje} - #{c.qsrq}")
+          log("清算：#{c.shid} - #{c.sjqsje} - #{c.qsrq}")
           c.zt = 1
         else
-          slog("商户ID没有找到：[#{c.shid}]")
+          log("商户ID没有找到：[#{c.shid}]")
           c.zt = 7
         end
       else
-        slog("没有商户ID [#{c.shid}]")
+        log("没有商户ID [#{c.shid}]")
         c.zt = 7
       end
       c.save
-    end
-
-    def slog(msg)
-      #puts msg
-      $redis.lpush(:parse_log, msg)
     end
   end
 end

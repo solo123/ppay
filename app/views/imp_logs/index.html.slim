@@ -3,9 +3,10 @@ div class='row'
     div class='panel panel-success'
       div class='panel-heading'
         div class='panel-heading-btn'
-          = link_to '读取Email', do_import_import_path, class: "btn btn-xs btn-primary", remote: true
-          = link_to '导入Excel', parse_excel_import_path, class: "btn btn-xs btn-primary", remote: true
-          = link_to "数据处理", parse_data_import_path, class: 'btn btn-xs btn-primary', remote: true
+          = link_to '读取Email', run_job_jobs_path('get_qf_emails'), class: "btn btn-xs btn-primary", remote: true
+          = link_to '导入Excel', run_job_jobs_path('parse_excel'), class: "btn btn-xs btn-primary", remote: true
+          = link_to "导入数据", run_job_jobs_path('data_import'), class: 'btn btn-xs btn-primary', remote: true
+          = link_to "统计汇总", run_job_jobs_path('trades_totals'), class: 'btn btn-xs btn-primary', remote: true
           a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-expand"
             i class="fa fa-expand"
         h4 class='panel-title' 数据导入日志
@@ -31,15 +32,6 @@ div class='row'
                     = link_to "交易：#{obj.imp_qf_trades.count}条/#{obj.imp_qf_trades.where(zt: 1).count}, ", imp_qf_trades_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
                     br
                     = link_to "清算：#{obj.imp_qf_clearings.count}条/#{obj.imp_qf_clearings.where(zt: 1).count}", imp_qf_clearings_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
-                td rowspan='2' nowrap='nowrap'
-                  - if obj.status > 0
-                    = link_to '导入excel', parse_excel_import_path(log: obj.id), remote: true
-                    br
-                    = link_to '删除数据', '#'
-                    br
-                    = link_to '数据统计', '#'
-                    br
-                    = link_to '删除统计', '#'
                 td= obj.status
               tr
                 td= obj.detail

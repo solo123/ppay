@@ -1,9 +1,8 @@
 class ParseExcelJob < ActiveJob::Base
   queue_as :default
+  
   def perform(*args)
-    biz = Biz::ImportBiz.new
-    ImpLog.where(status: 1).each do |log|
-      biz.import_data(log)
-    end
+    imp = Biz::ParseExcelBiz.new
+    imp.main_job
   end
 end
