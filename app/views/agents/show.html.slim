@@ -1,8 +1,8 @@
 - mth = Date.current.all_month
 ol.breadcrumb.pull-right
   li= link_to 'Home', root_path
-  li= link_to '代理管理', '#'
-  li 详细信息
+  li= link_to '代理管理', agents_path
+  li= link_to '修改', edit_agent_path(@object)
 h1 
   span 代理商生命周期
   small
@@ -123,8 +123,20 @@ h1
           td 待结算分润: #{@object.amounts_payable}
 
     .row
-      h4 分润比例
-      .panel-body#sales_commission_content
+      h4 分润合同
+      .panel-body
+        - @object.contracts.each do |c|
+          tr
+            td= c.contract_title
+            td= c.contract_type
+            td= c.profit_mode
+            td= c.trade_type
+            td= c.valid_date_from
+            td= c.valid_date_to
+            td= c.status
+      
+
+  #contacts_div
 
 h2 活跃商户
 .panel-body#active_clients_agent_day_tradetotal
