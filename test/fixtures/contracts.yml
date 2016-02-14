@@ -1,0 +1,7 @@
+contract_amount1:
+  id: 1
+  profit_mode: 'ladder_amount'
+  status: 1
+  
+contract_amount2:
+  id: 2

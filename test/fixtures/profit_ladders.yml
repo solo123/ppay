@@ -1,0 +1,18 @@
+
+profit_ladder1:
+  id: 1
+  contract_id: 1
+  amount_start: 0
+  amount_percent: 0.1
+
+profit_ladder2:
+  id: 2
+  contract_id: 1
+  amount_start: 100
+  amount_percent: 0.2
+
+profit_ladder3:
+  id: 3
+  contract_id: 1
+  amount_start: 200
+  amount_percent: 0.3
