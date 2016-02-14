@@ -3,6 +3,7 @@ class Salesman < ActiveRecord::Base
   belongs_to :agent
   belongs_to :client
   has_many :salesman_day_tradetotals
+  has_and_belongs_to_many :contracts
 
   scope :free_salesmen, -> { where(agent_id: nil) }
 	scope :free_client_salesmen, -> { where(client_id: nil) }

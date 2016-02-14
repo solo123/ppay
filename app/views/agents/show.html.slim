@@ -1,10 +1,14 @@
+- mth = Date.current.all_month
 ol.breadcrumb.pull-right
-  li ==link_to 'Home', root_path
-  li ==link_to '代理管理', '#'
+  li= link_to 'Home', root_path
+  li= link_to '代理管理', '#'
   li 详细信息
 h1 
   span 代理商生命周期
-  small  合作时长: #{@join_days}, 最近入网时间: #{@last_date}, 上月交易总额: #{@last_amount}
+  small
+    | 合作时长: #{@object.cooperation_date}, 
+    | 最近入网时间: #{@last_date}, 
+    | 上月交易总额: #{@last_amount}
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
@@ -12,20 +16,24 @@ h1
         i.fa.fa-desktop
       .stats-info
         h3 本月总交易金额
-        p #{@month_total.sum("total_amount")}
+        p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_amount)
       .stats-link
         a href='#'
-          span 总笔数 : #{@month_total.sum("total_count")}
+          span 
+            | 总笔数 : 
+            = SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_count)
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
         h3 本月微信交易金额
-        p #{@month_total.sum("wechat_amount")}
+        p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:wechat_amount)
       .stats-link
         a href='#' 
-            span  笔数: #{@month_total.sum("wechat_count")}
+            span  
+              | 笔数: 
+              = SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:wechat_count)
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
@@ -47,11 +55,11 @@ h1
         i.fa.fa-users
       .stats-info
         h3 总商户数
-        p #{@all_total[:client_count]}
+        p= @object.clients.count
       .stats-link
         a href='#'
           span 本月新增商户 : 
-          span #{@all_total[:new_client_count]}
+          span= @object.clients.where("join_date like ?", Date.current.to_s[0..6] + '%').count
 
 /
 .row
@@ -70,12 +78,13 @@ h1
   .panel-body
     .row
       h4 机构信息
-      table class='table table-hover'
-        tr
-        td 全称: #{@object.company.name if @object.company}
-        td 简称: #{@object.company.short_name if @object.company}
-        td 地区:
-        td 经营地址:
+      - if @object.company
+        table class='table table-hover'
+          tr
+          td 全称: #{@object.company.name}
+          td 简称: #{@object.company.short_name}
+          td 地区:
+          td 经营地址:
     .row
       h4 联系信息
       table class='table table-hover'
@@ -86,7 +95,6 @@ h1
             td 联系人手机: #{cc.tel}
             td 邮箱:
             td 地址: 
-    /
     .row
       h4 业务信息
       table class='table table-hover'

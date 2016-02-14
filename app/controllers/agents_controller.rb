@@ -1,4 +1,3 @@
-# coding: utf-8
 class AgentsController < ResourcesController
   def create_login
     load_object
@@ -41,18 +40,18 @@ class AgentsController < ResourcesController
     s.save
   end
 
-  def show
-    load_object
-    agent_total_biz = Biz::AgentTotalBiz.new(@object.id)
-    @month_total = ClientDayTradetotal.where(:client_id=> agent_total_biz.clients_all.ids,
-          :trade_date=> DateTime.now.all_month)
-
-    @all_total  = {:client_count=> agent_total_biz.clients_all.count,
-      :new_client_count=> agent_total_biz.clients_all.where(:join_date=>  DateTime.now.all_month).count}
-    @last_amount = ClientDayTradetotal.where(:client_id=> agent_total_biz.clients_all.ids,
-          :trade_date=> DateTime.now.last_month.all_month).sum("total_amount")
-
-  end
+  # def show
+  #   load_object
+  #   agent_total_biz = Biz::AgentTotalBiz.new(@object.id)
+  #   @month_total = ClientDayTradetotal.where(:client_id=> agent_total_biz.clients_all.ids,
+  #         :trade_date=> DateTime.now.all_month)
+  #
+  #   @all_total  = {:client_count=> agent_total_biz.clients_all.count,
+  #     :new_client_count=> agent_total_biz.clients_all.where(:join_date=>  DateTime.now.all_month).count}
+  #   @last_amount = ClientDayTradetotal.where(:client_id=> agent_total_biz.clients_all.ids,
+  #         :trade_date=> DateTime.now.last_month.all_month).sum("total_amount")
+  #
+  # end
 
   def pri_salesmaninfo
     puts 'old'

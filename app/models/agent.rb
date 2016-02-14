@@ -17,4 +17,5 @@ class Agent < ActiveRecord::Base
   accepts_nested_attributes_for :contacts
 
   has_many :clients, through: :salesmen, source: :clients
+  has_and_belongs_to_many :contracts
 end

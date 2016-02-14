@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160206032711) do
+ActiveRecord::Schema.define(version: 20160212052251) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 20160206032711) do
 
   add_index "agents_contacts", ["agent_id"], name: "index_agents_contacts_on_agent_id"
   add_index "agents_contacts", ["contact_id"], name: "index_agents_contacts_on_contact_id"
+
+  create_table "agents_contracts", id: false, force: :cascade do |t|
+    t.integer "agent_id"
+    t.integer "contract_id"
+  end
+
+  add_index "agents_contracts", ["agent_id"], name: "index_agents_contracts_on_agent_id"
+  add_index "agents_contracts", ["contract_id"], name: "index_agents_contracts_on_contract_id"
 
   create_table "bank_cards", force: :cascade do |t|
     t.integer  "bankcard_obj_id"
@@ -278,6 +286,18 @@ ActiveRecord::Schema.define(version: 20160206032711) do
   add_index "contacts", ["name"], name: "index_contacts_on_name"
   add_index "contacts", ["tel"], name: "index_contacts_on_tel"
 
+  create_table "contracts", force: :cascade do |t|
+    t.string   "contract_type"
+    t.string   "contract_title"
+    t.string   "profit_mode"
+    t.string   "trade_type"
+    t.date     "valid_date_from"
+    t.date     "valid_date_to"
+    t.integer  "status",          default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "imp_logs", force: :cascade do |t|
     t.integer  "uid"
     t.string   "title"
@@ -381,6 +401,14 @@ ActiveRecord::Schema.define(version: 20160206032711) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "profit_ladders", force: :cascade do |t|
+    t.integer  "contract_id"
+    t.decimal  "amount_start",   precision: 12, scale: 2, default: 0.0
+    t.decimal  "amount_percent", precision: 12, scale: 2, default: 0.0
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+  end
+
   create_table "salesman_day_tradetotals", force: :cascade do |t|
     t.integer  "salesman_id"
     t.date     "trade_date"
@@ -420,6 +448,14 @@ ActiveRecord::Schema.define(version: 20160206032711) do
 
   add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id"
   add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id"
+
+  create_table "salesmen_contracts", id: false, force: :cascade do |t|
+    t.integer "saleman_id"
+    t.integer "contract_id"
+  end
+
+  add_index "salesmen_contracts", ["contract_id"], name: "index_salesmen_contracts_on_contract_id"
+  add_index "salesmen_contracts", ["saleman_id"], name: "index_salesmen_contracts_on_saleman_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
