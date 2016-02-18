@@ -1,26 +1,24 @@
 - @object.build_company unless @object.company
 .row
-  .col-md-2
-  .col-md-8
-    .panel.panel-inverse
-      .panel-heading
-        h4.panel-title 添加代理商
-      .panel-body
-        = simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
-          = f.error_notification
-          
-          = f.simple_fields_for :company do |fc|
-            = fc.input :name, :label=>'公司名称'
-            = fc.input :short_name, :label=> '简称'
-          = f.association :cooperation_type, collection: CodeTable.childs('cooperation_type'), :label=> '合作类型' 
-          = f.input :cooperation_date, :label=> '合作时间' 
-          = f.input :t0_enabled, :label=> '是否开启T0' 
-          = f.input :bank_biz_types, :label=> '合作收单类型' 
-          = f.input :cooperation_location, :label=> '合作区域' 
-          = f.input :deposit, :label=> '保证金'
-          = f.input :amounts_payable, :label=> '代结算分润'
+  .panel.panel-inverse
+    .panel-heading
+      h4.panel-title 添加代理商
+    .panel-body
+      = simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
+        = f.error_notification
+        
+        = f.simple_fields_for :company do |fc|
+          = fc.input :name, :label=>'公司名称'
+          = fc.input :short_name, :label=> '简称'
+        = f.association :cooperation_type, collection: CodeTable.childs('cooperation_type'), :label=> '合作类型' 
+        = f.input :cooperation_date, :label=> '合作时间' 
+        = f.input :t0_enabled, :label=> '是否开启T0' 
+        = f.input :bank_biz_types, :label=> '合作收单类型' 
+        = f.input :cooperation_location, :label=> '合作区域' 
+        = f.input :deposit, :label=> '保证金'
+        = f.input :amounts_payable, :label=> '代结算分润'
 
 
-          .form-actions style='text-align:center'
-            = f.submit "保存", :class => "btn btn-sm btn-success" 
-            = submit_tag '取消', :type => :reset, :class => "btn btn-sm btn-danger" 
+        .form-actions style='text-align:center'
+          = f.submit "保存", :class => "btn btn-sm btn-success" 
+          = submit_tag '取消', :type => :reset, :class => "btn btn-sm btn-danger" 

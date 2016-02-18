@@ -1,7 +1,5 @@
 var sidemenu =function () {
-	$('.pagination').addClass('m-t-0 m-b-10');
-	$('.pagination span').css('padding','10px');
-	$('.pagination span').css('font-size','18px');
+	
 
 	// $("#weixin").mouseover(function(){
 	// 	$('#weixinjy').show();
