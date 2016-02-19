@@ -1,70 +1,74 @@
-.row
-  .col-md-12
-    = search_form_for( @q, class: 'form-inline') do |f|
-      .form-group.m-r-10
-        = f.search_field ('abc_cont') , class: 'form-control', placeholder: '请查询', value: ''
-      .form-group.input-daterange
-      = f.submit '查找',  class: 'btn btn-warning form-control'
-br 
-.row
-  .col-md-12
-    - if @collection.count==0
-      h2 没有数据可供查看
+.panel.panel-info
+  .panel-heading
+    h4.panel-title 查询 
+  .panel-body
+    .row
+      .col-md-12
+        = search_form_for( @q, class: 'form-inline') do |f|
+          .form-group.m-r-10
+            = f.search_field ('abc_cont') , class: 'form-control', placeholder: '请查询', value: ''
+          .form-group.input-daterange
+          = f.submit '查找',  class: 'btn btn-warning form-control'
+    br 
+    .row
+      .col-md-12
+        - if @collection.count==0
+          h2 没有数据可供查看
 
-    .panel.panel-success
-      .panel-heading 
-        h4.panel-title 商户资料（原始）
-      .panel-body
-        = paginate @collection
-        table.table
-          thead
-            tr
-              th 商户ID
-              th 
-                |店名
-                br
-                |联系人:电话
-              th
-                |行业分类
-                br
-                |入网时间
-              th
-                |业务员
-                br
-                |费率
-              th 省份
-              th 城市
-              th 借记卡
-              th 信用卡
-              th 导入时间
-              
-              
-          tbody
-            tr.bg-info
-              td colspan='4' 合计: 共#{@all_data.count}条
-              td colspan='5'
-            - @collection.each do |r|
-              tr
-                td rowspan='2'= r.shid
-                td= r.dm
-                td= r.hylx
-                td= r.ywy
-                td= r.sf
-                td= r.cs
-                td= r.jjkdbxe/10000
-                td= r.xykdbxe/10000
-                td= r.created_at
-              tr
-                td
-                  = r.lxr
-                  = r.sj
-                td= r.rwsj
-                td= r.fl
-                td colspan='2' = r.dz
-                td= r.jjkdyxe/10000
-                td= r.xykdyxe/10000
-                td
-                  |zt:
-                  = r.zt
-                  |&nbsp; 
-                  = link_to '导入记录', imp_log_path(r.imp_log)
+.panel.panel-success
+  .panel-heading 
+    h4.panel-title 商户资料（原始）
+  .panel-body
+    = paginate @collection
+    table.table
+      thead
+        tr
+          th 商户ID
+          th 
+            |店名
+            br
+            |联系人:电话
+          th
+            |行业分类
+            br
+            |入网时间
+          th
+            |业务员
+            br
+            |费率
+          th 省份
+          th 城市
+          th 借记卡
+          th 信用卡
+          th 导入时间
+          
+          
+      tbody
+        tr.bg-info
+          td colspan='4' 合计: 共#{@all_data.count}条
+          td colspan='5'
+        - @collection.each do |r|
+          tr
+            td rowspan='2'= r.shid
+            td= r.dm
+            td= r.hylx
+            td= r.ywy
+            td= r.sf
+            td= r.cs
+            td= r.jjkdbxe/10000
+            td= r.xykdbxe/10000
+            td= r.created_at
+          tr
+            td
+              = r.lxr
+              = r.sj
+            td= r.rwsj
+            td= r.fl
+            td colspan='2' = r.dz
+            td= r.jjkdyxe/10000
+            td= r.xykdyxe/10000
+            td
+              |zt:
+              = r.zt
+              |&nbsp; 
+              = link_to '导入记录', imp_log_path(r.imp_log)

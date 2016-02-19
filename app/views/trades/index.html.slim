@@ -3,33 +3,43 @@
     h4.panel-title 交易查找
   .panel-body.panel-form
     .container
-      = search_form_for(@q, class: 'form-inline' ) do |f|
+      = search_form_for(@q, class: 'form-horizontal' ) do |f|
         .form-group
-          = f.search_field :client_shop_name_or_sub_account_cont, 
-            placeholder: '商户ID、商户名称、子账号',
-            class: 'form-control'
-          .form-group
-            label.control-label 交易时间
+          lable.col-md-3.control-label 关键字
+          .col-md-3
+            = f.search_field :client_shop_name_or_sub_account_cont, 
+              placeholder: '商户ID、商户名称、子账号',
+              class: 'form-control'
+        .form-group
+          lable.col-md-3.control-label 交易时间
+          .col-md-5
             .input-group.input-datarange
               = f.search_field :trade_date_gteq,
                 class: 'form-control',
+                placeholder: '起始日期',
                 type: 'datetime'
               span.input-group-addon to
               = f.search_field :trade_date_lt,
                 class: 'form-control',
+                placeholder: '结束日期',
                 type: 'datetime'
-          br
+        .form-group
+          lable.col-md-3.control-label 条件
           - CodeTable.find_by(name: 'trade_type').childs.each do |t|
             label.radio-inline
               = check_box_tag('q[trade_type_id_eq_any][]', t.id)
               = label_tag('q[trade_type_id_eq_any]', t.name) 
-          .form-group
-            = f.label ' | '
+        .form-group
+          lable.col-md-3.control-label 状态
+          .col-md-3
             = f.select :trade_result_id_eq, 
               CodeTable.find_by(name: 'trade_result').childs.map{|c| [c.name, c.id]}.insert(0, ['请选择交易状态', '']), 
               {}, 
               {class: 'form-control'}
-          = f.submit '查询'
+        .form-group
+          lable.col-md-3.control-label 查询
+          .col-md-1
+          = f.submit '提交', class: 'btn btn-sm btn-success'
     / = form_tag(trades_path, method: "get", class: 'form-horizontal form-bordered') do
     /   .form-group
     /     label.col-md-4.control-label 商户信息

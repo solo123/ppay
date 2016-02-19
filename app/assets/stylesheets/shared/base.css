@@ -1,0 +1,10 @@
+.widget h3{
+	color: #FFF;
+}
+.pagination > li > span{
+	color: #707478;
+	cursor: not-allowed;
+}
+.pagination > li > span:focus,.pagination > li > span:hover{
+	color: #707478;
+}
