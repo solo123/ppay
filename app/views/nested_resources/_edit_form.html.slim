@@ -4,7 +4,7 @@
       .modal-header
         button.close aria-label="Close" data-dismiss="modal" type="button" 
           span aria-hidden="true"  &times;
-        h4#myModalLabel.modal-title Modal title
+        h4#myModalLabel.modal-title=t @object.class.name
       .modal-body
         #dialog_messages style=("height: 400px; overflow-y: auto;")
           = render 'form'

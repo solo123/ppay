@@ -44,7 +44,7 @@ class NestedResourcesController < ResourcesController
       end
     end
     respond_to do |format|
-      format.html { redirect_to :action => :show }
+      format.html { redirect_to @parent if @parent }
       format.json { respond_with_bip(@object) }
       format.js
     end
@@ -70,10 +70,11 @@ class NestedResourcesController < ResourcesController
     @object = object_name.classify.constantize.find_by_id(params[:id])
   end
   def load_parent
-    parent_id = params.detect {|p| p[0] =~ /^\w+_id$/}
-    if parent_id
-      @parent_object_name = parent_id[0][0..-4]
-      @parent = @parent_object_name.classify.constantize.find(parent_id[1])
+    parent_id = nil
+    ss = request.headers["PATH_INFO"].split('/')
+    if ss && ss.length > 2
+      @parent_object_name = ss[1].singularize
+      @parent = @parent_object_name.classify.constantize.find(ss[2])
     end
   end
 end

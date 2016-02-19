@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212052251) do
+ActiveRecord::Schema.define(version: 20160219075240) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -290,7 +290,7 @@ ActiveRecord::Schema.define(version: 20160212052251) do
     t.string   "contract_type"
     t.string   "contract_title"
     t.string   "profit_mode"
-    t.string   "trade_type"
+    t.integer  "trade_sum_id"
     t.date     "valid_date_from"
     t.date     "valid_date_to"
     t.integer  "status",          default: 0
@@ -404,7 +404,7 @@ ActiveRecord::Schema.define(version: 20160212052251) do
   create_table "profit_ladders", force: :cascade do |t|
     t.integer  "contract_id"
     t.decimal  "amount_start",   precision: 12, scale: 2, default: 0.0
-    t.decimal  "amount_percent", precision: 12, scale: 2, default: 0.0
+    t.decimal  "amount_percent", precision: 12, scale: 6, default: 0.0
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
   end
@@ -449,14 +449,6 @@ ActiveRecord::Schema.define(version: 20160212052251) do
   add_index "salesmen_contacts", ["contact_id"], name: "index_salesmen_contacts_on_contact_id"
   add_index "salesmen_contacts", ["salesman_id"], name: "index_salesmen_contacts_on_salesman_id"
 
-  create_table "salesmen_contracts", id: false, force: :cascade do |t|
-    t.integer "saleman_id"
-    t.integer "contract_id"
-  end
-
-  add_index "salesmen_contracts", ["contract_id"], name: "index_salesmen_contracts_on_contract_id"
-  add_index "salesmen_contracts", ["saleman_id"], name: "index_salesmen_contracts_on_saleman_id"
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -476,6 +468,23 @@ ActiveRecord::Schema.define(version: 20160212052251) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+
+  create_table "trade_sums", force: :cascade do |t|
+    t.integer  "sum_obj_id"
+    t.string   "sum_obj_type"
+    t.string   "trade_date"
+    t.string   "sum_type"
+    t.string   "trade_type"
+    t.decimal  "amount",       precision: 12, scale: 2, default: 0.0
+    t.integer  "count",                                 default: 0
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
+  add_index "trade_sums", ["sum_obj_type", "sum_obj_id"], name: "index_trade_sums_on_sum_obj_type_and_sum_obj_id"
+  add_index "trade_sums", ["sum_type"], name: "index_trade_sums_on_sum_type"
+  add_index "trade_sums", ["trade_date"], name: "index_trade_sums_on_trade_date"
+  add_index "trade_sums", ["trade_type"], name: "index_trade_sums_on_trade_type"
 
   create_table "trades", force: :cascade do |t|
     t.integer  "client_id"

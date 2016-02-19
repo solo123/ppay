@@ -1,0 +1,5 @@
+= simple_form_for [@parent, @object], remote: true do |f|
+  = f.input :amount_start
+  = f.input :amount_percent
+  = f.submit '保存', :class=>'btn btn-success'
+              

@@ -1,0 +1,23 @@
+
+.panel.panel-success
+  .panel-heading
+    .panel-heading-btn
+      = link_to '新阶梯', new_contract_profit_ladder_path(contract), class: "btn btn-xs btn-primary", remote: true
+    h4.panel-title 分润阶梯
+  .panel-body
+    table.table.table-hover
+      thead
+        tr
+          th 起始金额
+          th 分润比例
+          th 创建时间
+          th 更新时间
+          th 操作
+      tbody
+        - profit_ladders.each do |r|
+          tr
+            td=nw r.amount_start
+            td=nq r.amount_percent
+            td= r.created_at
+            td= r.updated_at
+            td= link_to '更改', edit_contract_profit_ladder_url(contract, r)

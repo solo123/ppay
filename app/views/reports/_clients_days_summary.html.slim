@@ -15,14 +15,14 @@ table.table.sum-table total_columns='11' sum_float_columns='1,3,5,7,9' sum_int_c
   tbody
     - @collection.each do |r|
       tr
-        td= r.trade_date.day
-        td.text-right= number_with_precision r.total_amount, precision: 2, delimiter: ','
-        td.text-right= r.total_count
-        td.text-right= number_with_precision r.wechat_amount, precision: 2, delimiter: ','
-        td.text-right= r.wechat_count
-        td.text-right= number_with_precision r.alipay_amount, precision: 2, delimiter: ','
-        td.text-right= r.alipay_count
-        td.text-right= number_with_precision r.t0_amount, precision: 2, delimiter: ','
-        td.text-right= r.t0_count
-        td.text-right= number_with_precision r.t1_amount, precision: 2, delimiter: ','
-        td.text-right= r.t1_count
+        td= r[0]
+        td.text-right= trade_value r[1], 'all', :amount
+        td.text-right= trade_value r[1], 'all', :count
+        td.text-right= trade_value r[1], 'wechat', :amount
+        td.text-right= trade_value r[1], 'wechat', :count
+        td.text-right= trade_value r[1], 'alipay', :amount
+        td.text-right= trade_value r[1], 'alipay', :count
+        td.text-right= trade_value r[1], 't0', :amount
+        td.text-right= trade_value r[1], 't0', :count
+        td.text-right= trade_value r[1], 't1', :amount
+        td.text-right= trade_value r[1], 't1', :count

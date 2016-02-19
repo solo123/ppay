@@ -28,5 +28,11 @@ module ApplicationHelper
   def n2(num)
     number_with_precision num, precision: 2, delimiter: ','
   end
+  def nw(num)
+    "#{num / 10000}万"
+  end
+  def nq(num)
+    "千#{num * 1000}"
+  end
 
 end

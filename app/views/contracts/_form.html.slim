@@ -1,0 +1,18 @@
+.row
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 分润合同
+      .panel-body
+        = simple_form_for [@parent, @object] do |f|
+          = f.input :contract_type, collection: [['通用', 'public'], ['私用', 'private']]
+          = f.input :contract_title
+          = f.input :profit_mode
+          = f.input :trade_sum
+          .row
+            .col-md-4
+            .col-md-4
+              = f.submit '保存', :class=>'btn btn-success'
+  .col-md-6
+    - unless @object.new_record?            
+      = render partial: 'profit_ladders/list', locals: {contract: @object, profit_ladders: @object.profit_ladders}

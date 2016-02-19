@@ -2,6 +2,7 @@ class Contract < ActiveRecord::Base
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :salesmen
   has_many :profit_ladders
+  belongs_to :trade_sum, class_name: 'CodeTable'
 
   def caculate_profit(amount, count = 0, caculate_date = Date.current)
     if self.profit_mode == 'ladder_amount'

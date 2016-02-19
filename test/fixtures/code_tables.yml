@@ -1,0 +1,9 @@
+code_table1:
+  id: 1
+  name: 'trade_sum'
+  parent_id: 0
+
+code_table2:
+  id: 2
+  name: 'wechat'
+  parent_id: 1

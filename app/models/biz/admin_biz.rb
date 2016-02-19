@@ -2,7 +2,7 @@ module Biz
   class AdminBiz
     attr_accessor :errors
     @@flag_name = 'server_import_flag'
-    
+
     def initialize
       @errors = []
       @parent_log = nil
@@ -19,6 +19,10 @@ module Biz
       log.parent = @parent_log
       log.save
       log
+    end
+    def server_log(msg)
+      puts msg
+      $redis.lpush('server_log', msg)
     end
   end
 end

@@ -1,0 +1,6 @@
+zh-CN:
+  simple_form:
+    labels:
+      contract:
+        contract_title: '合同标题'
+        contract_type: '合同类型'

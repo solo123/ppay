@@ -15,5 +15,4 @@ $('#import_dialog').on('hide.bs.modal', function (e) {
   clearInterval(my_process);
 })
 
-current_log_name = '<%= params[:job] %>';
 var my_process = setInterval(load_status, 1000);

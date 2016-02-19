@@ -1,4 +1,4 @@
-var current_log_name = '';
+var current_log_name = 'server_log';
 function load_status(){
   $.get('logs/get_log_msg?log_name=' + current_log_name, function(data){
     if (data){

@@ -1,0 +1,2 @@
+class ProfitLaddersController < NestedResourcesController
+end

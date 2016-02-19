@@ -44,11 +44,19 @@ h1
       .stats-link
         a href='#'
           span 微信:
-          span _, 
+          span
+            = SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:wechat_amount)
+            |,
           span 支付宝:
-          span _, 
+          span
+            = SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:alipay_amount)
+            |,
           span T0:
-          span _
+          span
+            = SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:t0_amount)
+            |,
+          span T1:
+          span= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:t1_amount)
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
@@ -124,16 +132,7 @@ h1
 
     .row
       h4 分润合同
-      .panel-body
-        - @object.contracts.each do |c|
-          tr
-            td= c.contract_title
-            td= c.contract_type
-            td= c.profit_mode
-            td= c.trade_type
-            td= c.valid_date_from
-            td= c.valid_date_to
-            td= c.status
+      = render partial: 'contracts/list', locals: {agent: @object, contracts: @object.contracts}
       
 
   #contacts_div

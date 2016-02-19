@@ -1,0 +1,36 @@
+.panel.panel-success
+  .panel-heading
+    .panel-heading-btn
+      - if agent    
+        = link_to '新合同', new_agent_contract_path(agent), class: "btn btn-xs btn-primary"
+      - else
+        = link_to '新合同', new_contract_path, class: 'btn btn-xs btn-primary'
+    h4.panel-title 分润合同列表
+  .panel-body
+  
+    .row
+      - contracts.each do |r|
+        .col-md-3
+          .panel.panel-inverse
+            .panel-heading
+              h4.panel-title= r.contract_title
+            .panel-body
+              = r.contract_type
+              | -
+              = r.trade_sum
+              | -
+              = r.profit_mode
+              p
+                = link_to '更改', edit_agent_contract_url(agent, r)
+
+              table.table.table-hover
+                tbody
+                  - r.profit_ladders.each do |p|
+                    tr
+                      td=nw p.amount_start
+                      td=nq p.amount_percent
+                
+
+  
+  
+  

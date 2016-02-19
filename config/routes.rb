@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get :active_clients
       get :active_salesmen
     end
+    resources :contracts
     resources :contacts
     resources :sales_commissions
   end
@@ -87,6 +88,9 @@ Rails.application.routes.draw do
     collection do
       get :get_log_msg
     end
+  end
+  resources :contracts do
+    resources :profit_ladders
   end
 
   root to: 'home#index'
