@@ -1,6 +1,7 @@
 class CodeTable < ActiveRecord::Base
   belongs_to :parent, class_name: 'CodeTable'
   scope :top_level, -> {where(parent: nil)}
+  has_many :children, :class_name => 'CodeTable', :foreign_key => 'parent_id'
 
   def self.find_code(cat_name, code_name)
     cat = CodeTable.find_or_create_by(name: cat_name)

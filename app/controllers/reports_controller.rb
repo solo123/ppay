@@ -1,20 +1,13 @@
 class ReportsController < ApplicationController
 
   def home_summary
-    d = Date.current.all_month
-    @month_total_amount = ClientDayTradetotal.where(trade_date: d).sum("total_amount")
-    @month_total_count = ClientDayTradetotal.where(trade_date: d).sum("total_count")
+    @trade_month = Date.current.to_s[0..6]
 
-    @month_wechart_amount = ClientDayTradetotal.where("trade_date"=> d).sum("wechat_amount")
-    @month_wechart_count = ClientDayTradetotal.where("trade_date"=> d).sum("wechat_count")
     tt = CodeTable.find_by(name: 'trade_type').id
     ts = CodeTable.where('name like ?', '%微信%').where(parent_id: tt)
-    @month_wechart_count10 = Trade.where("trade_date"=>d).where(trade_type_id: ts.ids).where("trade_amount >= ?", 10.0).count
-
-    @month_t0_amount = ClientDayTradetotal.where("trade_date"=> d).sum("t0_amount")
-    @month_t0_count = ClientDayTradetotal.where("trade_date"=> d).sum("t0_count")
-
-    @month_clients_count = Client.where("join_date"=> d).count
+    d = Date.current.all_month
+    @month_wechart_count10 = Trade.where(trade_date: d, trade_type_id: ts.ids).where("trade_amount >= ?", 10.0).count
+    @month_clients_count = Client.where(join_date: d).count
     @total_clients_count = Client.count
   end
 

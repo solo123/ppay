@@ -5,7 +5,6 @@ class Agent < ActiveRecord::Base
   has_many :salesmen
 
   has_many :bank_cards, as: :bankcard_obj
-  has_many :agent_day_tradetotals
   has_many :sales_commissions, as: :sales_commission_obj
 
   has_and_belongs_to_many :bulletin_board_systems

@@ -6,4 +6,7 @@ class Address < ActiveRecord::Base
   def to_s
     "#{self.province ? self.province.name : ''}, #{self.city ? self.city.name : ''} #{self.street}"
   end
+  def area
+    "#{self.province ? self.province.name : ''}, #{self.city ? self.city.name : ''}"
+  end
 end

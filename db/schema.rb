@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219075240) do
+ActiveRecord::Schema.define(version: 20160220115227) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "addr_obj_id"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 20160219075240) do
     t.integer  "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "tag"
   end
 
   create_table "comfy_cms_blocks", force: :cascade do |t|

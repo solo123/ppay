@@ -18,6 +18,7 @@ module Biz
       log.level = 11
       log.parent = @parent_log
       log.save
+      $redis.lpush(:server_log, title)
       log
     end
     def server_log(msg)

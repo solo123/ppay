@@ -1,43 +1,33 @@
-= render 'shared/left_menu_item',
-  :local => {:title => '首页',
-  :class => 'fa-laptop'}
-  
-= render 'shared/left_menu_item',
-  :local => {:title => '商户数据',
-  :data =>  [ ['商户资料', clients_path],
-  ['业务员', salesmen_path],
-  ['联系人', contacts_path]], 
-  :class => 'fa-2x fa-credit-card'}
-    
-= render 'shared/left_menu_item',
-  :local => {:title => '交易数据',
-  :data => [['交易数据', trades_path], ['清算数据',  clearings_path]], 
-  :class => 'fa-2x fa-database'}
-      
-= render 'shared/left_menu_item',
-  :local => {:title => '数据导入',
-  :data => [['导入日志', imp_logs_path ],
-  ['商户信息', imp_qf_customers_path],
-  ['交易', imp_qf_trades_path ], 
-  ['清算',imp_qf_clearings_path ] ], 
-  :class => 'fa-2x fa-area-chart'}
-        
-= render 'shared/left_menu_item',
-  :local => {:title => '管理工具',
-  :data => [['用户管理', users_path],
-  ['代理管理', agents_path],
-  ['代码表管理', code_tables_path ],
-  ['BBS', notices_path],
-  ['Logs', logs_path],
-  ], 
-  :class => ' fa-2x fa-sitemap' }
+ul.nav
+  li.nav-profile
+    div.info
+      big 普尔支付 
+      span 渠道系统
+
+ul.nav#sidemenu
+  li.nav-header 菜单
+  - menu = CodeTable.find_by(name: 'main_menu')
+  - if menu
+    - menu.children.each do |m|
+      - if m.children.empty?
+        li
+          a href="#{m.val.empty? ? 'javascript:;' : eval(m.val)}"
+            i class="fa #{m.tag}"
+            span= m.name
+      - else
+        li.has-sub
+          a href='javascript:;'
+            b.caret.pull-right
+            i class="fa #{m.tag}"
+            span= m.name
+          ul.sub-menu
+            - m.children.each do |sm|
+              li= link_to sm.name, eval(sm.val)
           
-= render 'shared/left_menu_item',
-  :local => {:title => '代理商',
-  :data => [ ['contact', contacts_path], ['address', addresses_path], ['pos_machine', pos_machines_path] ],
-  :class => 'fa-2x fa-user' }
-            
-= render 'shared/left_menu_item',
-  :local => {:title => '个人设置',
-  :data => [['资料', home_profile_path ] ], 
-  :class => 'fa-2x fa-gear (alias)' }
+  li
+    = link_to '退出登录', destroy_user_session_path, :method => :delete
+  li
+    a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
+      i class="fa fa-angle-double-left"
+
+  

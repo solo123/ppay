@@ -21,3 +21,4 @@
 dump*
 /config/database.yml
 .*
+*.pdf
