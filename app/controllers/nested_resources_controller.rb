@@ -74,7 +74,9 @@ class NestedResourcesController < ResourcesController
     ss = request.headers["PATH_INFO"].split('/')
     if ss && ss.length > 2
       @parent_object_name = ss[1].singularize
-      @parent = @parent_object_name.classify.constantize.find(ss[2])
+      if @parent_object_name != object_name
+        @parent = @parent_object_name.classify.constantize.find(ss[2])
+      end
     end
   end
 end

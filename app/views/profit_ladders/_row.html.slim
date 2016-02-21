@@ -1,0 +1,5 @@
+tr id="#{dom_id(row)}"
+  td=nw row.amount_start
+  td=nq row.amount_percent
+  td= row.updated_at
+  td= link_to '更改', edit_profit_ladder_url(row), remote: true

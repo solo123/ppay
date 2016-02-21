@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   resources :contracts do
     resources :profit_ladders
   end
+  resources :profit_ladders
 
   root to: 'home#index'
 

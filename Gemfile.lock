@@ -1,3 +1,9 @@
+PATH
+  remote: ../ppay_model
+  specs:
+    ppay_model (0.0.1)
+      rails (~> 4.2.5)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -286,6 +292,7 @@ DEPENDENCIES
   kaminari
   lazy_high_charts
   mail
+  ppay_model!
   rails (= 4.2.5)
   rails-erd
   rails4-autocomplete

@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def page_title(title)
+    title += " | " if title.present?
+    title += "Pooul"
+  end
 
   MOBILE_USER_AGENTS = 'palm|blackberry|nokia|phone|midp|mobi|symbian|chtml|ericsson|minimo|' \
                          'audiovox|motorola|samsung|telit|upg1|windows ce|ucweb|astel|plucker|' \

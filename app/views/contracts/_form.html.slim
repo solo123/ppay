@@ -7,8 +7,8 @@
         = simple_form_for [@parent, @object] do |f|
           = f.input :contract_type, collection: [['通用', 'public'], ['私用', 'private']]
           = f.input :contract_title
-          = f.input :profit_mode
-          = f.input :trade_sum
+          = f.input :profit_mode, label: '分润计算方式', collection: [['按金额计算', 'amount'], ['按笔数计算', 'count']]
+          = f.input :trade_sum, label: '支付类型', collection: [['微信', 'wechat'], ['支付宝', 'alipay'], ['POS T0', 't0'], ['POS T1', 't1']]
           .row
             .col-md-4
             .col-md-4
