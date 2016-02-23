@@ -12,4 +12,8 @@ class JobsController < AdminController
       end
     end
   end
+  def recal
+    biz = Biz::TradesTotalsBiz.new
+    biz.re_total
+  end
 end

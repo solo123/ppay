@@ -23,6 +23,18 @@ class ClientsController < ResourcesController
       .page(params[:page]).per(pages)
   end
 
+  def update
+    load_object
+    params.permit!
+    @object.attributes = params[:client]
+    if @object.salesman_id_changed?
+      c = CodeTable.find_code('config', '对账日期')
+      c.status = 7
+      c.save
+    end
+    @object.save
+  end
+
   # tag管理
   def tags
     load_object

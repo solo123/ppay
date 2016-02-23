@@ -1,12 +1,6 @@
 p 
   | 数据导入时间：#{ l ImpLog.first.created_at if ImpLog.count > 0}，
-  = link_to '读取Email', run_job_jobs_path('get_qf_emails'), class: "btn btn-primary btn-xs", remote: true
-  | &nbsp;
-  = link_to "解析excel", run_job_jobs_path('parse_excel'), class: 'btn btn-primary btn-xs', remote: true
-  | &nbsp;
-  = link_to "导入数据", run_job_jobs_path('data_import'), class: 'btn btn-primary btn-xs', remote: true
-  | &nbsp;
-  = link_to "统计汇总", run_job_jobs_path('trades_totals'), class: 'btn btn-primary btn-xs', remote: true
+  = link_to '数据处理', imp_logs_path, class: "btn btn-primary btn-xs"
 .row
   .col-md-3
     .widget.widget-stats.bg-blue

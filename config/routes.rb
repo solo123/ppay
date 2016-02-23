@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do
       get 'run_job/:job', action: :run_job, as: :run_job
+      get 'recal'
     end
   end
   resources :notices

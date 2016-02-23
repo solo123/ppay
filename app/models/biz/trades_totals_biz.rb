@@ -10,22 +10,10 @@ module Biz
     def total_clients_salesmen_agents
       success_trade_code = CodeTable.find_code('trade_result', '交易成功').id
       Trade.where('status < 2 and trade_result_id = ?', success_trade_code).each do |t|
-        td = t.trade_date.to_date.to_s
-        tt = trade_type(t)
-        am = t.trade_amount
-        add_sum(am, nil, tt, td)
-        add_sum(am, t.client, tt, td)
-        if t.client.salesman
-          sm = t.client.salesman
-          add_sum(am, sm, tt, td)
-          if sm.agent
-            ag = sm.agent
-            add_sum(am, ag, tt, td)
-          end
-        end
+        total_trade(t)
         t.status = 2
         t.save
-        server_log "#{t.id}, #{am}, #{tt}, #{td}"
+        server_log "#{t.id}"
       end
     end
 
@@ -50,6 +38,43 @@ module Biz
     def clear_totals
       TradeSum.delete_all
       Trade.update_all(status: 0)
+    end
+
+    def re_total
+      ct = CodeTable.find_code('config', '当前对账月份')
+      unless ct.val
+        ct.val = Date.current.beginning_of_month.to_s[0..6]
+        ct.save
+      end
+      start_date = ct.val
+      TradeSum.where('trade_date >= ?', start_date.to_s).delete_all
+
+      dt = Time.zone.parse(start_date + '-01').to_datetime
+      success_trade_code = CodeTable.find_code('trade_result', '交易成功').id
+      Trade.where('trade_date>=?', dt)
+        .where(status: 2)
+        .where(trade_result_id: success_trade_code)
+        .each do |t|
+        total_trade(t)
+      end
+      ct.status = 0
+      ct.save
+    end
+
+    def total_trade(trade)
+      td = trade.trade_date.to_date.to_s
+      tt = trade_type(trade)
+      am = trade.trade_amount
+      add_sum(am, nil, tt, td)
+      add_sum(am, trade.client, tt, td)
+      if trade.client.salesman
+        sm = trade.client.salesman
+        add_sum(am, sm, tt, td)
+        if sm.agent
+          ag = sm.agent
+          add_sum(am, ag, tt, td)
+        end
+      end
     end
 
     def trade_type(trade)

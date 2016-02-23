@@ -62,7 +62,9 @@ h2 商户生命周期
     .row
       .col-md-6
         p 渠道名称:
-        p 业务员姓名: #{@object.salesman.name}
+        p 
+          |业务员姓名: #{@object.salesman.name} &nbsp;
+          = link_to '修改', edit_client_path(@object), remote: true
       .col-md-6
         p 渠道合作时间:
         p 业务员手机:

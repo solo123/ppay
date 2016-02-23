@@ -1,18 +1,21 @@
-div class='row'
-  div class='col-md-12'
-    div class='panel panel-success'
-      div class='panel-heading'
-        div class='panel-heading-btn'
+.row
+  .col-md-12
+    p 
+      |当前对账月份：#{CodeTable.find_code('config', '当前对账月份').val}
+      = link_to '重算当前月汇总', run_job_jobs_path('trades_totals_recal'), remote: true, data: {confirm: '只有在修改了商户代理之后才需要重算当月统计，确认吗？'}
+    .panel.panel-success
+      .panel-heading
+        .panel-heading-btn
           = link_to '读取Email', run_job_jobs_path('get_qf_emails'), class: "btn btn-xs btn-primary", remote: true
           = link_to '导入Excel', run_job_jobs_path('parse_excel'), class: "btn btn-xs btn-primary", remote: true
           = link_to "导入数据", run_job_jobs_path('data_import'), class: 'btn btn-xs btn-primary', remote: true
           = link_to "统计汇总", run_job_jobs_path('trades_totals'), class: 'btn btn-xs btn-primary', remote: true
           a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-expand"
-            i class="fa fa-expand"
-        h4 class='panel-title' 数据导入日志
-      div class='panel-body'
+            i.fa.fa-expand
+        h4.panel-title 数据导入日志
+      .panel-body
         = paginate @collection
-        table class='table'
+        table.table
           tbody
             - @collection.each do |obj|
               tr id="imp_log_#{obj.id}"
