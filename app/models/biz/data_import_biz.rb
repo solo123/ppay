@@ -62,10 +62,12 @@ module Biz
         end
         client.address.save
 
-        if c.ywy.nil? || c.ywy.empty?
-          client.salesman = Salesman.find_or_create_by(name: 'pooul')
-        else
-          client.salesman = Salesman.find_or_create_by(name: c.ywy)
+        unless client.new_record?
+          if c.ywy.nil? || c.ywy.empty?
+            client.salesman = Salesman.find_or_create_by(name: 'pooul')
+          else
+            client.salesman = Salesman.find_or_create_by(name: c.ywy)
+          end
         end
         unless c.zdcm.nil? || c.zdcm.empty?
           pos = PosMachine.find_machine(c.zdcm)
