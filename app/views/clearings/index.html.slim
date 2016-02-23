@@ -18,7 +18,7 @@
       thead
         tr
           th 商户ID
-          th 交易日期
+          th 清算日期
           th.text-right 交易笔数
           th.text-right 交易金额
           th.text-right 交易费用
@@ -26,7 +26,6 @@
           th.text-right 实际金额
           th 清算状态
           th 状态
-          th 创建时间
 
       tbody
         tr.bg-info
@@ -48,4 +47,3 @@
             td.text-right=n2 obj.actual_amount
             td.text-right=n2 obj.clearing_status.name
             td= obj.status
-            td= obj.created_at
