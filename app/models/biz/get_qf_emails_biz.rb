@@ -18,7 +18,7 @@ module Biz
       require "net/imap"
 
       get_new_emails.each do |uid|
-        slog uid
+        server_log uid
         if ImpLog.where('status>0').find_by(uid: uid)
           log ":h1 重复邮件[#{uid}]"
           next
