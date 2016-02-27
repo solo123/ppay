@@ -1,4 +1,10 @@
 class AgentsController < ResourcesController
+  after_action :set_month_total_dirty, only: [:create, :update]
+  def set_month_total_dirty
+    c = CodeTable.find_code('config', '当前对账月份')
+    c.status = 7
+    c.save
+  end
   def create_login
     load_object
     contact = Contact.find(params[:contact_id].to_i)

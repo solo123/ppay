@@ -1,8 +1,13 @@
 .row
   .col-md-12
-    p 
-      |当前对账月份：#{CodeTable.find_code('config', '当前对账月份').val}
-      = link_to '重算当前月汇总', run_job_jobs_path('trades_totals_recal'), remote: true, data: {confirm: '只有在修改了商户代理之后才需要重算当月统计，确认吗？'}
+    p
+      - ct = CodeTable.find_code('config', '当前对账月份')
+      |当前对账月份：#{ct.val}
+      - if ct.status == 0
+        | (当前数据不需要重算)
+      - else
+        | (有修改过代理商或业务员，可能需要重算！)
+        = link_to '重算当前月汇总', run_job_jobs_path('recaculate_month'), remote: true, data: {confirm: '只有在修改了商户代理之后才需要重算当月统计，确认吗？'}
     .panel.panel-success
       .panel-heading
         .panel-heading-btn

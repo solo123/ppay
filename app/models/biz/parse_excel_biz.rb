@@ -1,13 +1,11 @@
 module Biz
   class ParseExcelBiz < AdminBiz
     def main_job
-      return if $redis.get(@@flag_name) == 'running'
-      $redis.set(@@flag_name, 'running')
-      @parent_log = log "导入已下载的excel文件数据。"
-      ImpLog.where(status: 1).each do |l|
-        import_data(l)
+      operation_job('导入Excel文件中的数据') do
+        ImpLog.where(status: 1).each do |l|
+          import_data(l)
+        end
       end
-      $redis.set(@@flag_name, '')
     end
 
     def import_data(implog)

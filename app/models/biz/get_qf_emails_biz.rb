@@ -1,16 +1,12 @@
 module Biz
   class GetQfEmailsBiz < AdminBiz
     def main_job
-      return if $redis.get(@@flag_name) == 'running'
-      $redis.set(@@flag_name, 'running')
-      @parent_log = log "从email中导入数据"
-      begin
-        import_from_email_unsafe
-      rescue Exception => e
-        log '读取邮件出错:' + e.message, e.backtrace.inspect
-      ensure
-        $redis.set(@@flag_name, '')
-        log '[job_end] 读取QF邮件结束.'
+      operation_job('从email中导入QF数据') do
+        begin
+          import_from_email_unsafe
+        rescue Exception => e
+          log '读取邮件出错:' + e.message, e.backtrace.inspect
+        end
       end
     end
 
@@ -20,7 +16,7 @@ module Biz
       get_new_emails.each do |uid|
         server_log uid
         if ImpLog.where('status>0').find_by(uid: uid)
-          log ":h1 重复邮件[#{uid}]"
+          log ":b 重复邮件[#{uid}]"
           next
         end
         implog = ImpLog.find_or_create_by(uid: uid.to_i, status: 0)

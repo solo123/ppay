@@ -8,6 +8,8 @@ alert('<%= err %>');
 
 if ($('#import_dialog').length == 0){
   $('body').append("<%=j render 'dialog' %>");
+} else {
+  $('#dialog_messages').html('');
 }
 
 $('#import_dialog').modal();

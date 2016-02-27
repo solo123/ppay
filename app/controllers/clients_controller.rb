@@ -28,7 +28,7 @@ class ClientsController < ResourcesController
     params.permit!
     @object.attributes = params[:client]
     if @object.salesman_id_changed?
-      c = CodeTable.find_code('config', '对账日期')
+      c = CodeTable.find_code('config', '当前对账月份')
       c.status = 7
       c.save
     end

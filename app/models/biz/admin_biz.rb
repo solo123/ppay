@@ -1,7 +1,6 @@
 module Biz
   class AdminBiz
     attr_accessor :errors
-    @@flag_name = 'server_import_flag'
 
     def initialize
       @errors = []
@@ -11,6 +10,26 @@ module Biz
     def main_job
     end
 
+    def operation_job(job_name)
+      return if $redis.get(:server_import_flag) == 'running'
+      $redis.set(:server_import_flag, 'running')
+      @parent_log = log job_name
+      server_log '[job start] ' + job_name
+      yield
+      $redis.set(:server_import_flag, '')
+      server_log('[job_end] ' + job_name)
+    end
+    def operation_each(query)
+      qry_count = query.count
+      qry_idx = 0
+      op_id = 'op_' + rand(1..999999).to_s
+      query.each do |row|
+        yield row
+        server_log(":% #{op_id} #{qry_count} #{qry_idx}")
+        qry_idx += 1
+      end
+    end
+
     def log(title, detail = nil)
       log = Log.new
       log.log_title = title
@@ -18,12 +37,11 @@ module Biz
       log.level = 11
       log.parent = @parent_log
       log.save
-      $redis.lpush(:server_log, title)
       log
     end
     def server_log(msg)
       puts msg
-      $redis.lpush('server_log', msg)
+      $redis.lpush(:server_log, msg)
     end
   end
 end

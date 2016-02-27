@@ -10,18 +10,18 @@ module Biz
     end
 
     def main_job
-      return if $redis.get(@@flag_name) == 'running'
-      $redis.set(@@flag_name, 'running')
-      @parent_log = log "数据导入业务表"
-      import_customers
-      import_trades
-      import_clearings
-      $redis.set(@@flag_name, '')
+      operation_job('导入业务数据') do
+        import_customers
+        import_trades
+        import_clearings
+      end
     end
 
     def import_customers
       log '导入客户数据...'
-      ImpQfCustomer.new_data.each do |c|
+      server_log '导入客户数据'
+      qry = ImpQfCustomer.new_data
+      operation_each(qry) do |c|
         import_customer(c)
       end
     end
@@ -81,7 +81,9 @@ module Biz
 
     def import_trades
       log '开始导入交易数据...'
-      ImpQfTrade.new_data.each do |t|
+      server_log '导入交易数据'
+      qry = ImpQfTrade.new_data
+      operation_each(qry) do |t|
         import_trade(t)
       end
     end
@@ -114,7 +116,9 @@ module Biz
     end
     def import_clearings
       log('开始导入清算数据...')
-      ImpQfClearing.new_data.each do |c|
+      server_log('导入清算数据')
+      qry = ImpQfClearing.new_data
+      operation_each(qry) do |c|
         import_clearing(c)
       end
     end
