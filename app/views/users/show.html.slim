@@ -4,16 +4,16 @@
   p
     strong
       | Name:
-    = @user.name
+    = @object.name
   p
     strong
       | Mobile:
-    = @user.mobile
+    = @object.mobile
 
   p
     strong
       | Email:
-    = @user.email
-  = link_to '更改', edit_user_path(@user)
+    = @object.email
+  = link_to '更改', edit_user_path(@object)
   |  | 
   = link_to '返回', users_path

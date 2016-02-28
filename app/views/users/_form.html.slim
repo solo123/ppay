@@ -1,12 +1,12 @@
 .container  
-  = form_for(@user) do |f|
-    - if @user.errors.any?
+  = form_for(@object) do |f|
+    - if @object.errors.any?
       #error_explanation
         h2
-          = pluralize(@user.errors.count, "error")
+          = pluralize(@object.errors.count, "error")
           |  prohibited this user from being saved:
         ul
-          - @user.errors.full_messages.each do |message|
+          - @object.errors.full_messages.each do |message|
             li
               = message
     .field.input-group.input-group-lg
@@ -19,5 +19,5 @@
       = f.label :邮箱
       = f.text_field :email, :class =>'form-control'
     .actions.m-t-10
-      = link_to '预览更新', @user, :class =>'btn btn-warning'
+      = link_to '预览更新', @object, :class =>'btn btn-warning'
       = f.submit value='确认更新', :class =>'btn btn-success m-l-10'
