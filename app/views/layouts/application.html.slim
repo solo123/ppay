@@ -6,25 +6,24 @@ html
     meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
 
     title Ppay
+    = stylesheet_link_tag    "application", media: "all"
 
     link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"
-    link href="/color_admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
     link href="/color_admin/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/animate.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/style.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/style-responsive.min.css" rel="stylesheet"
     link href="/color_admin/assets/css/theme/red.css" rel="stylesheet"
 
-    link href="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" 
-    link href="/color_admin/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" 
-    link href="/color_admin/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" 
-    link href="/color_admin/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" 
-    
+    link href="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet"
+
     script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
-    = stylesheet_link_tag    "application", media: "all"
     = javascript_include_tag "application"
-    
-     
+
+
   body style='font-size:14px;'
     div id="page-loader" class="fade in"
       span class='spinner'
@@ -40,12 +39,12 @@ html
 
       div id="sidebar" class="sidebar"
         = render 'shared/left_menu'
-                              
+
 
       div class='content'  id='content'
         = yield
 
-      .footer#footer 
+      .footer#footer
         .row
           .col-md-12
             p Copyright © 2012–2015 深圳市普尔瀚达科技有限公司. All rights reserved. Version：0.1beta
@@ -67,7 +66,7 @@ html
 
     / script src="/color_admin/assets/js/login-v2.demo.min.js"
     script src="/color_admin/assets/js/apps.min.js"
-    
+
     - if false
       script src="/color_admin/assets/crossbrowserjs/html5shiv.js"
       script src="/color_admin/assets/crossbrowserjs/respond.min.js"
@@ -86,14 +85,14 @@ html
     / script src="/color_admin/assets/js/dashboard.js"
     / script src="/color_admin/assets/js/form-plugins.demo.min.js"
 
-    
+
     javascript:
       sidemenu();
       client_show();
       App.init();
       //FormPlugins.init();
       //Dashboard.init();
-      
+
     / 显示flash消息
     = flash.each do |type, message|
       div class="flash"
@@ -107,9 +106,5 @@ html
               time: '',
               class_name: 'my-sticky-class'
               });
-              }, 500);     
+              }, 500);
           }
-        
-      
-      
-  

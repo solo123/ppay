@@ -2,11 +2,10 @@ ol.breadcrumb.pull-right
   li= link_to 'Home', root_path
   li= link_to '代理管理', agents_path
   li= link_to '查看', agent_path(@object)
-h1
-  | 更改合作商信息
+h1.page-header 更改合作商信息哈哈
 .row
 	.col-md-6
-		- @parent = @object  
+		- @parent = @object
 		= render 'form'
 	.col-md-6
 		#contacts_div

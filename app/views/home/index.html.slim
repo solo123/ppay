@@ -1,4 +1,4 @@
-p 
+p
   | 数据导入时间：#{ l ImpLog.first.created_at if ImpLog.count > 0}，
   = link_to '数据处理', imp_logs_path, class: "btn btn-primary btn-xs"
 .row
@@ -7,21 +7,21 @@ p
       .stats-icon
         i.fa.fa-cny
       .stats-info
-        h3 本月总交易金额
+        h4 本月总交易金额
         p#month_total_amount
       .stats-link
         a href='#'
-          span 总笔数 : 
+          span 总笔数 :
           span#month_total_count
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
-        i.fa.fa-wechat 
+        i.fa.fa-wechat
       .stats-info
-        h3 本月微信交易金额
+        h4 本月微信交易金额
         p#month_wechart_amount
       .stats-link
-        a href='#' 
+        a href='#'
           span 总笔数:
           span#month_wechart_count
   .col-md-3
@@ -29,11 +29,11 @@ p
       .stats-icon
         i.fa.fa-money
       .stats-info
-        h3 本月T0交易金额
+        h4 本月T0交易金额
         p#month_t0_amount
       .stats-link
         a href='#'
-          span 总笔数 : 
+          span 总笔数 :
           span#month_t0_count
   .col-md-3
     .widget.widget-stats.bg-red
@@ -44,13 +44,13 @@ p
         p#month_clients_count
       .stats-link
         a href='#'
-          span 总商户数 : 
+          span 总商户数 :
           span#total_clients_count
-  
+
 br
 .row
   .col-md-12
-    .panel.panel-primary
+    .panel.panel-inverse
       .panel-heading
         .btn-group.pull-right data-toggle='buttons'
           label.btn.btn-success.btn-xs#mon_trades_prev
@@ -61,79 +61,21 @@ br
         h4.panel-title 交易汇总表
       .panel-body#mon_trades_total style='overflow:auto;'
 
-        
-.row
-  .col-md-12
-    .panel.panel-warning
-      .panel-heading
-        h4.panel-title 新增商户
-      .panel-body#new_clients
-    
-.row
-  .col-md-12
-    .panel.panel-info
-      .panel-heading
-        .btn-group.pull-right#orderbtn-client data-toggle='buttons'
-          label.btn.btn-success.btn-xs value='trade_date'
-            input type='radio' name='options' 日期
-          label.btn.btn-success.btn-xs value='total_amount'
-            input type='radio' name='options' 总金额
-          label.btn.btn-success.btn-xs value='total_count'
-            input type='radio' name='options' 总笔数
-          label.btn.btn-success.btn-xs value='wechat_amount'
-            input type='radio' name='options' 微金额
-          label.btn.btn-success.btn-xs value='wechat_count'
-            input type='radio' name='options' 微笔数
-          label.btn.btn-success.btn-xs value='alipay_amount'
-            input type='radio' name='options' 支金额
-          label.btn.btn-success.btn-xs value='alipay_count'
-            input type='radio' name='options' 支笔数
-          label.btn.btn-success.btn-xs value='t0_amount'
-            input type='radio' name='options' T0金额
-          label.btn.btn-success.btn-xs value='t0_count'
-            input type='radio' name='options' T0笔数
-        .btn-group.pull-right data-toggle='buttons'  style='margin-right:420px;'
-          label.btn.btn-success.btn-xs#premonth_activeclient
-            input type='radio' name='options' 上一月
-          label.btn.btn-xs#date_activeclient 2015-11
-          label.btn.btn-success.btn-xs#nextmonth_activeclient
-            input type='radio' name='options' 下一月
-        h4.panel-title 活跃用户
-      .panel-body#active_clients
 
 .row
   .col-md-12
-    .panel.panel-info
+    .panel.panel-inverse
       .panel-heading
-        .btn-group.pull-right#orderbtn-agent data-toggle='buttons' 
-          label.btn.btn-success.btn-xs
-            input type='radio' name='options' 入网商户
-          label.btn.btn-success.btn-xs value='total_amount'
-            input type='radio' name='options' 总金额
-          label.btn.btn-success.btn-xs value='wechat_amount'
-            input type='radio' name='options' 微金额
-          label.btn.btn-success.btn-xs value='wechat_count'
-            input type='radio' name='options' 微笔数
-          label.btn.btn-success.btn-xs value='alipay_count'
-            input type='radio' name='options' 支金额
-          label.btn.btn-success.btn-xs value='t0_amount'
-            input type='radio' name='options' T0金额
-        .btn-group.pull-right data-toggle='buttons' style='margin-right:500px;' 
-          label.btn.btn-success.btn-xs#premonth_activeagent
-            input type='radio' name='options' 上一月
-          label.btn.btn-xs#date_activeagent 2015-11
-          label.btn.btn-success.btn-xs#nextmonth_activeagent
-            input type='radio' name='options' 下一月
-        h4.panel-title 活跃合作商
-      .panel-body#active_agents
-        /
+        h4.panel-title 新增商户
+      .panel-body#new_clients
+
 
 javascript:
   $(function(){
     var d = new Date();
     var y = d.getFullYear();
     var m = d.getMonth();
-    
+
     $.getScript("#{home_summary_report_path}");
     $.getScript("#{clients_days_report_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{new_clients_report_path}");
