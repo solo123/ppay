@@ -30,7 +30,9 @@ module Biz
       end
     end
 
-    def log(title, detail = nil)
+    def log(title, detail = nil, puts_to_server: false)
+      server_log(title) if puts_to_server
+
       log = Log.new
       log.log_title = title
       log.log_detail = detail
@@ -40,7 +42,7 @@ module Biz
       log
     end
     def server_log(msg)
-      puts msg
+      #puts msg
       $redis.lpush(:server_log, msg)
     end
   end

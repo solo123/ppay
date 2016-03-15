@@ -45,6 +45,7 @@ gem 'acts-as-taggable-on' # 给model打tag
 gem 'mail'
 gem 'airbrake', '~> 5.0'
 gem 'select2-rails'
+gem 'simple_xlsx_reader'
 
 gem 'ppay_model', path: '../ppay_model'
 

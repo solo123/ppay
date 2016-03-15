@@ -1,20 +1,15 @@
 .news-feed
   .news-image
-    img src="/color_admin/assets/img/login-bg/bg-qpos.png" data-id="login-cover-image" alt=""
+    = image_tag 'bg-6.jpg'
   .news-caption style='height:100%'
     h4.caption-title
-    /   i.fa.fa-diamond.text-success Announcing the Color Admin app
-    / p Download the Color Admin app for iPhone®, iPad®, and Android™. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 div class="right-content"
   div class='login-header'
     div class='brand'
-      img src='/logo-0.png' style='border-radius:44px;'
+      = image_tag 'Logo.jpg', style: 'border-radius:44px;'
       span 普尔支付
     
   div class='login-content'
-    / = flash.each do |type, message|
-    /   div class="flash"
-    /     == message
 
     = simple_form_for(resource, as: resource_name, 
                       url: session_path(resource_name),
