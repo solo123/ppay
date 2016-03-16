@@ -6,18 +6,15 @@ html
     meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
 
     title Ppay
+    = stylesheet_link_tag    "application", media: "all"
 
     link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"
     link href="/color_admin/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
-    link href="/color_admin/assets/css/animate.min.css" rel="stylesheet"
-    link href="/color_admin/assets/css/style.min.css" rel="stylesheet"
-    link href="/color_admin/assets/css/style-responsive.min.css" rel="stylesheet"
-    link href="/color_admin/assets/css/theme/red.css" rel="stylesheet"
 
 
   body class='pace-top bg-white'
     div class='fade in' id='page-loader'
-      span class='spinner'
+      span class='spinner' 哈哈
     div id='page-container' class='fade'
       .login.login-with-news-feed
         = yield
