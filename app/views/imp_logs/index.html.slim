@@ -25,7 +25,11 @@
             - @collection.each do |obj|
               tr id="imp_log_#{obj.id}"
                 td rowspan='2'
+                  = obj.id
+                  br
+                  |(uid: 
                   = obj.uid
+                  |)
                 td
                   = obj.title
                   br/

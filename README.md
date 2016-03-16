@@ -1,4 +1,11 @@
 # 最近更新
+* 2016-03-16
+  - 增加临时工具Biz::DataClearBiz
+    -<code>
+  biz.clear_data_after('2016-02-23')
+  biz.clear_import_after(101)
+  </code>
+    -
 * 2016-03-15
   - color_admin加入assets目录(alei)
   - 修改读取email识别附件是xls还是xlsx，增加simple_xlsx_reader读取扩展

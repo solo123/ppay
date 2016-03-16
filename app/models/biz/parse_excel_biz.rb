@@ -44,6 +44,7 @@ module Biz
         log "无法打开excel文件", @parse_biz.error_message
       else
         implog.detail << '[格式正确]'
+        implog.status = 8
       end
       implog.save
     end
