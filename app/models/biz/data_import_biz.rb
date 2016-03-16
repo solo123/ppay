@@ -45,7 +45,7 @@ module Biz
 
         client.category = CodeTable.find_code(:biz_catalog, c.hylx)
         if client.changed?
-          log "更新资料：id:#{client.shid} - #{client.shop_name}: [#{client.changes}]"
+          log "更新资料：id:#{client.shid} - #{client.shop_name}", "[#{client.changes}]"
           client.save
         end
         client.address ||= client.build_address
@@ -57,7 +57,7 @@ module Biz
           log "新增地址：#{client.address}"
         else
           if client.address.changed?
-            log "更新地址：[#{client.address.id}] #{client.address.changes}"
+            log "更新地址：[#{client.address.id}]", "#{client.address.changes}"
           end
         end
         client.address.save
