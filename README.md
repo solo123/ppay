@@ -1,5 +1,6 @@
 # 最近更新
 * 2016-03-16
+  - 修改导入数据后未设置implog的状态导致会重复导入；
   - 增加临时工具Biz::DataClearBiz
     -<code>
   biz.clear_data_after('2016-02-23')
