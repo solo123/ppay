@@ -4,6 +4,7 @@ module Biz
       d = Time.zone.parse(start_date_string)
       Trade.where('trade_date>?', d).delete_all
       Clearing.where('trade_date>?', start_date_string).delete_all
+      TradeSum.where('trade_date>?', start_date_string).delete_all
     end
 
     def clear_import_after(implog_id)
