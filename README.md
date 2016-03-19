@@ -1,4 +1,11 @@
 # 最近更新
+* 2016-03-16
+  - 修改导入数据后未设置implog的状态导致会重复导入；
+  - 增加临时工具Biz::DataClearBiz
+```ruby
+  biz.clear_data_after('2016-02-23')
+  biz.clear_import_after(101)
+```
 * 2016-03-15
   - color_admin加入assets目录(alei)
   - 修改读取email识别附件是xls还是xlsx，增加simple_xlsx_reader读取扩展
