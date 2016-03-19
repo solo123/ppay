@@ -215,6 +215,7 @@ GEM
     ruby-ole (1.2.12)
     ruby_parser (3.7.3)
       sexp_processor (~> 4.1)
+    rubyzip (1.2.0)
     sass (3.4.21)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -235,6 +236,9 @@ GEM
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
+    simple_xlsx_reader (1.0.2)
+      nokogiri
+      rubyzip
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -296,6 +300,7 @@ DEPENDENCIES
   select2-rails
   sidekiq
   simple_form
+  simple_xlsx_reader
   slim
   spreadsheet
   sqlite3

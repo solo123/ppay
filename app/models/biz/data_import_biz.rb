@@ -45,7 +45,7 @@ module Biz
 
         client.category = CodeTable.find_code(:biz_catalog, c.hylx)
         if client.changed?
-          log "更新资料：id:#{client.shid} - #{client.shop_name}: [#{client.changes}]"
+          log "更新资料：id:#{client.shid} - #{client.shop_name}", "[#{client.changes}]"
           client.save
         end
         client.address ||= client.build_address
@@ -57,12 +57,12 @@ module Biz
           log "新增地址：#{client.address}"
         else
           if client.address.changed?
-            log "更新地址：[#{client.address.id}] #{client.address.changes}"
+            log "更新地址：[#{client.address.id}]", "#{client.address.changes}"
           end
         end
         client.address.save
 
-        unless client.new_record?
+        if client.new_record?
           if c.ywy.nil? || c.ywy.empty?
             client.salesman = Salesman.find_or_create_by(name: 'pooul')
           else
@@ -96,7 +96,7 @@ module Biz
         trade.pos_machine = PosMachine.find_machine(t.zdcm)
         if trade.client
           trade.sub_account = t.zzh
-          trade.trade_date = Time.zone.parse(t.jyrq)
+          trade.trade_date = parse_date_field(t.jyrq)
           trade.trade_type = CodeTable.find_code('trade_type', t.jylx)
           trade.trade_result = CodeTable.find_code('trade_result', t.jyjg)
           trade.trade_amount = t.jye
@@ -149,6 +149,11 @@ module Biz
         c.zt = 7
       end
       c.save
+    end
+
+    def parse_date_field(str)
+      str = str[0..18] if str.length > 19
+      Time.zone.parse(str)
     end
   end
 end

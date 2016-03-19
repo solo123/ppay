@@ -26,14 +26,20 @@
               tr id="imp_log_#{obj.id}"
                 td rowspan='2'
                   = obj.uid
-                td= obj.title
+                td
+                  | 邮件标题
+                  = obj.title
+                  br/
+                  h4
+                    | 附件名称
+                    = obj.origin_filename
                 td
                   | 发件人:&nbsp;
                   = obj.mail_from
                 td rowspan='2' nowrap="nowrap"
-                  - if obj.status > 0
+                  - if obj.status > 0 && obj.filename
                     i.fa.fa-file-excel-o &nbsp;
-                    = link_to 'xls文件', download_import_xls_path(name: "#{obj.uid}.xls")
+                    = link_to File.extname(obj.filename) + '文件', download_import_xls_path(name: "#{File.basename(obj.filename)}")
                     br
                     = link_to "商户：#{obj.imp_qf_customers.count}条/#{obj.imp_qf_customers.where(zt: 1).count}, ", imp_qf_customers_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
                     br
