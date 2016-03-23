@@ -42,7 +42,7 @@ module Biz
       log
     end
     def server_log(msg)
-      #puts msg
+      puts msg
       $redis.lpush(:server_log, msg)
     end
   end
