@@ -31,9 +31,12 @@
                   = obj.uid
                   |)
                 td
+                  | 邮件标题
                   = obj.title
                   br/
-                  = obj.origin_filename
+                  h4
+                    | 附件名称
+                    = obj.origin_filename
                 td
                   | 发件人:&nbsp;
                   = obj.mail_from

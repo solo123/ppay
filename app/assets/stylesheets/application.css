@@ -13,5 +13,6 @@
  *= require_tree ./bootstrap
  *= require_tree ./color-admin
  *= require_tree ./responsive
+ *= require_tree ./shared
  *= require_self
  */
