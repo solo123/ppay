@@ -5,8 +5,8 @@ function load_status(){
       var d = $('#dialog_messages');
       if(d != null){
         $.each(msgs, function(index, value){
-          if (value.startsWith(':')){
-            if (value.startsWith(':%')){
+          if (value && value.substring(0,1)==':'){
+            if (value.substring(1,2) == '%'){
               s = value.split(' ');
               if (s.length>3){
                 if ($('#' + s[1]).length==0){
