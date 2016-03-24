@@ -4,11 +4,11 @@ ol.breadcrumb.pull-right
   li= link_to 'Home', root_path
   li= link_to '代理管理', agents_path
   li= link_to '修改', edit_agent_path(@object)
-h1 
+h1
   span 代理商生命周期
   small
-    | 合作时长: #{@object.cooperation_date}, 
-    | 最近入网时间: #{@last_date}, 
+    | 合作时长: #{@object.cooperation_date},
+    | 最近入网时间: #{@last_date},
     | 上月交易总额: #{@last_amount}
 .row
   .col-md-3
@@ -20,8 +20,8 @@ h1
         p=n2 agent_sum_month @object, trade_month, 'all', 'amount'
       .stats-link
         a href='#'
-          span 
-            | 总笔数 : 
+          span
+            | 总笔数 :
             =n0 agent_sum_month @object, trade_month, 'all', 'count'
   .col-md-3
     .widget.widget-stats.bg-green#weixin
@@ -31,9 +31,9 @@ h1
         h3 本月微信交易金额
         p=n2 agent_sum_month @object, trade_month, 'wechat', 'amount'
       .stats-link
-        a href='#' 
-            span  
-              | 笔数: 
+        a href='#'
+            span
+              | 笔数:
               =n0 agent_sum_month @object, trade_month, 'wechat', 'count'
   .col-md-3
     .widget.widget-stats.bg-purple
@@ -58,11 +58,11 @@ h1
             td=n2 (n = agent_sum_month(@object, trade_month, 't1', 'amount'))
             td=n2 (t4 = @object.profit(n, 't1'))
       .stats-link
-        a href='#' 
-          span  
-            | 分润合计: 
+        a href='#'
+          span
+            | 分润合计:
             =n2 t1 + t2 + t3 + t4
-      
+
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
@@ -72,20 +72,8 @@ h1
         p=n0 @object.clients.count
       .stats-link
         a href='#'
-          span 本月新增商户 : 
+          span 本月新增商户 :
           span=n0 @object.clients.where("join_date like ?", Date.current.to_s[0..6] + '%').count
-
-/
-.row
-  .col-md-8   
-    div class="jumbotron"
-      h1 2020年 遇见未来
-      p 接下来你将度过完美的4年生活.
-      a class="btn btn-primary btn-lg" href="#" role="button"
-        | Learn more
-  .col-md-4
-    h4 历史公告
-
 .panel.panel-primary
   .panel-heading
     h4.panel-title 合作商基础信息
@@ -108,7 +96,7 @@ h1
             td 联系人: #{cc.name}
             td 联系人手机: #{cc.tel}
             td 邮箱:
-            td 地址: 
+            td 地址:
     .row
       h4 业务信息
       table class='table table-hover'
@@ -120,7 +108,7 @@ h1
           td 开通T0: #{if @object.t0_enabled then '是' else '否'}
           td 合作收单类型: #{@object.bank_biz_types}
           td 合作区域: #{@object.cooperation_location}
-          
+
     .row
       h4  结算信息
       table class='table table-hover'
@@ -128,7 +116,7 @@ h1
           td 银行开户行: #{}
           td 银行开户支行: #{}
           td 账户名: #{}
-          td 账户帐号: #{}             
+          td 账户帐号: #{}
     .row
       h4 财务信息
       table class='table table-hover'
@@ -139,16 +127,14 @@ h1
     .row
       h4 分润合同
       = render partial: 'contracts/list', locals: {agent: @object, contracts: @object.contracts}
-      
+
 
   #contacts_div
 
-h2 活跃商户
-.panel-body#active_clients_agent_day_tradetotal
-
-
-h2 活跃业务员
-.panel-body#active_salesmen_agent_day_tradetotal
+/h2 活跃商户
+/.panel-body#active_clients_agent_day_tradetotal
+/h2 活跃业务员
+/.panel-body#active_salesmen_agent_day_tradetotal
 
 .panel.panel-primary
   .panel-heading
@@ -166,11 +152,10 @@ h2 活跃业务员
             td= r.name
             td
             td= link_to('detail', salesman_path(r))
-          
+
 javascript:
 /
   $(document).ready(function(){
     //$.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
     //$.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
   });
-  

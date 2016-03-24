@@ -2,7 +2,7 @@ ol.breadcrumb.pull-right
   li= link_to 'Home', root_path
   li= link_to '代理管理', agents_path
   li= link_to '查看', agent_path(@object)
-h1.page-header 更改合作商信息哈哈
+h1.page-header 更改合作商信息
 .row
 	.col-md-6
 		- @parent = @object
@@ -12,9 +12,8 @@ h1.page-header 更改合作商信息哈哈
 		  = render 'contacts/contacts'
 		#sales_commissions_div
 		 /  = render 'sales_commissions/sales_commissions'
-
 = render 'edit_salesman_list'
 
 = link_to 'Show', @object
-|  | 
+|  |
 = link_to 'Back', agents_path

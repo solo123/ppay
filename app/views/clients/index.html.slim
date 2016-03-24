@@ -15,41 +15,43 @@ div class='panel panel-inverse'
       .col-sm-7
         .dataTables_paginate.paging_simple_numbers
           = paginate @collection
-    table.table
+    table.table.table-striped
       thead
         tr
+          th 商户信息
           th 联系人
-          th 手机
           th 地区
+          th 入网时间
           th 业务员
-          th 商户类型
-          th colspan='3' 限额(单笔|月)
+          th 限额(单笔|月)
           th 费率
-          th 操作
       tbody
         - @collection.each do |obj|
           tr
-            td colspan='6' style='padding:4px 15px;'
-              | ID: #{obj.shid} |
-              | 商户名称: #{obj.shop_name} |
-              | 地址：#{obj.street}
-            td colspan='3' style='padding:4px 15px; text-align:right;'
-              = link_to '详情', client_path(obj.client_id)
-
-          tr
-            td= obj.contact_name
             td
-              = link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
+              strong
+                | 商户名称：
+                = link_to "#{obj.shop_name}", client_path(obj.client_id)
+              hr
+              =obj.category_name
               br
-              = obj.join_date
+              | 商户ID：#{obj.shid}
             td
-              = obj.province_name
-              = obj.city_name
+              = obj.contact_name
+              hr
+              = obj.shop_tel
+            td
+              strong
+                = obj.province_name
+                = obj.city_name
+              hr
+              = obj.street
+            td= obj.join_date
             td= link_to "#{obj.salesman_name}", salesman_path(obj.salesman)
-            td= obj.category_name
-
             td
-              p 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万
-              p 借记卡: #{obj.bank_card_limit_each/10000}万|#{obj.bank_card_limit_month/10000}万
-            td style='font-size:25px;color:orange;' #{obj.rate*100}%
+              | 信用卡：#{obj.credit_card_limit_each/10000}万 | #{obj.credit_card_limit_month/10000}万
+              hr
+              | 借记卡：#{obj.bank_card_limit_each/10000}万 | #{obj.bank_card_limit_month/10000}万
+            td
+              strong.rate.text-info #{obj.rate*100}%
     = paginate @collection
