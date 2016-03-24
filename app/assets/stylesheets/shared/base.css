@@ -8,3 +8,9 @@
 .pagination > li > span:focus,.pagination > li > span:hover{
 	color: #707478;
 }
+
+table.table hr{ margin-top: 8px; margin-bottom: 8px;}
+table.table strong.rate{ font-size: 180%; font-weight:200; }
+.trade-type label:first-child{margin-left: 0; padding-left: 0;}
+.form-horizontal .form-group{ margin-left: auto; margin-right: auto;}
+.simple-form .control-label{ display: none;}
