@@ -5,7 +5,7 @@ ol.breadcrumb.pull-right
   li= link_to '代理管理', agents_path
   li= link_to '修改', edit_agent_path(@object)
 h1
-  span 代理商生命周期
+  span #{@object.company.name}
   small
     | 合作时长: #{@object.cooperation_date},
     | 最近入网时间: #{@last_date},

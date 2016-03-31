@@ -16,5 +16,6 @@ table.table strong.rate{ font-size: 180%; font-weight:200; }
 .simple-form .control-label{ display: none;}
 
 
-.agents-details-month strong.amount, .agents-details-month span.profit{ display: block; padding: 3px 0;}
-.agents-details-month span.profit{color: #ff5b57;}
+.agents-details-month strong.amount, .agents-details-month span.profit{ font-weight: normal; display: block; padding: 3px 0;}
+.agents-details-month strong{ font-size: 120%; }
+.agents-details-month span.profit{color: #00acac;}
