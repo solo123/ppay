@@ -8,18 +8,6 @@ else
   puts "用户User不为空，不再创建默认用户"
 end
 
-if User.count < 300
-  puts "开始创建默认用户..."
-  User.create('name'=>'zk', 'mobile'=>'18665319889', 'email'=>'zk@pooul.cn', 'password'=>'zk@pooul.cn')
-  User.create('name'=>'angel', 'mobile'=>'18670358555', 'email'=>'angel@pooul.cn', 'password'=>'angel@pooul.cn')
-  User.create('name'=>'ivy', 'mobile'=>'13826554535', 'email'=>'ivy@pooul.cn', 'password'=>'ivy@pooul.cn')
-  User.create('name'=>'dount', 'mobile'=>'15016709991', 'email'=>'qpos@pooul.cn', 'password'=>'qpos@pooul.cn')
-  puts "已创建完毕公司员工默认用户."
-else
-  puts "用户User不为空，不再创建默认用户"
-end
-
-
 def add_menu(parent, name, dt1, dt2, status)
   CodeTable.create(name: name, val: dt1, tag: dt2, status: status, parent_id: parent).id
 end
