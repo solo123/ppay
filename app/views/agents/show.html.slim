@@ -4,13 +4,13 @@ ol.breadcrumb.pull-right
   li= link_to 'Home', root_path
   li= link_to '代理管理', agents_path
   li= link_to '修改', edit_agent_path(@object)
-h1
+h1.page-header
   span #{@object.company.name}
   small
     | 合作时长: #{@object.cooperation_date},
     | 最近入网时间: #{@last_date},
     | 上月交易总额: #{@last_amount}
-.row
+.row style="display:none;"
   .col-md-3
     .widget.widget-stats.bg-blue
       .stats-icon
@@ -39,7 +39,7 @@ h1
     .widget.widget-stats.bg-purple
       .stats-icon
         i.fa.fa-clock-o
-      .stats-info
+      .stats-info style="display:none;"
         table.table
           tr
             td 微信
@@ -62,7 +62,6 @@ h1
           span
             | 分润合计:
             =n2 t1 + t2 + t3 + t4
-
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
@@ -75,8 +74,43 @@ h1
           span 本月新增商户 :
           span=n0 @object.clients.where("join_date like ?", Date.current.to_s[0..6] + '%').count
 
+.row.agents-info
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 机构信息
+      .panel-body
+        - if @object.company
+          dl.dl-horizontal
+            dt 全称:
+            dd #{@object.company.name}
+            dt 简称:
+            dd #{@object.company.short_name}
+        dl.dl-horizontal
+          dt 保证金:
+          dd #{@object.deposit}
+          dt 待结算分润:
+          dd #{@object.amounts_payable}
+
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 业务信息
+      .panel-body
+        dl.dl-horizontal
+          dt 合作形式:
+          dd #{@object.cooperation_type}
+          dt 合作日期:
+          dd #{@object.cooperation_date}
+          dt 开通T0:
+          dd #{if @object.t0_enabled then '是' else '否'}
+          dt 合作收单类型:
+          dd #{@object.bank_biz_types}
+          dt 合作区域:
+          dd #{@object.cooperation_location}
+
 /我临时做的，你可以改成好的方法 by Alex lei 2016.3.31
-.panel.panel-primary
+.panel.panel-inverse
   .panel-heading
     h4.panel-title 合作商月明细
   .panel-body
@@ -230,59 +264,19 @@ h1
             hr
             span.profit=n2 t1 + t2 + t3 + t4
 
-.panel.panel-default
+.panel.panel-inverse
   .panel-heading
-    h4.panel-title 合作商基础信息
+    h4.panel-title 联系信息
   .panel-body
-    .row
-      h4 机构信息
-      - if @object.company
-        table class='table table-hover'
-          tr
-          td 全称: #{@object.company.name}
-          td 简称: #{@object.company.short_name}
-          td 地区:
-          td 经营地址:
-    .row
-      h4 联系信息
-      table class='table table-hover'
-        - @object.contacts.each do |cc|
-          tr
-            td 联系人角色: #{cc.roles}
-            td 联系人: #{cc.name}
-            td 联系人手机: #{cc.tel}
-            td 邮箱:
-            td 地址:
-    .row
-      h4 业务信息
-      table class='table table-hover'
+    table class='table'
+      - @object.contacts.each do |cc|
         tr
-          td 合作形式: #{@object.cooperation_type}
-          td 合作日期: #{@object.cooperation_date}
-          td 状态
-        tr
-          td 开通T0: #{if @object.t0_enabled then '是' else '否'}
-          td 合作收单类型: #{@object.bank_biz_types}
-          td 合作区域: #{@object.cooperation_location}
-
-    .row
-      h4  结算信息
-      table class='table table-hover'
-        tr
-          td 银行开户行: #{}
-          td 银行开户支行: #{}
-          td 账户名: #{}
-          td 账户帐号: #{}
-    .row
-      h4 财务信息
-      table class='table table-hover'
-        tr class='active'
-          td 保证金: #{@object.deposit}
-          td 待结算分润: #{@object.amounts_payable}
-
-    .row
-      h4 分润合同
-      = render partial: 'contracts/list', locals: {agent: @object, contracts: @object.contracts}
+          td 联系人角色: #{cc.roles}
+          td 联系人: #{cc.name}
+          td 联系人手机: #{cc.tel}
+          td 邮箱:
+          td 地址:
+  = render partial: 'contracts/list', locals: {agent: @object, contracts: @object.contracts}
 
 
   #contacts_div
@@ -292,7 +286,7 @@ h1
 /h2 活跃业务员
 /.panel-body#active_salesmen_agent_day_tradetotal
 
-.panel.panel-primary
+.panel.panel-inverse
   .panel-heading
     h4.panel-title 渠道信息
   .panel-body

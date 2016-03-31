@@ -19,3 +19,7 @@ table.table strong.rate{ font-size: 180%; font-weight:200; }
 .agents-details-month strong.amount, .agents-details-month span.profit{ font-weight: normal; display: block; padding: 3px 0;}
 .agents-details-month strong{ font-size: 120%; }
 .agents-details-month span.profit{color: #00acac;}
+
+.panel-heading .panel-title{ font-weight: normal; font-size: 100%;}
+.agents-info dl dt, .agents-info dl dd{ padding: 5px 0;}
+.agents-info dl dd{font-size: 110%;}
