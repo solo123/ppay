@@ -6,7 +6,7 @@ class LogsController < ApplicationController
   def get_log_msg
     log_name = params[:log_name]
     r = []
-    while (msg = $redis.rpop(log_name))
+    while (msg = $redis.rpop(:server_log))
       r << msg
     end
     render text: r.join('|').html_safe

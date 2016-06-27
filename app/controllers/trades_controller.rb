@@ -11,6 +11,7 @@ class TradesController < ResourcesController
 	end
 
   def client_trades
-    @collection = Trade.where(client_id: params[:client_id]).limit(10)
+    suc_code = CodeTable.find_by(name: 'trade_result').childs.where('name like ?', '交易成功').last
+    @collection = Trade.where(client_id: params[:client_id], :trade_result=> suc_code).limit(100)
   end
 end

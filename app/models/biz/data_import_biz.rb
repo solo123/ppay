@@ -62,7 +62,7 @@ module Biz
         end
         client.address.save
 
-        if client.new_record?
+        if client.salesman.nil?
           if c.ywy.nil? || c.ywy.empty?
             client.salesman = Salesman.find_or_create_by(name: 'pooul')
           else

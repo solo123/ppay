@@ -61,5 +61,4 @@ class AgentsController < ResourcesController
     @collection_salesmen = total.active_salesmen
   end
 
-
 end

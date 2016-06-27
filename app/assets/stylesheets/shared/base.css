@@ -8,3 +8,18 @@
 .pagination > li > span:focus,.pagination > li > span:hover{
 	color: #707478;
 }
+
+table.table hr{ margin-top: 8px; margin-bottom: 8px;}
+table.table strong.rate{ font-size: 180%; font-weight:200; }
+.trade-type label:first-child{margin-left: 0; padding-left: 0;}
+.form-horizontal .form-group{ margin-left: auto; margin-right: auto;}
+.simple-form .control-label{ display: none;}
+
+
+.agents-details-month strong.amount, .agents-details-month span.profit{ font-weight: normal; display: block; padding: 3px 0;}
+.agents-details-month strong{ font-size: 120%; }
+.agents-details-month span.profit{color: #00acac;}
+
+.panel-heading .panel-title{ font-weight: normal; font-size: 100%;}
+.agents-info dl dt, .agents-info dl dd{ padding: 5px 0;}
+.agents-info dl dd{font-size: 110%;}
