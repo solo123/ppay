@@ -1,5 +1,6 @@
 .news-feed
   .news-image
+    = image_tag(("wooul-logo.png"), :alt => "Wooul渠道系统")
     img src="/color_admin/assets/img/login-bg/bg-qpos.png" data-id="login-cover-image" alt=""
   .news-caption style='height:100%'
     h4.caption-title
@@ -7,8 +8,9 @@ div class="right-content"
   div class='login-header'
     div class='brand'
       = image_tag 'Logo.jpg', style: 'border-radius:44px;'
-      span 普尔支付
-
+      small 普尔支付
+    .icon
+      i.fa.fa-sign-in
   div class='login-content'
 
     = simple_form_for(resource, as: resource_name,

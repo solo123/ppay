@@ -263,6 +263,121 @@ h1.page-header
             strong.amount=n2 agent_sum_month @object, '2016-04', 'all', 'amount'
             hr
             span.profit=n2 t1 + t2 + t3 + t4
+        tr
+          td 2016年5月
+          td=n0 @object.clients.where("join_date like ?", '2016-05' + '%').count
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-05', 'wechat', 'amount'))
+            hr
+            span.profit=n2 (t1 = @object.profit(n, 'wechat'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-05', 'alipay', 'amount'))
+            hr
+            span.profit=n2 (t2 = @object.profit(n, 'alipay'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-05', 't0', 'amount'))
+            hr
+            span.profit=n2 (t3 = @object.profit(n, 't0'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-05', 't1', 'amount'))
+            hr
+            span.profit=n2 (t4 = @object.profit(n, 't1'))
+          td
+            strong.amount=n2 agent_sum_month @object, '2016-05', 'all', 'amount'
+            hr
+            span.profit=n2 t1 + t2 + t3 + t4
+        tr
+          td 2016年6月
+          td=n0 @object.clients.where("join_date like ?", '2016-06' + '%').count
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-06', 'wechat', 'amount'))
+            hr
+            span.profit=n2 (t1 = @object.profit(n, 'wechat'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-06', 'alipay', 'amount'))
+            hr
+            span.profit=n2 (t2 = @object.profit(n, 'alipay'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-06', 't0', 'amount'))
+            hr
+            span.profit=n2 (t3 = @object.profit(n, 't0'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-06', 't1', 'amount'))
+            hr
+            span.profit=n2 (t4 = @object.profit(n, 't1'))
+          td
+            strong.amount=n2 agent_sum_month @object, '2016-06', 'all', 'amount'
+            hr
+            span.profit=n2 t1 + t2 + t3 + t4
+        tr
+          td 2016年7月
+          td=n0 @object.clients.where("join_date like ?", '2016-07' + '%').count
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-07', 'wechat', 'amount'))
+            hr
+            span.profit=n2 (t1 = @object.profit(n, 'wechat'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-07', 'alipay', 'amount'))
+            hr
+            span.profit=n2 (t2 = @object.profit(n, 'alipay'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-07', 't0', 'amount'))
+            hr
+            span.profit=n2 (t3 = @object.profit(n, 't0'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-07', 't1', 'amount'))
+            hr
+            span.profit=n2 (t4 = @object.profit(n, 't1'))
+          td
+            strong.amount=n2 agent_sum_month @object, '2016-07', 'all', 'amount'
+            hr
+            span.profit=n2 t1 + t2 + t3 + t4
+        tr
+          td 2016年8月
+          td=n0 @object.clients.where("join_date like ?", '2016-08' + '%').count
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-08', 'wechat', 'amount'))
+            hr
+            span.profit=n2 (t1 = @object.profit(n, 'wechat'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-08', 'alipay', 'amount'))
+            hr
+            span.profit=n2 (t2 = @object.profit(n, 'alipay'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-08', 't0', 'amount'))
+            hr
+            span.profit=n2 (t3 = @object.profit(n, 't0'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-08', 't1', 'amount'))
+            hr
+            span.profit=n2 (t4 = @object.profit(n, 't1'))
+          td
+            strong.amount=n2 agent_sum_month @object, '2016-08', 'all', 'amount'
+            hr
+            span.profit=n2 t1 + t2 + t3 + t4
+        tr
+          td 2016年9月
+          td=n0 @object.clients.where("join_date like ?", '2016-09' + '%').count
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-09', 'wechat', 'amount'))
+            hr
+            span.profit=n2 (t1 = @object.profit(n, 'wechat'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-09', 'alipay', 'amount'))
+            hr
+            span.profit=n2 (t2 = @object.profit(n, 'alipay'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-09', 't0', 'amount'))
+            hr
+            span.profit=n2 (t3 = @object.profit(n, 't0'))
+          td
+            strong.amount=n2 (n = agent_sum_month(@object, '2016-09', 't1', 'amount'))
+            hr
+            span.profit=n2 (t4 = @object.profit(n, 't1'))
+          td
+            strong.amount=n2 agent_sum_month @object, '2016-09', 'all', 'amount'
+            hr
+            span.profit=n2 t1 + t2 + t3 + t4
 
 .panel.panel-inverse
   .panel-heading
